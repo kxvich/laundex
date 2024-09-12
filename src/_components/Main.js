@@ -49,6 +49,7 @@ const DescriptionImageContainer = styled.div`
 	width: 50%;
 `;
 const SectionPricing = styled.section`
+	position: relative;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -76,6 +77,8 @@ const PriceIcon = styled.div`
 	color: #0077b6;
 	font-size: 4rem;
 	margin-bottom: 0.5rem;
+	animation: spin 2s linear infinite;
+
 `;
 const PricePlan = styled.h2`
 	font-size: 2.5rem;
@@ -101,6 +104,28 @@ const Description = styled.h3`
 		border-bottom: 1px solid #00b4d8;
 	}
 `;
+
+const DecorAsterisk = styled.span`
+	font-size: 3rem;
+	color: #03045e;
+	border-radius: 50%;
+	position: absolute;
+	top: ${(props) => props.top};
+	left: ${(props) => props.left};
+	transform: translate(-50%, -50%);
+	animation: spin 2s linear infinite;
+	z-index: 10;
+`;
+
+const decorationAsteriskPositions = [
+	// { top: "40%", left: "40%" },
+	{ top: "25%", left: "0%" },
+	{ top: "15%", left: "90%" },
+	{ top: "90%", left: "60%" },
+	{ top: "80%", left: "20%" },
+	{ top: "13%", left: "52%" },
+	{ top: "80%", left: "90%" },
+];
 
 function Main() {
 	return (
@@ -205,6 +230,11 @@ function Main() {
 				</DescriptionContainer>
 			</SectionHow>
 			<SectionPricing>
+				{decorationAsteriskPositions.map((value, i) => (
+					<DecorAsterisk top={value.top} left={value.left} key={i}>
+						<i className="fa-solid fa-asterisk"></i>
+					</DecorAsterisk>
+				))}
 				<SectionHeading color="#0077B6">PRICING</SectionHeading>
 				<PriceBoxContainer>
 					<PriceBox>
@@ -244,7 +274,7 @@ function Main() {
 						</PlanDescription>
 					</PriceBox>
 				</PriceBoxContainer>
-				<Button >Get Started &rarr;</Button>
+				<Button>Get Started &rarr;</Button>
 			</SectionPricing>
 		</StyledMain>
 	);

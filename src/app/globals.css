@@ -17,6 +17,29 @@ html {
 	margin-left: 1.7rem;
 }
 
+.margin-right-small {
+	margin-right: 1.7rem;
+}
+
+.link {
+	color: #03045e;
+	text-decoration: none;
+	padding: 1rem;
+	border-radius: 1rem;
+	transition: all 0.3s;
+}
+
+.btnLink {
+	text-decoration: none;
+	color: #03045e;
+	border: none;
+}
+
+.link:hover {
+	background-color: #fff;
+	color: #0077b6;
+}
+
 @keyframes spin {
 	0% {
 		transform: rotate(0);

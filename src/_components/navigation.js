@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Button from "./Button";
+import Link from "next/link";
 
 const Nav = styled.nav`
 	display: flex;
@@ -28,7 +29,10 @@ const ListItem = styled.li`
 function Navigation() {
 	return (
 		<Nav>
-			<Logo>Laundex</Logo>
+			<Logo>
+				<i class="fa-solid fa-link"></i>
+				Laundex
+			</Logo>
 
 			<List>
 				<ListItem>Home</ListItem>
@@ -36,7 +40,9 @@ function Navigation() {
 				<ListItem>Pricing</ListItem>
 				<ListItem>About Us</ListItem>
 				<ListItem>Contact</ListItem>
-				<Button>Log in</Button>
+				<Link href="/login">
+					<Button>Log in</Button>
+				</Link>
 			</List>
 		</Nav>
 	);
