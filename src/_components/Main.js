@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import Image from "next/image";
+import Button from "./Button";
 const StyledMain = styled.main``;
 const SectionHow = styled.section`
-	padding-top: 3rem;
 	/* background-color: #caf0f8; */
 	background-image: linear-gradient(
 			rgba(0, 180, 216, 0.8),
@@ -13,14 +13,13 @@ const SectionHow = styled.section`
 	background-repeat: no-repeat;
 	background-position: center;
 	text-align: center;
-	padding: 3rem 7rem 0;
+	padding: 6rem 7rem 3rem;
 	color: #edf2fb;
-	padding-bottom: 3rem;
 `;
 const SectionHeading = styled.h2`
 	font-size: 2.5rem;
 	/* color: #0077b6; */
-	color:  ${(props ) => props.color  };
+	color: ${(props) => props.color};
 	margin-bottom: 10rem;
 `;
 const DescriptionContainer = styled.div`
@@ -49,8 +48,59 @@ const DescriptionImageContainer = styled.div`
 	height: 40rem;
 	width: 50%;
 `;
-const sectionPricing = styled.section``
-const priceBox = styled.div``
+const SectionPricing = styled.section`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 6rem 7rem 8rem;
+	/* background: linear-gradient(180deg, #fff 0%, #fff 50%, rgba(0,212,255,1) 50%);
+	 */
+	/* height: 100vh; */
+`;
+
+const PriceBoxContainer = styled.div`
+	display: flex;
+	justify-content: space-between;
+	width: 85%;
+	margin-bottom: 7rem;
+`;
+const PriceBox = styled.div`
+	border: 2px solid #0077b6;
+	border-radius: 1rem;
+	width: 30rem;
+	padding-top: 2rem;
+	text-align: center;
+`;
+
+const PriceIcon = styled.div`
+	color: #0077b6;
+	font-size: 4rem;
+	margin-bottom: 0.5rem;
+`;
+const PricePlan = styled.h2`
+	font-size: 2.5rem;
+	color: #90e0ef;
+	margin-bottom: 1rem;
+`;
+const Price = styled.h2`
+	font-size: 2rem;
+	color: #00b4d8;
+	margin-bottom: 2rem;
+`;
+const PlanDescription = styled.div`
+	border-top: 1px solid #00b4d8;
+	padding-top: 1rem;
+	font-size: 1.2rem;
+	font-weight: 100;
+`;
+const Description = styled.h3`
+	padding-bottom: 1rem;
+	margin-bottom: 1rem;
+	color: #0077b6;
+	&:not(:last-child) {
+		border-bottom: 1px solid #00b4d8;
+	}
+`;
 
 function Main() {
 	return (
@@ -154,10 +204,48 @@ function Main() {
 					</DescriptionText>
 				</DescriptionContainer>
 			</SectionHow>
-			<sectionPricing>
+			<SectionPricing>
 				<SectionHeading color="#0077B6">PRICING</SectionHeading>
-				<priceBox></priceBox>
-			</sectionPricing>
+				<PriceBoxContainer>
+					<PriceBox>
+						<PriceIcon>
+							<i class="fa-solid fa-star-half-stroke"></i>
+						</PriceIcon>
+						<PricePlan>CLASSIC</PricePlan>
+						<Price>$ 10</Price>
+						<PlanDescription>
+							<Description>pick up or delivery</Description>
+							<Description>-</Description>
+							<Description>-</Description>
+						</PlanDescription>
+					</PriceBox>
+					<PriceBox>
+						<PriceIcon>
+							<i class="fa-solid fa-star"></i>
+						</PriceIcon>
+						<PricePlan>CLASSIC+</PricePlan>
+						<Price>$ 20</Price>
+						<PlanDescription>
+							<Description>pick up </Description>
+							<Description>delivery</Description>
+							<Description>-</Description>
+						</PlanDescription>
+					</PriceBox>
+					<PriceBox>
+						<PriceIcon>
+							<i class="fa-solid fa-rocket"></i>
+						</PriceIcon>
+						<PricePlan>EXPRESS</PricePlan>
+						<Price>$ 30</Price>
+						<PlanDescription>
+							<Description>pick up</Description>
+							<Description> delivery</Description>
+							<Description>24 hrs process time</Description>
+						</PlanDescription>
+					</PriceBox>
+				</PriceBoxContainer>
+				<Button >Get Started &rarr;</Button>
+			</SectionPricing>
 		</StyledMain>
 	);
 }

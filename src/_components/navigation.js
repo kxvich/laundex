@@ -5,6 +5,7 @@ const Nav = styled.nav`
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	padding-top: 2.5rem;
 `;
 const Logo = styled.h1`
 	color: #0077b6;

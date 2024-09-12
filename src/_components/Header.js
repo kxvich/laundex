@@ -25,6 +25,7 @@ const HeadingTextPrimary = styled.h1`
 	color: #03045e;
 	width: 45%;
 	font-size: 3.7rem;
+	margin-bottom: 1.5rem;
 `;
 const HeadingTextSecondary = styled.h2`
 	color: #0077b6;
@@ -36,6 +37,7 @@ const HeadingTextParagraph = styled.p`
 	margin-bottom: 3rem;
 	width: 75%;
 	font-weight: 500;
+	line-height: 2.2rem;
 `;
 
 const HeaderImageContainer = styled.div`
@@ -58,7 +60,7 @@ const DecorAsterisk = styled.span`
 
 const decorationAsteriskPositions = [
 	{ top: "40%", left: "40%" },
-	{ top: "23%", left: "0%" },
+	{ top: "25%", left: "0%" },
 	{ top: "15%", left: "90%" },
 	{ top: "90%", left: "60%" },
 ];
