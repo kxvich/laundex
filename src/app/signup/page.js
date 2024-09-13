@@ -10,7 +10,7 @@ const SignupPage = styled.div`
 	display: flex;
 	justify-content: center;
 	align-items: center;
-    padding: 3rem 0;
+	padding: 3rem 0;
 `;
 
 const Container = styled.div`
@@ -20,7 +20,7 @@ const Container = styled.div`
 	padding: 4rem;
 	display: flex;
 	justify-content: space-between;
-    align-items: center;
+	align-items: center;
 `;
 const FormContainer = styled.div`
 	width: 50%;
@@ -126,7 +126,7 @@ const NewUser = styled.h3`
 	color: #fff;
 `;
 
-function page() {
+function Page() {
 	return (
 		<SignupPage>
 			<Container>
@@ -138,15 +138,20 @@ function page() {
 						<SignupText>Sign up</SignupText>
 						<EmailLabel>Email </EmailLabel>
 						<EmailInput type="email" placeholder="Enter Email"></EmailInput>
-						<UsernameLabel>Username </UsernameLabel>
-						<UsernameInput placeholder="Enter Username"></UsernameInput>
+						<UsernameLabel>Surname </UsernameLabel>
+						<UsernameInput placeholder="Enter Surname"></UsernameInput>
+						<UsernameLabel>First Name </UsernameLabel>
+						<UsernameInput placeholder="Enter First Name"></UsernameInput>
 						<PasswordLabel>Password </PasswordLabel>
 						<PasswordInput
 							type="password"
 							placeholder="Enter Password"
 						></PasswordInput>
-                        <NumberLabel>Phone Number </NumberLabel>
-						<NumberInput type="tel" placeholder="Enter Phone Number"></NumberInput>
+						<NumberLabel>Phone Number </NumberLabel>
+						<NumberInput
+							type="tel"
+							placeholder="Enter Phone Number"
+						></NumberInput>
 
 						<Link className="btnLink" href="#">
 							<Button bgColor={"#fff"} color={"#03045E"}>
@@ -174,4 +179,4 @@ function page() {
 	);
 }
 
-export default page;
+export default Page;

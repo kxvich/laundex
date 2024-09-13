@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const StyledButton = styled.button`
-	background-color: ${(props) => props.bgColor || "#03045E"};
+	background-color: ${(props) => props.bgColor || "#022b3a"};
 	border: none;
 	padding: 1rem 2rem;
 	border-radius: 10rem;
@@ -10,7 +10,7 @@ const StyledButton = styled.button`
 `;
 
 StyledButton.defaultProps = {
-	bgColor: "#03045E",
+	bgColor: "#022b3a",
 	color: "#fff",
 };
 function Button({ children, bgColor, color }) {

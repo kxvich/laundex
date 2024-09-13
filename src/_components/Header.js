@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Navigation from "@/_components/navigation";
 import Image from "next/image";
 import Button from "./Button";
+import Link from "next/link";
 
 const StyledHeader = styled.header`
 	max-width: 90%;
@@ -22,7 +23,7 @@ const HeaderTextContainer = styled.div`
 	padding-top: 3.5rem;
 `;
 const HeadingTextPrimary = styled.h1`
-	color: #03045e;
+	color: #022b3a;
 	width: 45%;
 	font-size: 3.7rem;
 	margin-bottom: 1.5rem;
@@ -86,7 +87,9 @@ function Header() {
 					<HeadingTextParagraph>
 						{`Welcome to Laundex Laundry, your trusted partner in keeping your clothes spotless and fresh! We understand that life gets busy, and laundry can often take a back seat. That's why we're here to make laundry day easy and hassle-free. Whether it's a single shirt or a mountain of laundry, our expert team is dedicated to delivering exceptional service with a personal touch.`}
 					</HeadingTextParagraph>
-					<Button>Get started &rarr;</Button>
+					<Link href="/signup">
+						<Button>Get started &rarr;</Button>
+					</Link>
 				</HeaderTextContainer>
 
 				<HeaderImageContainer>

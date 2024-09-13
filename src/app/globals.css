@@ -14,11 +14,16 @@ html {
 }
 
 .margin-left-small {
-	margin-left: 1.7rem;
+	margin-left: 1rem;
 }
 
 .margin-right-small {
 	margin-right: 1.7rem;
+}
+
+.textDecor{
+	text-decoration: none;
+	color: #fff;
 }
 
 .link {

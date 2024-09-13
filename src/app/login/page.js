@@ -88,7 +88,7 @@ const NewUser = styled.h3`
 	color: #fff;
 `;
 
-function page() {
+function Page() {
 	return (
 		<LoginPage>
 			<Container>
@@ -132,4 +132,4 @@ function page() {
 	);
 }
 
-export default page;
+export default Page;
