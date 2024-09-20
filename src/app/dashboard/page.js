@@ -3,58 +3,58 @@ import styled from "styled-components";
 import Script from "next/script";
 import Link from "next/link";
 
-const Dashboard = styled.div`
-	display: flex;
-	height: 100vh;
-`;
-const SideBar = styled.div`
-	background-color: #1f7a8c;
-	padding: 6rem 0;
-	width: 18%;
-`;
-const ProfileContainer = styled.div`
-	display: flex;
-	align-items: center;
-	background-color: #022b3a;
-	padding: 1rem 2rem;
-	margin-bottom: 7rem;
-`;
-const ProfilePicture = styled.div`
-	width: 3rem;
-	height: 3rem;
-	background-color: #1f7a8c;
-	margin-right: 1rem;
-`;
-const Username = styled.h2`
-	color: #fff;
-`;
-const SideBarlist = styled.ul`
-	list-style-type: none;
-	color: #fff;
-`;
+// const Dashboard = styled.div`
+// 	display: flex;
+// 	height: 100vh;
+// `;
+// const SideBar = styled.div`
+// 	background-color: #1f7a8c;
+// 	padding: 6rem 0;
+// 	width: 18%;
+// `;
+// const ProfileContainer = styled.div`
+// 	display: flex;
+// 	align-items: center;
+// 	background-color: #022b3a;
+// 	padding: 1rem 2rem;
+// 	margin-bottom: 7rem;
+// `;
+// const ProfilePicture = styled.div`
+// 	width: 3rem;
+// 	height: 3rem;
+// 	background-color: #1f7a8c;
+// 	margin-right: 1rem;
+// `;
+// const Username = styled.h2`
+// 	color: #fff;
+// `;
+// const SideBarlist = styled.ul`
+// 	list-style-type: none;
+// 	color: #fff;
+// `;
 
-const SideBarIcon = styled.span`
-	color: #fff;
+// const SideBarIcon = styled.span`
+// 	color: #fff;
 
-	margin-right: 1rem;
-`;
+// 	margin-right: 1rem;
+// `;
 
-const SideBarlistItems = styled.li`
-	font-size: 1.8rem;
-	margin-bottom: 2rem;
-	padding: 1rem 2rem;
-	cursor: pointer;
+// const SideBarlistItems = styled.li`
+// 	font-size: 1.8rem;
+// 	margin-bottom: 2rem;
+// 	padding: 1rem 2rem;
+// 	cursor: pointer;
 
-	transition: all 0.3s;
-	&:hover {
-		background-color: #022b3a;
-	}
-`;
+// 	transition: all 0.3s;
+// 	&:hover {
+// 		background-color: #022b3a;
+// 	}
+// `;
 
-const Container = styled.div`
-	flex: 1;
-	padding: 7rem 4rem;
-`;
+// const Container = styled.div`
+// 	flex: 1;
+// 	padding: 7rem 4rem;
+// `;
 
 const NavName = styled.h1`
 	color: #1f7a8c;
@@ -139,4 +139,4 @@ function Page() {
 	);
 }
 
-export default page;
+export default Page;

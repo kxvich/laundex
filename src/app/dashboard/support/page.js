@@ -104,34 +104,43 @@ function Page() {
 				src="https://kit.fontawesome.com/b778254e02.js"
 				crossorigin="anonymous"
 			></Script>
-			<NavName>Account</NavName>
-			<Message>update account information</Message>
+			<NavName>Support</NavName>
+			<Message>get help and support</Message>
 			<BoxContainer>
 				<Link className="textDecor" href={"#"}>
 					<Box>
 						<BoxIcon>
-                        <i class="fa-solid fa-file"></i>
+                        <i class="fa-solid fa-phone"></i>
 						</BoxIcon>
 
-						<BoxText>UPDATE PROFILE</BoxText>
-						<BoxDescription>Edit info</BoxDescription>
+						<BoxText>SELF-SERVICE SUPPORT</BoxText>
+						<BoxDescription>
+							<div>FAQs</div>
+							<div>User Guides and Tutorials</div>
+						</BoxDescription>
 					</Box>
 				</Link>
 
 				<Box>
 					<BoxIcon>
-                    <i class="fa-solid fa-list"></i>
+                    <i class="fa-solid fa-headset"></i>
 					</BoxIcon>
-					<BoxText>ORDER HISTORY</BoxText>
-					<BoxDescription>see order history</BoxDescription>
+					<BoxText>CUSTOMER SUPPORT</BoxText>
+					<BoxDescription>
+						<div>contact us</div>
+						<div>live chat</div>
+						<div>report a problem</div>
+					</BoxDescription>
 				</Box>
 				<Box>
 					<BoxIcon>
-                    <i class="fa-solid fa-credit-card"></i>
+                    <i class="fa-solid fa-message"></i>
 					</BoxIcon>
-					<BoxText>PAYMENT METHOD</BoxText>
+					<BoxText>POLICIES AND FEEDBACK</BoxText>
 					<BoxDescription>
-						update payment method
+						<div>refunds policy</div>
+						<div>dispute resolution</div>
+						<div>feedback and rating</div>
 					</BoxDescription>
 				</Box>
 			</BoxContainer>
@@ -140,4 +149,3 @@ function Page() {
 }
 
 export default Page;
-

@@ -13,9 +13,9 @@ StyledButton.defaultProps = {
 	bgColor: "#022b3a",
 	color: "#fff",
 };
-function Button({ children, bgColor, color }) {
+function Button({ children, bgColor, color, onclick }) {
 	return (
-		<StyledButton bgColor={bgColor} color={color}>
+		<StyledButton onClick={onclick} bgColor={bgColor} color={color}>
 			{children}
 		</StyledButton>
 	);

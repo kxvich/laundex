@@ -78,31 +78,37 @@ export default function Layout({ children }) {
 								Dashboard
 							</SideBarlistItems>
 						</Link>
-						<SideBarlistItems>
-							<SideBarIcon>
-								<i className="fa-solid fa-user"></i>
-							</SideBarIcon>
-							Account
-						</SideBarlistItems>
+						<Link href="/dashboard/account" className="textDecor">
+							<SideBarlistItems>
+								<SideBarIcon>
+									<i className="fa-solid fa-user"></i>
+								</SideBarIcon>
+								Account
+							</SideBarlistItems>
+						</Link>
+						<Link className="textDecor" href={"/dashboard/support"}>
 						<SideBarlistItems>
 							<SideBarIcon>
 								<i className="fa-solid fa-headset"></i>
 							</SideBarIcon>
 							Support & Help
-						</SideBarlistItems>
-						<SideBarlistItems>
-							<SideBarIcon>
-								<i className="fa-solid fa-gear"></i>
-							</SideBarIcon>
-							Settings
-						</SideBarlistItems>
-						<Link className="textDecor" href="/">
-                        <SideBarlistItems>
-							<SideBarIcon>
-								<i class="fa-solid fa-right-from-bracket"></i>
-							</SideBarIcon>
-							Logout
 						</SideBarlistItems></Link>
+						<Link className="textDecor" href={"/dashboard/settings"}>
+							<SideBarlistItems>
+								<SideBarIcon>
+									<i className="fa-solid fa-gear"></i>
+								</SideBarIcon>
+								Settings
+							</SideBarlistItems>
+						</Link>
+						<Link className="textDecor" href="/">
+							<SideBarlistItems>
+								<SideBarIcon>
+									<i class="fa-solid fa-right-from-bracket"></i>
+								</SideBarIcon>
+								Logout
+							</SideBarlistItems>
+						</Link>
 					</SideBarlist>
 				</SideBar>
 				<Container>{children}</Container>

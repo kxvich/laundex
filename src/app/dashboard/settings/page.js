@@ -104,35 +104,33 @@ function Page() {
 				src="https://kit.fontawesome.com/b778254e02.js"
 				crossorigin="anonymous"
 			></Script>
-			<NavName>Account</NavName>
-			<Message>update account information</Message>
+			<NavName>Settings</NavName>
+			<Message>change settings</Message>
 			<BoxContainer>
 				<Link className="textDecor" href={"#"}>
 					<Box>
 						<BoxIcon>
-                        <i class="fa-solid fa-file"></i>
+							<i class="fa-solid fa-shield"></i>
 						</BoxIcon>
 
-						<BoxText>UPDATE PROFILE</BoxText>
-						<BoxDescription>Edit info</BoxDescription>
+						<BoxText>SECURITY</BoxText>
+						<BoxDescription>keep your account secure</BoxDescription>
 					</Box>
 				</Link>
 
 				<Box>
 					<BoxIcon>
-                    <i class="fa-solid fa-list"></i>
+                    <i class="fa-solid fa-gears"></i>
 					</BoxIcon>
-					<BoxText>ORDER HISTORY</BoxText>
-					<BoxDescription>see order history</BoxDescription>
+					<BoxText>ACCESSIBILITY</BoxText>
+					<BoxDescription>customize interface and preference</BoxDescription>
 				</Box>
 				<Box>
 					<BoxIcon>
-                    <i class="fa-solid fa-credit-card"></i>
+                    <i class="fa-solid fa-link"></i>
 					</BoxIcon>
-					<BoxText>PAYMENT METHOD</BoxText>
-					<BoxDescription>
-						update payment method
-					</BoxDescription>
+					<BoxText>CONNECTED SERVICES</BoxText>
+					<BoxDescription>manage connected services</BoxDescription>
 				</Box>
 			</BoxContainer>
 		</>
@@ -140,4 +138,3 @@ function Page() {
 }
 
 export default Page;
-

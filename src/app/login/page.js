@@ -93,9 +93,9 @@ function Page() {
 		<LoginPage>
 			<Container>
 				<FormContainer>
-					<Button bgColor={"#fff"} color={"#03045E"}>
+					{/* <Button bgColor={"#fff"} color={"#03045E"}>
 						Back
-					</Button>
+					</Button> */}
 					<Form>
 						<LoginText>Login</LoginText>
 						<UsernameLabel>Username </UsernameLabel>
@@ -125,6 +125,8 @@ function Page() {
 						alt="signupImaage"
 						layout="fill"
 						objectFit="cover"
+						priority={false}
+
 					/>
 				</ImageContainer>
 			</Container>
