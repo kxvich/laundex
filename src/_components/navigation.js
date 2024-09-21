@@ -9,7 +9,7 @@ const Nav = styled.nav`
 	padding-top: 2.5rem;
 `;
 const Logo = styled.h1`
-	color: #0077b6;
+	color: #022b3a; /* 0077b6*/
 	font-size: 2.25rem;
 	position: relative;
 `;

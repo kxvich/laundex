@@ -2,6 +2,8 @@
 import styled from "styled-components";
 import Script from "next/script";
 import Link from "next/link";
+import { useQuery } from "@tanstack/react-query";
+import { useUser } from "@/contexts/UserContexts";
 
 // const Dashboard = styled.div`
 // 	display: flex;
@@ -98,6 +100,7 @@ const BoxDescription = styled.p`
 `;
 
 function Page() {
+	// const {data, isLoading, isError, error} = useUser()
 	return (
 		<>
 			<Script

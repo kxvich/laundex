@@ -4,6 +4,19 @@ import styled from "styled-components";
 import Image from "next/image";
 import Button from "@/_components/Button";
 import Link from "next/link";
+import supabase from "@/services/supabase";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import Loader from "@/_components/Loader";
+import InvalidCredentials from "@/_components/InvalidCredentials";
+
+const SpinnerContainer = styled.div`
+	height: 100vh;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+`;
 
 const LoginPage = styled.div`
 	/* background-color: #caf0f8; */
@@ -36,13 +49,13 @@ const LoginText = styled.h2`
 	font-size: 3rem;
 	margin-bottom: 2rem;
 `;
-const UsernameLabel = styled.label`
+const EmailLabel = styled.label`
 	display: block;
 	font-size: 1.5rem;
 	color: #fff;
 	margin-bottom: 1rem;
 `;
-const UsernameInput = styled.input`
+const EmailInput = styled.input`
 	display: block;
 	border: none;
 	width: 100%;
@@ -89,48 +102,109 @@ const NewUser = styled.h3`
 `;
 
 function Page() {
+	const [formData, setFormData] = useState({
+		email: "",
+		password: "",
+	});
+	const router = useRouter();
+	const [isLoading, setIsLoading] = useState(false);
+	const [credentials, setCredentials] = useState(false);
+
+	function handleChange(e) {
+		const { name, value } = e.target;
+		setFormData({ ...formData, [name]: value });
+	}
+	async function handleSubmit(e) {
+		e.preventDefault();
+		setIsLoading(true);
+		try {
+			const { data, error } = await supabase.auth.signInWithPassword({
+				email: formData.email,
+				password: formData.password,
+			});
+
+			if (error) {
+				setCredentials(true);
+				setFormData({
+					email: "",
+					password: "",
+				});
+				return;
+			}
+
+			router.replace("/dashboard");
+		} catch (err) {
+			console.log(err);
+		} finally {
+			setIsLoading(false);
+		}
+	}
 	return (
-		<LoginPage>
-			<Container>
-				<FormContainer>
-					{/* <Button bgColor={"#fff"} color={"#03045E"}>
+		<>
+			{isLoading && (
+				<SpinnerContainer>
+					<Loader />
+				</SpinnerContainer>
+			)}
+
+			{!isLoading && (
+				<LoginPage>
+					<Container>
+						<FormContainer>
+							{credentials === true ? <InvalidCredentials /> : ""}
+
+							{/* <Button bgColor={"#fff"} color={"#03045E"}>
 						Back
 					</Button> */}
-					<Form>
-						<LoginText>Login</LoginText>
-						<UsernameLabel>Username </UsernameLabel>
-						<UsernameInput placeholder="Enter Username"></UsernameInput>
-						<PasswordLabel>Password </PasswordLabel>
-						<PasswordInput
-							type="password"
-							placeholder="Enter Password"
-						></PasswordInput>
+							<Form onSubmit={handleSubmit}>
+								<LoginText>Login</LoginText>
+								<EmailLabel htmlFor="email">Email </EmailLabel>
+								<EmailInput
+									placeholder="Enter Email"
+									type="text"
+									required
+									name="email"
+									value={formData.email}
+									onChange={handleChange}
+								></EmailInput>
+								<PasswordLabel htmlFor="password">Password </PasswordLabel>
+								<PasswordInput
+									type="password"
+									name="password"
+									placeholder="Enter Password"
+									value={formData.password}
+									onChange={handleChange}
+								></PasswordInput>
 
-						<Link className="btnLink" href="#">
-							<Button bgColor={"#fff"} color={"#03045E"}>
-								Login
-							</Button>
-						</Link>
-					</Form>
-					<NewUser>
-						New here?{" "}
-						<Link className="link margin-left-small" href={"/signup"}>
-							Create An Account
-						</Link>
-					</NewUser>
-				</FormContainer>
-				<ImageContainer>
-					<Image
-						src={"/images/LoginVector.jpg"}
-						alt="signupImaage"
-						layout="fill"
-						objectFit="cover"
-						priority={false}
+								<Button type="submit" bgColor={"#fff"} color={"#03045E"}>
+									Login
+								</Button>
 
-					/>
-				</ImageContainer>
-			</Container>
-		</LoginPage>
+								{/* <Link className="btnLink" href="#">
+							
+						</Link> */}
+							</Form>
+							<NewUser>
+								New here?{" "}
+								<Link className="link margin-left-small" href={"/signup"}>
+									Create An Account
+								</Link>
+							</NewUser>
+						</FormContainer>
+						<ImageContainer>
+							<Image
+								src={"/images/LoginVector.jpg"}
+								alt="signupImaage"
+								fill
+								sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+								style={{ objectFit: "cover" }}
+								priority
+							/>
+						</ImageContainer>
+					</Container>
+				</LoginPage>
+			)}
+		</>
 	);
 }
 
