@@ -2,8 +2,8 @@
 import styled from "styled-components";
 import Script from "next/script";
 import Link from "next/link";
-import { useQuery } from "@tanstack/react-query";
-import { useUser } from "@/contexts/UserContexts";
+import { useContext } from "react";
+import { UserContext } from "@/app/dashboard/layout";
 
 // const Dashboard = styled.div`
 // 	display: flex;
@@ -100,7 +100,8 @@ const BoxDescription = styled.p`
 `;
 
 function Page() {
-	// const {data, isLoading, isError, error} = useUser()
+	const { data } = useContext(UserContext);
+
 	return (
 		<>
 			<Script
@@ -108,12 +109,12 @@ function Page() {
 				crossorigin="anonymous"
 			></Script>
 			<NavName>Dashboard</NavName>
-			<Message> Welcome user</Message>
+			<Message> Welcome {data && data[0]?.firstName}</Message>
 			<BoxContainer>
 				<Link className="textDecor" href={"/dashboard/newOrder"}>
 					<Box>
 						<BoxIcon>
-							<i class="fa-solid fa-plus"></i>
+							<i className="fa-solid fa-plus"></i>
 						</BoxIcon>
 
 						<BoxText>NEW ORDER</BoxText>
@@ -123,14 +124,14 @@ function Page() {
 
 				<Box>
 					<BoxIcon>
-						<i class="fa-solid fa-eye"></i>
+						<i className="fa-solid fa-eye"></i>
 					</BoxIcon>
 					<BoxText>TRACK ORDER</BoxText>
 					<BoxDescription>Track all orders</BoxDescription>
 				</Box>
 				<Box>
 					<BoxIcon>
-						<i class="fa-solid fa-truck"></i>
+						<i className="fa-solid fa-truck"></i>
 					</BoxIcon>
 					<BoxText>PICK UP & DELIVERY</BoxText>
 					<BoxDescription>

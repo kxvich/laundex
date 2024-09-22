@@ -103,6 +103,7 @@ function Page() {
 			<Script
 				src="https://kit.fontawesome.com/b778254e02.js"
 				crossorigin="anonymous"
+				strategy="afterInteractive"
 			></Script>
 			<NavName>Support</NavName>
 			<Message>get help and support</Message>
@@ -110,7 +111,7 @@ function Page() {
 				<Link className="textDecor" href={"#"}>
 					<Box>
 						<BoxIcon>
-                        <i class="fa-solid fa-phone"></i>
+                        <i className="fa-solid fa-phone"></i>
 						</BoxIcon>
 
 						<BoxText>SELF-SERVICE SUPPORT</BoxText>
@@ -123,7 +124,7 @@ function Page() {
 
 				<Box>
 					<BoxIcon>
-                    <i class="fa-solid fa-headset"></i>
+                    <i className="fa-solid fa-headset"></i>
 					</BoxIcon>
 					<BoxText>CUSTOMER SUPPORT</BoxText>
 					<BoxDescription>
@@ -134,7 +135,7 @@ function Page() {
 				</Box>
 				<Box>
 					<BoxIcon>
-                    <i class="fa-solid fa-message"></i>
+                    <i className="fa-solid fa-message"></i>
 					</BoxIcon>
 					<BoxText>POLICIES AND FEEDBACK</BoxText>
 					<BoxDescription>

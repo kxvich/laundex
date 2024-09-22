@@ -151,9 +151,15 @@ function Page() {
 				<LoginPage>
 					<Container>
 						<FormContainer>
-							{credentials === true ? <InvalidCredentials /> : ""}
+							{credentials === true ? (
+								<InvalidCredentials
+									message={"Invalid credentials, login again"}
+								/>
+							) : (
+								""
+							)}
 
-							{/* <Button bgColor={"#fff"} color={"#03045E"}>
+							{/* <Button $bgColor={"#fff"} color={"#03045E"}>
 						Back
 					</Button> */}
 							<Form onSubmit={handleSubmit}>
@@ -176,7 +182,7 @@ function Page() {
 									onChange={handleChange}
 								></PasswordInput>
 
-								<Button type="submit" bgColor={"#fff"} color={"#03045E"}>
+								<Button type="submit" $bgColor={"#fff"} color={"#03045E"}>
 									Login
 								</Button>
 
@@ -197,7 +203,7 @@ function Page() {
 								alt="signupImaage"
 								fill
 								sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-								style={{ objectFit: "cover" }}
+								style={{objectFit: "cover"}}
 								priority
 							/>
 						</ImageContainer>

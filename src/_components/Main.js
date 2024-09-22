@@ -78,7 +78,6 @@ const PriceIcon = styled.div`
 	font-size: 4rem;
 	margin-bottom: 0.5rem;
 	animation: spin 2s linear infinite;
-
 `;
 const PricePlan = styled.h2`
 	font-size: 2.5rem;
@@ -137,7 +136,7 @@ function Main() {
 						<DescriptionTextHeading>
 							CREATE AN ACCOUNT
 							<span className="margin-left-small">
-								<i class="fa-solid fa-right-to-bracket"></i>
+								<i className="fa-solid fa-right-to-bracket"></i>
 							</span>
 						</DescriptionTextHeading>
 						<DescriptionTextParagraph>
@@ -150,8 +149,8 @@ function Main() {
 						<Image
 							src="/images/signupVector.jpg"
 							alt="signup-vector"
-							layout="fill"
-							objectFit="cover"
+							fill
+							style={{ objectFit: "cover" }}
 							objectPosition="top"
 						/>
 					</DescriptionImageContainer>
@@ -161,16 +160,16 @@ function Main() {
 						<Image
 							src="/images/orderVector.jpg"
 							alt="signup-vector"
-							layout="fill"
-							objectFit="cover"
-							objectPosition="top"
+							fill
+							style={{ objectFit: "cover", objectPosition: "top" }}
+							
 						/>
 					</DescriptionImageContainer>
 					<DescriptionText>
 						<DescriptionTextHeading>
 							PLACE AN ORDER
 							<span className="margin-left-small">
-								<i class="fa-solid fa-box"></i>
+								<i className="fa-solid fa-box"></i>
 							</span>
 						</DescriptionTextHeading>
 						<DescriptionTextParagraph>
@@ -185,7 +184,7 @@ function Main() {
 						<DescriptionTextHeading>
 							PICKUP AND DELIVERY SERVICES
 							<span className="margin-left-small">
-								<i class="fa-solid fa-truck-fast"></i>
+								<i className="fa-solid fa-truck-fast"></i>
 							</span>
 						</DescriptionTextHeading>
 						<DescriptionTextParagraph>
@@ -198,9 +197,9 @@ function Main() {
 						<Image
 							src="/images/deliveryVector.jpg"
 							alt="signup-vector"
-							layout="fill"
-							objectFit="cover"
-							objectPosition="top"
+							fill
+							style={{ objectFit: "cover",objectPosition: "top" }}
+							
 						/>
 					</DescriptionImageContainer>
 				</DescriptionContainer>
@@ -209,16 +208,16 @@ function Main() {
 						<Image
 							src="/images/customerServiceVector.jpg"
 							alt="signup-vector"
-							layout="fill"
-							objectFit="cover"
-							objectPosition="top"
+							fill
+							style={{ objectFit: "cover", objectPosition: "top" }}
+							
 						/>
 					</DescriptionImageContainer>
 					<DescriptionText>
 						<DescriptionTextHeading>
 							ACTIVE CUSTOMER SERVICE
 							<span className="margin-left-small">
-								<i class="fa-solid fa-phone"></i>
+								<i className="fa-solid fa-phone"></i>
 							</span>
 						</DescriptionTextHeading>
 						<DescriptionTextParagraph>
@@ -239,7 +238,7 @@ function Main() {
 				<PriceBoxContainer>
 					<PriceBox>
 						<PriceIcon>
-							<i class="fa-solid fa-star-half-stroke"></i>
+							<i className="fa-solid fa-star-half-stroke"></i>
 						</PriceIcon>
 						<PricePlan>CLASSIC</PricePlan>
 						<Price>$ 10</Price>
@@ -251,7 +250,7 @@ function Main() {
 					</PriceBox>
 					<PriceBox>
 						<PriceIcon>
-							<i class="fa-solid fa-star"></i>
+							<i className="fa-solid fa-star"></i>
 						</PriceIcon>
 						<PricePlan>CLASSIC+</PricePlan>
 						<Price>$ 20</Price>
@@ -263,7 +262,7 @@ function Main() {
 					</PriceBox>
 					<PriceBox>
 						<PriceIcon>
-							<i class="fa-solid fa-rocket"></i>
+							<i className="fa-solid fa-rocket"></i>
 						</PriceIcon>
 						<PricePlan>EXPRESS</PricePlan>
 						<Price>$ 30</Price>

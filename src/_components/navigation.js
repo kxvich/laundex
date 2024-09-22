@@ -30,16 +30,16 @@ function Navigation() {
 	return (
 		<Nav>
 			<Logo>
-				<i class="fa-solid fa-link"></i>
+				<i className="fa-solid fa-link"></i>
 				Laundex
 			</Logo>
 
 			<List>
-				<ListItem>Home</ListItem>
 				<ListItem>Services</ListItem>
 				<ListItem>Pricing</ListItem>
 				<ListItem>About Us</ListItem>
 				<ListItem>Contact</ListItem>
+				<ListItem>Outsourcing</ListItem>
 				<Link href="/login">
 					<Button>Log in</Button>
 				</Link>

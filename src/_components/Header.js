@@ -95,9 +95,10 @@ function Header() {
 				<HeaderImageContainer>
 					<Image
 						src={"/images/headerImage.png"}
-						layout="fill"
-						objectFit="cover"
+						fill
+						style={{ objectFit: "cover" }}
 						alt="header-image"
+						priority
 					/>
 				</HeaderImageContainer>
 			</HeaderContent>

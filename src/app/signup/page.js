@@ -8,7 +8,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Loader from "@/_components/Loader";
 import supabase from "@/services/supabase";
-
+import InvalidCredentials from "@/_components/InvalidCredentials";
 const SpinnerContainer = styled.div`
 	height: 100vh;
 	width: 100%;
@@ -149,6 +149,7 @@ function Page() {
 		phoneNumber: "",
 	});
 	const [error, setError] = useState("");
+	const [credentials, setCredentials] = useState(false);
 
 	const handleChange = (e) => {
 		const { name, value } = e.target;
@@ -166,11 +167,19 @@ function Page() {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		setIsLoading(true);
-		console.log(formData);
 
 		const userExists = await checkUser(formData.email);
 		if (userExists) {
 			setError("user already exists, log in instead");
+			setIsLoading(false);
+			setCredentials(true);
+			setFormData({
+				email: "",
+				surname: "",
+				firstName: "",
+				password: "",
+				phoneNumber: "",
+			});
 			return;
 		}
 		const { data, error: signupError } = await supabase.auth.signUp({
@@ -179,13 +188,11 @@ function Page() {
 		});
 
 		if (signupError) {
-			console.error("Error signing up:", error.message);
 			alert(`Signup failed: ${error.message}`);
 			setError(signupError.message);
 
 			return;
 		}
-		console.log(data);
 		const { user, insertError } = await supabase
 			.from("users")
 			.insert([
@@ -194,13 +201,14 @@ function Page() {
 					surname: formData.surname,
 					firstName: formData.firstName,
 					phoneNumber: formData.phoneNumber,
+					email: formData.email,
 				},
 			])
 			.select();
 		if (insertError) {
 			console.error("Error inserting user data:", insertError.message);
 			alert(`Error inserting user data: ${insertError.message}`);
-			return; // Prevent further execution
+			return;
 		}
 		setIsLoading(false);
 		router.replace("/login");
@@ -227,9 +235,14 @@ function Page() {
 				<SignupPage>
 					<Container>
 						<FormContainer>
+							{credentials === true ? (
+								<InvalidCredentials message={"Email already exists"} />
+							) : (
+								""
+							)}
 							<Button
 								onclick={() => router.back()}
-								bgColor={"#fff"}
+								$bgColor={"#fff"}
 								color={"#03045E"}
 							>
 								Back
@@ -250,7 +263,7 @@ function Page() {
 									type="text"
 									name="surname"
 									placeholder="Enter Surname"
-									value={formData.surname}
+									value={formData.surname.toLowerCase()}
 									onChange={handleChange}
 									required
 								></UsernameInput>
@@ -259,7 +272,7 @@ function Page() {
 									type="text"
 									name="firstName"
 									placeholder="Enter First Name"
-									value={formData.firstName}
+									value={formData.firstName.toLowerCase()}
 									onChange={handleChange}
 									required
 								></UsernameInput>
@@ -287,7 +300,7 @@ function Page() {
 								{/* <Link onClick={Submit} className="btnLink" href="#">
 							
 						</Link> */}
-								<Button type="submit" bgColor={"#fff"} color={"#03045E"}>
+								<Button type="submit" $bgColor={"#fff"} color={"#03045E"}>
 									Signup
 								</Button>
 							</Form>
@@ -302,9 +315,9 @@ function Page() {
 							<Image
 								src={"/images/signupVector.jpg"}
 								alt="signupImaage"
-								layout="fill"
-								objectFit="cover"
-								priority={false}
+								fill
+								style={{ objectFit: "cover" }}
+								priority
 							/>
 						</ImageContainer>
 					</Container>

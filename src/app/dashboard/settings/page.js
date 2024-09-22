@@ -103,6 +103,7 @@ function Page() {
 			<Script
 				src="https://kit.fontawesome.com/b778254e02.js"
 				crossorigin="anonymous"
+				strategy="afterInteractive"
 			></Script>
 			<NavName>Settings</NavName>
 			<Message>change settings</Message>
@@ -110,7 +111,7 @@ function Page() {
 				<Link className="textDecor" href={"#"}>
 					<Box>
 						<BoxIcon>
-							<i class="fa-solid fa-shield"></i>
+							<i className="fa-solid fa-shield"></i>
 						</BoxIcon>
 
 						<BoxText>SECURITY</BoxText>
@@ -120,14 +121,14 @@ function Page() {
 
 				<Box>
 					<BoxIcon>
-                    <i class="fa-solid fa-gears"></i>
+                    <i className="fa-solid fa-gears"></i>
 					</BoxIcon>
 					<BoxText>ACCESSIBILITY</BoxText>
 					<BoxDescription>customize interface and preference</BoxDescription>
 				</Box>
 				<Box>
 					<BoxIcon>
-                    <i class="fa-solid fa-link"></i>
+                    <i className="fa-solid fa-link"></i>
 					</BoxIcon>
 					<BoxText>CONNECTED SERVICES</BoxText>
 					<BoxDescription>manage connected services</BoxDescription>

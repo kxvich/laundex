@@ -35,7 +35,7 @@ function Footer() {
 	return (
 		<StyledFooter>
 			<Logo>
-				<i class="fa-solid fa-link"></i>
+				<i className="fa-solid fa-link"></i>
 				Laundex
 			</Logo>
 			<NavLinksContainer>
@@ -60,31 +60,31 @@ function Footer() {
 
 					<NavLinksItem>
 						<span className="margin-right-small">
-							<i class="fa-brands fa-facebook"></i>
+							<i className="fa-brands fa-facebook"></i>
 						</span>
 						Facebook
 					</NavLinksItem>
 					<NavLinksItem>
                     <span className="margin-right-small">
-                    <i class="fa-brands fa-x-twitter"></i>
+                    <i className="fa-brands fa-x-twitter"></i>
 						</span>
                         X
                     </NavLinksItem>
 					<NavLinksItem>
                     <span className="margin-right-small">
-							<i class="fa-brands fa-instagram"></i>
+							<i className="fa-brands fa-instagram"></i>
 						</span>
                         Instagram
                     </NavLinksItem>
 					<NavLinksItem>
                     <span className="margin-right-small">
-							<i class="fa-brands fa-at"></i>
+							<i className="fa-brands fa-at"></i>
 						</span>
                         Gmail
                     </NavLinksItem>
 					<NavLinksItem>
                     <span className="margin-right-small">
-							<i class="fa-solid fa-phone"></i>
+							<i className="fa-solid fa-phone"></i>
 						</span>
                         Customer care
                     </NavLinksItem>

@@ -103,6 +103,7 @@ function Page() {
 			<Script
 				src="https://kit.fontawesome.com/b778254e02.js"
 				crossorigin="anonymous"
+				strategy="afterInteractive"
 			></Script>
 			<NavName>Account</NavName>
 			<Message>update account information</Message>
@@ -110,7 +111,7 @@ function Page() {
 				<Link className="textDecor" href={"#"}>
 					<Box>
 						<BoxIcon>
-                        <i class="fa-solid fa-file"></i>
+                        <i className="fa-solid fa-file"></i>
 						</BoxIcon>
 
 						<BoxText>UPDATE PROFILE</BoxText>
@@ -120,14 +121,14 @@ function Page() {
 
 				<Box>
 					<BoxIcon>
-                    <i class="fa-solid fa-list"></i>
+                    <i className="fa-solid fa-list"></i>
 					</BoxIcon>
 					<BoxText>ORDER HISTORY</BoxText>
 					<BoxDescription>see order history</BoxDescription>
 				</Box>
 				<Box>
 					<BoxIcon>
-                    <i class="fa-solid fa-credit-card"></i>
+                    <i className="fa-solid fa-credit-card"></i>
 					</BoxIcon>
 					<BoxText>PAYMENT METHOD</BoxText>
 					<BoxDescription>

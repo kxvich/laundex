@@ -4,7 +4,7 @@ import Script from "next/script";
 import Link from "next/link";
 import supabase from "@/services/supabase";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import Loader from "@/_components/Loader";
 import NotAuthorized from "@/_components/NotAuthorized";
 import {
@@ -85,11 +85,14 @@ async function FetchRowById(id) {
 	return data;
 }
 
+export const UserContext = createContext()
+
 export default function Layout({ children }) {
 	const router = useRouter();
 	const [isLoading, setIsLoading] = useState(true);
 	const [isAuthenticated, setIsAuthenticated] = useState(false);
 	const [userId, setUserId] = useState(null);
+	const [userEmail, setUserEmail] = useState(null);
 	const [queryClient] = useState(() => new QueryClient());
 
 	useEffect(
@@ -108,8 +111,9 @@ export default function Layout({ children }) {
 				} else {
 					setIsAuthenticated(true);
 					setIsLoading(false);
-					const { id } = user;
+					const { id, email } = user;
 					setUserId(`${id}`);
+					setUserEmail(`${email}`);
 				}
 			}
 			checkUser();
@@ -128,6 +132,7 @@ export default function Layout({ children }) {
 		enabled: !!userId,
 	});
 
+
 	async function handleLogout() {
 		const { error } = await supabase.auth.signOut();
 
@@ -139,8 +144,10 @@ export default function Layout({ children }) {
 	}
 	return (
 		<QueryClientProvider client={queryClient}>
+			<UserContext.Provider value={{data, userEmail,userId}}>
 			<Script
 				src="https://kit.fontawesome.com/b778254e02.js"
+				strategy="afterInteractive"
 				crossorigin="anonymous"
 			></Script>
 			{isLoading && (
@@ -156,7 +163,7 @@ export default function Layout({ children }) {
 						<ProfileContainer>
 							<ProfilePicture></ProfilePicture>
 							<Username>
-								{data && data[0]?.firstName ? data[0].firstName : "User"}
+								{data && data[0]?.firstName && data[0].firstName}
 							</Username>
 						</ProfileContainer>
 
@@ -213,6 +220,7 @@ export default function Layout({ children }) {
 					<Container>{children}</Container>
 				</Dashboard>
 			)}
+			</UserContext.Provider>
 		</QueryClientProvider>
 	);
 }

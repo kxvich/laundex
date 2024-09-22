@@ -3,6 +3,7 @@
 import "./globals.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useState } from "react";
+import Script from "next/script";
 
 export default function RootLayout({ children }) {
 	const [queryClient] = useState(() => new QueryClient());

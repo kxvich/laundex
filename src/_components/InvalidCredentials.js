@@ -5,8 +5,8 @@ const Text = styled.h1`
 	color: #fff;
 `;
 
-function InvalidCredentials() {
-	return <Text>Invalid credentials, login again</Text>;
+function InvalidCredentials({message}) {
+	return <Text>{message}</Text>;
 }
 
 export default InvalidCredentials;

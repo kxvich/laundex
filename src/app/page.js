@@ -12,6 +12,7 @@ function page() {
 			<Script
 				src="https://kit.fontawesome.com/b778254e02.js"
 				crossorigin="anonymous"
+				strategy="afterInteractive"
 			></Script>
 
 			<Header />
