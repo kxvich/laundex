@@ -188,8 +188,9 @@ function Page() {
 		});
 
 		if (signupError) {
-			alert(`Signup failed: ${error.message}`);
-			setError(signupError.message);
+			alert(`Signup failed: ${signupError}`);
+			
+			
 
 			return;
 		}

@@ -1,3 +1,4 @@
+import useMediaQuery from "@/Hooks/useMediaQuery";
 import styled from "styled-components";
 
 const StyledFooter = styled.section`
@@ -6,14 +7,24 @@ const StyledFooter = styled.section`
 	padding: 3rem 7rem;
 	display: flex;
 	justify-content: space-between;
+
+	@media only screen and (max-width: 30rem) {
+		height: 40vh;
+		padding: 3rem;
+	}
 `;
 const Logo = styled.h1`
 	color: #fff;
 	font-size: 2.25rem;
 	position: relative;
+	/* width: 50%; */
+	@media only screen and (max-width: 30rem) {
+		/* margin-right: 3rem; */
+	}
 `;
 const NavLinksContainer = styled.div`
 	display: flex;
+	
 `;
 const NavLinksHeading = styled.h2`
 	color: #fff;
@@ -32,12 +43,13 @@ const NavLinksItem = styled.li`
 `;
 
 function Footer() {
+	const isMobile = useMediaQuery("(max-width: 500px)");
 	return (
 		<StyledFooter>
-			<Logo>
+			{!isMobile && <Logo>
 				<i className="fa-solid fa-link"></i>
 				Laundex
-			</Logo>
+			</Logo>}
 			<NavLinksContainer>
 				<NavLinks>
 					<NavLinksHeading>Navigation</NavLinksHeading>
@@ -59,35 +71,65 @@ function Footer() {
 					<NavLinksHeading>Contact</NavLinksHeading>
 
 					<NavLinksItem>
-						<span className="margin-right-small">
-							<i className="fa-brands fa-facebook"></i>
-						</span>
-						Facebook
+						{!isMobile ? (
+							<>
+								<span className="margin-right-small">
+									<i className="fa-brands fa-facebook"></i>
+								</span>
+								Facebook
+							</>
+						) : (
+							"Facebook"
+						)}
 					</NavLinksItem>
 					<NavLinksItem>
-                    <span className="margin-right-small">
-                    <i className="fa-brands fa-x-twitter"></i>
-						</span>
-                        X
-                    </NavLinksItem>
+						{!isMobile ? (
+							<>
+								<span className="margin-right-small">
+									<i className="fa-brands fa-x-twitter"></i>
+								</span>
+								X
+							</>
+						) : (
+							"X"
+						)}
+					</NavLinksItem>
 					<NavLinksItem>
-                    <span className="margin-right-small">
-							<i className="fa-brands fa-instagram"></i>
-						</span>
-                        Instagram
-                    </NavLinksItem>
+						{!isMobile ? (
+							<>
+								<span className="margin-right-small">
+									<i className="fa-brands fa-instagram"></i>
+								</span>
+								Instagram
+							</>
+						) : (
+							"Instagram"
+						)}
+					</NavLinksItem>
 					<NavLinksItem>
-                    <span className="margin-right-small">
-							<i className="fa-brands fa-at"></i>
-						</span>
-                        Gmail
-                    </NavLinksItem>
+						{!isMobile ? (
+							<>
+								<span className="margin-right-small">
+									<i className="fa-brands fa-at"></i>
+								</span>
+								Gmail
+							</>
+						) : (
+							"Gmail"
+						)}
+					</NavLinksItem>
 					<NavLinksItem>
-                    <span className="margin-right-small">
-							<i className="fa-solid fa-phone"></i>
-						</span>
-                        Customer care
-                    </NavLinksItem>
+						{!isMobile ? (
+							<>
+								<span className="margin-right-small">
+									<i className="fa-solid fa-phone"></i>
+								</span>
+								Customer care
+							</>
+						) : (
+							"Customer care"
+						)}
+					</NavLinksItem>
 				</NavLinks>
 			</NavLinksContainer>
 		</StyledFooter>

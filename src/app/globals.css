@@ -13,6 +13,12 @@ html {
 	scroll-behavior: smooth;
 }
 
+@media only screen and (max-width: 30rem) {
+	html {
+		font-size: 50%;
+	}
+}
+
 .margin-left-small {
 	margin-left: 1rem;
 }
@@ -21,7 +27,7 @@ html {
 	margin-right: 1.7rem;
 }
 
-.textDecor{
+.textDecor {
 	text-decoration: none;
 	color: #fff;
 }
@@ -51,5 +57,23 @@ html {
 	}
 	100% {
 		transform: rotate(360deg);
+	}
+}
+
+@keyframes movedown {
+	0% {
+		transform: translateY(-10px);
+	}
+	100% {
+		transform: translateY(0);
+	}
+}
+
+@keyframes moveup {
+	0% {
+		transform: translateY(10px);
+	}
+	100% {
+		transform: translateY(0);
 	}
 }

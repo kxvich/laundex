@@ -79,13 +79,12 @@ async function FetchRowById(id) {
 
 	if (error) {
 		console.log(error);
-		alert(error);
 	}
 
 	return data;
 }
 
-export const UserContext = createContext()
+export const UserContext = createContext();
 
 export default function Layout({ children }) {
 	const router = useRouter();
@@ -132,7 +131,6 @@ export default function Layout({ children }) {
 		enabled: !!userId,
 	});
 
-
 	async function handleLogout() {
 		const { error } = await supabase.auth.signOut();
 
@@ -142,84 +140,92 @@ export default function Layout({ children }) {
 		}
 		router.replace("/");
 	}
+
 	return (
 		<QueryClientProvider client={queryClient}>
-			<UserContext.Provider value={{data, userEmail,userId}}>
-			<Script
-				src="https://kit.fontawesome.com/b778254e02.js"
-				strategy="afterInteractive"
-				crossorigin="anonymous"
-			></Script>
-			{isLoading && (
-				<SpinnerContainer>
-					<Loader />
-				</SpinnerContainer>
-			)}
+			<UserContext.Provider value={{ data, userEmail, userId }}>
+				<Script
+					src="https://kit.fontawesome.com/b778254e02.js"
+					strategy="afterInteractive"
+					crossorigin="anonymous"
+				></Script>
+				{isLoading && (
+					<SpinnerContainer>
+						<Loader />
+					</SpinnerContainer>
+				)}
 
-			{!isAuthenticated && !isLoading && <NotAuthorized />}
-			{isAuthenticated && (
-				<Dashboard>
-					<SideBar>
-						<ProfileContainer>
-							<ProfilePicture></ProfilePicture>
-							<Username>
-								{data && data[0]?.firstName && data[0].firstName}
-							</Username>
-						</ProfileContainer>
+				{!isAuthenticated && !isLoading && <NotAuthorized />}
+				{isAuthenticated && !data ? (
+					<SpinnerContainer>
+						<Loader />
+					</SpinnerContainer>
+				) : null}
+				{isAuthenticated && data && (
+					<Dashboard>
+						<SideBar>
+							<ProfileContainer>
+								<ProfilePicture></ProfilePicture>
+								<Username>
+									{data && data[0]?.firstName && data[0].firstName}
+								</Username>
+							</ProfileContainer>
 
-						<SideBarlist>
-							<Link className="textDecor" href="/dashboard">
-								<SideBarlistItems>
-									<SideBarIcon>
-										<i className="fa-solid fa-house"></i>
-									</SideBarIcon>
-									Dashboard
-								</SideBarlistItems>
-							</Link>
-							<Link href="/dashboard/account" className="textDecor">
-								<SideBarlistItems>
-									<SideBarIcon>
-										<i className="fa-solid fa-user"></i>
-									</SideBarIcon>
-									Account
-								</SideBarlistItems>
-							</Link>
-							<Link className="textDecor" href={"/dashboard/support"}>
-								<SideBarlistItems>
-									<SideBarIcon>
-										<i className="fa-solid fa-headset"></i>
-									</SideBarIcon>
-									Support & Help
-								</SideBarlistItems>
-							</Link>
-							<Link className="textDecor" href={"/dashboard/settings"}>
-								<SideBarlistItems>
-									<SideBarIcon>
-										<i className="fa-solid fa-gear"></i>
-									</SideBarIcon>
-									Settings
-								</SideBarlistItems>
-							</Link>
-							<Link
-								onClick={(e) => {
-									e.preventDefault();
-									handleLogout();
-								}}
-								className="textDecor"
-								href="/"
-							>
-								<SideBarlistItems>
-									<SideBarIcon>
-										<i className="fa-solid fa-right-from-bracket"></i>
-									</SideBarIcon>
-									Logout
-								</SideBarlistItems>
-							</Link>
-						</SideBarlist>
-					</SideBar>
-					<Container>{children}</Container>
-				</Dashboard>
-			)}
+							<SideBarlist>
+								<Link
+								 className="textDecor" href="/dashboard">
+									<SideBarlistItems>
+										<SideBarIcon>
+											<i className="fa-solid fa-house"></i>
+										</SideBarIcon>
+										Dashboard
+									</SideBarlistItems>
+								</Link>
+								<Link href="/dashboard/account" className="textDecor">
+									<SideBarlistItems>
+										<SideBarIcon>
+											<i className="fa-solid fa-user"></i>
+										</SideBarIcon>
+										Account
+									</SideBarlistItems>
+								</Link>
+								<Link className="textDecor" href={"/dashboard/support"}>
+									<SideBarlistItems>
+										<SideBarIcon>
+											<i className="fa-solid fa-headset"></i>
+										</SideBarIcon>
+										Support & Help
+									</SideBarlistItems>
+								</Link>
+								<Link className="textDecor" href={"/dashboard/settings"}>
+									<SideBarlistItems>
+										<SideBarIcon>
+											<i className="fa-solid fa-gear"></i>
+										</SideBarIcon>
+										Settings
+									</SideBarlistItems>
+								</Link>
+								<Link
+									onClick={(e) => {
+										e.preventDefault();
+										setIsLoading(true)
+										handleLogout();
+									}}
+									className="textDecor"
+									href="/"
+								>
+									<SideBarlistItems>
+										<SideBarIcon>
+											<i className="fa-solid fa-right-from-bracket"></i>
+										</SideBarIcon>
+										Logout
+									</SideBarlistItems>
+								</Link>
+							</SideBarlist>
+						</SideBar>
+						<Container>{children}</Container>
+					</Dashboard>
+				)}
 			</UserContext.Provider>
 		</QueryClientProvider>
 	);

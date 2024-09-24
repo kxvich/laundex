@@ -15,22 +15,36 @@ const HeaderContent = styled.div`
 	display: flex;
 	justify-content: space-between;
 	/* align-items: center; */
+
+	@media only screen and (max-width: 30rem) {
+		flex-direction: column;
+		align-items: center;
+	}
 `;
 
 const HeaderTextContainer = styled.div`
 	align-self: flex-start;
 	width: 50%;
 	padding-top: 3.5rem;
+	@media only screen and (max-width: 30rem) {
+		width: 100%;
+		text-align: center;
+	}
 `;
 const HeadingTextPrimary = styled.h1`
 	color: #022b3a;
 	width: 45%;
 	font-size: 3.7rem;
 	margin-bottom: 1.5rem;
+	animation: moveup 1s 0.25s;
+	@media only screen and (max-width: 30rem) {
+		width: 100%;
+	}
 `;
 const HeadingTextSecondary = styled.h2`
 	color: #0077b6;
 	font-size: 1.1rem;
+	animation: moveup 1s;
 `;
 const HeadingTextParagraph = styled.p`
 	color: #0077b6;
@@ -39,12 +53,19 @@ const HeadingTextParagraph = styled.p`
 	width: 75%;
 	font-weight: 500;
 	line-height: 2.2rem;
+	animation: moveup 1s 0.5s;
+	@media only screen and (max-width: 30rem) {
+		width: 100%;
+	}
 `;
 
 const HeaderImageContainer = styled.div`
 	position: relative;
 	height: 52rem;
 	width: 50%;
+	@media only screen and (max-width: 30rem) {
+		width: 100%;
+	}
 `;
 
 const DecorAsterisk = styled.span`

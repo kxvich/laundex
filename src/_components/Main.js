@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Image from "next/image";
 import Button from "./Button";
+import useMediaQuery from "@/Hooks/useMediaQuery";
 const StyledMain = styled.main``;
 const SectionHow = styled.section`
 	/* background-color: #caf0f8; */
@@ -21,6 +22,9 @@ const SectionHeading = styled.h2`
 	/* color: #0077b6; */
 	color: ${(props) => props.color};
 	margin-bottom: 10rem;
+	@media only screen and (max-width: 30rem) {
+		margin-bottom: 5rem;
+	}
 `;
 const DescriptionContainer = styled.div`
 	display: flex;
@@ -28,15 +32,27 @@ const DescriptionContainer = styled.div`
 	align-items: center;
 	padding: 0 5rem;
 	margin-bottom: 15rem;
+	@media only screen and (max-width: 30rem) {
+		flex-direction: column;
+		padding: 0 2rem;
+	}
 `;
 const DescriptionText = styled.div`
 	width: 42%;
 	text-align: left;
+	@media only screen and (max-width: 30rem) {
+		width: 100%;
+		text-align: center;
+		margin-bottom: 4rem;
+	}
 `;
 const DescriptionTextHeading = styled.h2`
 	font-size: 2.5rem;
 	/* color: #0077b6; */
 	color: #fff;
+	@media only screen and (max-width: 30rem) {
+		margin-bottom: 1rem;
+	}
 `;
 const DescriptionTextParagraph = styled.p`
 	font-size: 1.7rem;
@@ -47,6 +63,9 @@ const DescriptionImageContainer = styled.div`
 	position: relative;
 	height: 40rem;
 	width: 50%;
+	@media only screen and (max-width: 30rem) {
+		width: 100%;
+	}
 `;
 const SectionPricing = styled.section`
 	position: relative;
@@ -64,6 +83,10 @@ const PriceBoxContainer = styled.div`
 	justify-content: space-between;
 	width: 85%;
 	margin-bottom: 7rem;
+	@media only screen and (max-width: 30rem) {
+		flex-direction: column;
+		align-items: center;
+	}
 `;
 const PriceBox = styled.div`
 	border: 2px solid #0077b6;
@@ -71,6 +94,10 @@ const PriceBox = styled.div`
 	width: 30rem;
 	padding-top: 2rem;
 	text-align: center;
+	@media only screen and (max-width: 30rem) {
+		
+		margin-bottom: 6rem;
+	}
 `;
 
 const PriceIcon = styled.div`
@@ -127,6 +154,7 @@ const decorationAsteriskPositions = [
 ];
 
 function Main() {
+	const isMobile = useMediaQuery("(max-width: 500px)");
 	return (
 		<StyledMain>
 			<SectionHow>
@@ -156,28 +184,55 @@ function Main() {
 					</DescriptionImageContainer>
 				</DescriptionContainer>
 				<DescriptionContainer>
-					<DescriptionImageContainer>
-						<Image
-							src="/images/orderVector.jpg"
-							alt="signup-vector"
-							fill
-							style={{ objectFit: "cover", objectPosition: "top" }}
-							
-						/>
-					</DescriptionImageContainer>
-					<DescriptionText>
-						<DescriptionTextHeading>
-							PLACE AN ORDER
-							<span className="margin-left-small">
-								<i className="fa-solid fa-box"></i>
-							</span>
-						</DescriptionTextHeading>
-						<DescriptionTextParagraph>
-							{`
+					{isMobile === true ? (
+						<>
+							<DescriptionText>
+								<DescriptionTextHeading>
+									PLACE AN ORDER
+									<span className="margin-left-small">
+										<i className="fa-solid fa-box"></i>
+									</span>
+								</DescriptionTextHeading>
+								<DescriptionTextParagraph>
+									{`
 							Once logged in, you can place an order by choosing a plan and filling the required information. You can also track your order and so much more.
 							`}
-						</DescriptionTextParagraph>
-					</DescriptionText>
+								</DescriptionTextParagraph>
+							</DescriptionText>
+							<DescriptionImageContainer>
+								<Image
+									src="/images/orderVector.jpg"
+									alt="signup-vector"
+									fill
+									style={{ objectFit: "cover", objectPosition: "top" }}
+								/>
+							</DescriptionImageContainer>
+						</>
+					) : (
+						<>
+							<DescriptionImageContainer>
+								<Image
+									src="/images/orderVector.jpg"
+									alt="signup-vector"
+									fill
+									style={{ objectFit: "cover", objectPosition: "top" }}
+								/>
+							</DescriptionImageContainer>
+							<DescriptionText>
+								<DescriptionTextHeading>
+									PLACE AN ORDER
+									<span className="margin-left-small">
+										<i className="fa-solid fa-box"></i>
+									</span>
+								</DescriptionTextHeading>
+								<DescriptionTextParagraph>
+									{`
+							Once logged in, you can place an order by choosing a plan and filling the required information. You can also track your order and so much more.
+							`}
+								</DescriptionTextParagraph>
+							</DescriptionText>
+						</>
+					)}
 				</DescriptionContainer>
 				<DescriptionContainer>
 					<DescriptionText>
@@ -198,34 +253,60 @@ function Main() {
 							src="/images/deliveryVector.jpg"
 							alt="signup-vector"
 							fill
-							style={{ objectFit: "cover",objectPosition: "top" }}
-							
+							style={{ objectFit: "cover", objectPosition: "top" }}
 						/>
 					</DescriptionImageContainer>
 				</DescriptionContainer>
 				<DescriptionContainer>
-					<DescriptionImageContainer>
-						<Image
-							src="/images/customerServiceVector.jpg"
-							alt="signup-vector"
-							fill
-							style={{ objectFit: "cover", objectPosition: "top" }}
-							
-						/>
-					</DescriptionImageContainer>
-					<DescriptionText>
-						<DescriptionTextHeading>
-							ACTIVE CUSTOMER SERVICE
-							<span className="margin-left-small">
-								<i className="fa-solid fa-phone"></i>
-							</span>
-						</DescriptionTextHeading>
-						<DescriptionTextParagraph>
-							{`
+					{isMobile === true ? (
+						<>
+							<DescriptionText>
+								<DescriptionTextHeading>
+									ACTIVE CUSTOMER SERVICE
+									<span className="margin-left-small">
+										<i className="fa-solid fa-phone"></i>
+									</span>
+								</DescriptionTextHeading>
+								<DescriptionTextParagraph>
+									{`
 							We pride ourselves on good customers relations and quality of service,so we offer top notch customer service to help assist in all your needs.
 							`}
-						</DescriptionTextParagraph>
-					</DescriptionText>
+								</DescriptionTextParagraph>
+							</DescriptionText>
+							<DescriptionImageContainer>
+								<Image
+									src="/images/customerServiceVector.jpg"
+									alt="signup-vector"
+									fill
+									style={{ objectFit: "cover", objectPosition: "top" }}
+								/>
+							</DescriptionImageContainer>
+						</>
+					) : (
+						<>
+							<DescriptionImageContainer>
+								<Image
+									src="/images/customerServiceVector.jpg"
+									alt="signup-vector"
+									fill
+									style={{ objectFit: "cover", objectPosition: "top" }}
+								/>
+							</DescriptionImageContainer>
+							<DescriptionText>
+								<DescriptionTextHeading>
+									ACTIVE CUSTOMER SERVICE
+									<span className="margin-left-small">
+										<i className="fa-solid fa-phone"></i>
+									</span>
+								</DescriptionTextHeading>
+								<DescriptionTextParagraph>
+									{`
+							We pride ourselves on good customers relations and quality of service,so we offer top notch customer service to help assist in all your needs.
+							`}
+								</DescriptionTextParagraph>
+							</DescriptionText>
+						</>
+					)}
 				</DescriptionContainer>
 			</SectionHow>
 			<SectionPricing>
