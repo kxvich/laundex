@@ -121,7 +121,7 @@ function Page() {
 				pickupDelivery: "pickup",
 			}));
 		}
-	}, [data]);
+	}, [data, userEmail]);
 
 	function handleChange(e) {
 		const { name, type, checked, value } = e.target;
