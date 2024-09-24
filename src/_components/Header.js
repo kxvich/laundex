@@ -7,8 +7,9 @@ import Link from "next/link";
 const StyledHeader = styled.header`
 	max-width: 90%;
 	margin: 0 auto;
-	height: 100vh;
+	/* height: 100vh; */
 	position: relative;
+	padding-bottom: 2rem;
 `;
 
 const HeaderContent = styled.div`
