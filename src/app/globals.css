@@ -58,7 +58,7 @@ html {
 		border-radius: 1rem;
 		transition: all 0.3s;
 	}
-	.link:hover {
+	.link:active {
 		background-color: none;
 		color: none;
 	}
