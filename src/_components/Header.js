@@ -135,6 +135,7 @@ function Header() {
 					<Image
 						src={"/images/headerImage.png"}
 						fill
+						sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw"
 						style={{ objectFit: "cover" }}
 						alt="header-image"
 						priority

@@ -39,6 +39,7 @@ const List = styled.ul`
 const ListItem = styled.li`
 	color: #00b4d8;
 	font-size: 1.5rem;
+	cursor: pointer;
 	&:not(:last-child) {
 		margin-right: 3rem;
 	}

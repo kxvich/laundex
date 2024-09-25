@@ -254,6 +254,7 @@ function Main() {
 							src="/images/signupVector.jpg"
 							alt="signup-vector"
 							fill
+							sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw"
 							style={{ objectFit: "cover" }}
 							objectPosition="top"
 						/>
@@ -291,6 +292,7 @@ function Main() {
 									src="/images/orderVector.jpg"
 									alt="signup-vector"
 									fill
+									sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw"
 									style={{ objectFit: "cover", objectPosition: "top" }}
 								/>
 							</DescriptionImageContainer>
@@ -329,6 +331,7 @@ function Main() {
 							src="/images/deliveryVector.jpg"
 							alt="signup-vector"
 							fill
+							sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw"
 							style={{ objectFit: "cover", objectPosition: "top" }}
 						/>
 					</DescriptionImageContainer>
@@ -365,6 +368,7 @@ function Main() {
 									src="/images/customerServiceVector.jpg"
 									alt="signup-vector"
 									fill
+									sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw"
 									style={{ objectFit: "cover", objectPosition: "top" }}
 								/>
 							</DescriptionImageContainer>

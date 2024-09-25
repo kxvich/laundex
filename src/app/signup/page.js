@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import Loader from "@/_components/Loader";
 import supabase from "@/services/supabase";
 import InvalidCredentials from "@/_components/InvalidCredentials";
+import useMediaQuery from "@/Hooks/useMediaQuery";
 const SpinnerContainer = styled.div`
 	height: 100vh;
 	width: 100%;
@@ -23,6 +24,9 @@ const SignupPage = styled.div`
 	justify-content: center;
 	align-items: center;
 	padding: 3rem 0;
+	@media only screen and (max-width: 30rem) {
+		background-image: none;
+	}
 `;
 
 const Container = styled.div`
@@ -33,13 +37,23 @@ const Container = styled.div`
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	@media only screen and (max-width: 30rem) {
+		background-image: none;
+		background-color: #0077b6;
+	}
 `;
 const FormContainer = styled.div`
 	width: 50%;
+	@media only screen and (max-width: 30rem) {
+		width: 100%;
+	}
 `;
 const Form = styled.form`
 	padding: 3rem 2rem;
 	width: 50%;
+	@media only screen and (max-width: 30rem) {
+		width: 100%;
+	}
 `;
 const SignupText = styled.h2`
 	color: #fff;
@@ -130,6 +144,9 @@ const ImageContainer = styled.div`
 	position: relative;
 	width: 40%;
 	height: 40rem;
+	@media only screen and (max-width: 30rem) {
+		display: none;
+	}
 `;
 
 const NewUser = styled.h3`
@@ -141,6 +158,8 @@ const NewUser = styled.h3`
 function Page() {
 	const router = useRouter();
 	const [isLoading, setIsLoading] = useState(false);
+	const isMobile = useMediaQuery("(max-width: 500px)");
+
 	const [formData, setFormData] = useState({
 		email: "",
 		surname: "",
@@ -189,8 +208,6 @@ function Page() {
 
 		if (signupError) {
 			alert(`Signup failed: ${signupError}`);
-			
-			
 
 			return;
 		}
@@ -306,10 +323,12 @@ function Page() {
 								</Button>
 							</Form>
 							<NewUser>
-								Already Have An Account?{" "}
-								<Link className="link margin-left-small" href={"/login"}>
-									Login
-								</Link>
+								<span>
+									Already Have An Account
+									<Link className="link margin-left-small" href={"/login"}>
+										Login
+									</Link>{" "}
+								</span>
 							</NewUser>
 						</FormContainer>
 						<ImageContainer>
