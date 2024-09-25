@@ -19,7 +19,7 @@ const SectionHow = styled.section`
 			rgba(0, 180, 216, 0.8),
 			rgba(0, 180, 216, 0.8)
 		),
-		url("/images/test.jpg");
+		url("/images/backgroundimage.webp");
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-position: center;
@@ -435,7 +435,7 @@ function Main() {
 					</PriceBox>
 				</PriceBoxContainer>
 				<Link href={"/signup"}>
-					<Button >Get Started &rarr;</Button>
+					<Button>Get Started &rarr;</Button>
 				</Link>
 			</SectionPricing>
 		</StyledMain>

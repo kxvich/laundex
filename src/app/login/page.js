@@ -25,24 +25,38 @@ const LoginPage = styled.div`
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	@media only screen and (max-width: 30rem) {
+		background-image: none;
+	}
 `;
 
 const Container = styled.div`
 	background-image: linear-gradient(120deg, #0077b6 0, #0077b6 50%, #fff 50%);
-	height: 85vh;
+	height: 60vh;
 	width: 80%;
 	border-radius: 2rem;
 	padding: 4rem;
 	display: flex;
 	justify-content: space-between;
 	/* overflow: hidden; */
+	@media only screen and (max-width: 30rem) {
+		background-image: none;
+		background-color: #0077b6;
+		padding: 4rem 2rem;
+	}
 `;
 const FormContainer = styled.div`
 	width: 50%;
+	@media only screen and (max-width: 30rem) {
+		width: 100%;
+	}
 `;
 const Form = styled.form`
 	padding: 3rem 2rem;
 	width: 50%;
+	@media only screen and (max-width: 30rem) {
+		width: 100%;
+	}
 `;
 const LoginText = styled.h2`
 	color: #fff;
@@ -93,6 +107,9 @@ const ImageContainer = styled.div`
 	position: relative;
 	width: 40%;
 	height: 40rem;
+	@media only screen and (max-width: 30rem) {
+		display: none;
+	}
 `;
 
 const NewUser = styled.h3`
@@ -203,7 +220,7 @@ function Page() {
 								alt="signupImaage"
 								fill
 								sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-								style={{objectFit: "cover"}}
+								style={{ objectFit: "cover" }}
 								priority
 							/>
 						</ImageContainer>

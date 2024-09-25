@@ -49,6 +49,13 @@ html {
 .link:hover {
 	background-color: #fff;
 	color: #0077b6;
+	
+}
+@media only screen and (max-width: 30rem) {
+	.link:hover{
+		background-color: none;
+		color: none ;
+	}
 }
 
 @keyframes spin {
