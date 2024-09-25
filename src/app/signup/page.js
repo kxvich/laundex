@@ -40,6 +40,7 @@ const Container = styled.div`
 	@media only screen and (max-width: 30rem) {
 		background-image: none;
 		background-color: #0077b6;
+		padding: 2rem;
 	}
 `;
 const FormContainer = styled.div`
@@ -323,7 +324,7 @@ function Page() {
 								</Button>
 							</Form>
 							<NewUser>
-								<span>
+								<span style={{width: "100%"}}>
 									Already Have An Account
 									<Link className="link margin-left-small" href={"/login"}>
 										Login
