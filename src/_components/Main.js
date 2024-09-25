@@ -1,8 +1,17 @@
-import styled from "styled-components";
+import { styled, keyframes } from "styled-components";
 import Image from "next/image";
 import Button from "./Button";
 import useMediaQuery from "@/Hooks/useMediaQuery";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { useInView } from "react-intersection-observer";
+const MoveUp = keyframes`
+0%{
+	transform: translateY(2rem);
+}
+100%{
+	transform: translateY(0);
+}
+`;
 const StyledMain = styled.main``;
 const SectionHow = styled.section`
 	/* background-color: #caf0f8; */
@@ -23,6 +32,15 @@ const SectionHeading = styled.h2`
 	/* color: #0077b6; */
 	color: ${(props) => props.color};
 	margin-bottom: 10rem;
+	opacity: 0;
+	transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+	animation-fill-mode: forwards;
+
+	// Apply the animation when the item is in view
+	&.visible {
+		opacity: 1;
+		animation: ${MoveUp} 0.6s ease-out;
+	}
 	@media only screen and (max-width: 30rem) {
 		margin-bottom: 5rem;
 	}
@@ -33,6 +51,15 @@ const DescriptionContainer = styled.div`
 	align-items: center;
 	padding: 0 5rem;
 	margin-bottom: 15rem;
+	opacity: 0;
+	transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+	animation-fill-mode: forwards;
+
+	// Apply the animation when the item is in view
+	&.visible {
+		opacity: 1;
+		animation: ${MoveUp} 0.6s ease-out;
+	}
 	@media only screen and (max-width: 30rem) {
 		flex-direction: column;
 		padding: 0 1rem;
@@ -97,6 +124,15 @@ const PriceBox = styled.div`
 	width: 30rem;
 	padding-top: 2rem;
 	text-align: center;
+	opacity: 0;
+	transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+	animation-fill-mode: forwards;
+
+	// Apply the animation when the item is in view
+	&.visible {
+		opacity: 1;
+		animation: ${MoveUp} 0.6s ease-out;
+	}
 	@media only screen and (max-width: 30rem) {
 		margin-bottom: 6rem;
 	}
@@ -157,12 +193,49 @@ const decorationAsteriskPositions = [
 
 function Main() {
 	const isMobile = useMediaQuery("(max-width: 500px)");
-	const router = useRouter();
+	const [ref, inView] = useInView({
+		threshold: 0.1,
+		triggerOnce: true,
+	});
+	const [ref1, inView1] = useInView({
+		threshold: 0.1,
+		triggerOnce: true,
+	});
+	const [ref2, inView2] = useInView({
+		threshold: 0.1,
+		triggerOnce: true,
+	});
+	const [ref3, inView3] = useInView({
+		threshold: 0.1,
+		triggerOnce: true,
+	});
+	const [ref4, inView4] = useInView({
+		threshold: 0.1,
+		triggerOnce: true,
+	});
+	const [ref5, inView5] = useInView({
+		threshold: 0.1,
+		triggerOnce: true,
+	});
+	const [ref6, inView6] = useInView({
+		threshold: 0.1,
+		triggerOnce: true,
+	});
+	const [ref7, inView7] = useInView({
+		threshold: 0.1,
+		triggerOnce: true,
+	});
 	return (
 		<StyledMain>
 			<SectionHow>
-				<SectionHeading color="#fff">HOW IT WORKS</SectionHeading>
-				<DescriptionContainer>
+				<SectionHeading
+					ref={ref}
+					className={inView ? "visible" : ""}
+					color="#fff"
+				>
+					HOW IT WORKS
+				</SectionHeading>
+				<DescriptionContainer ref={ref1} className={inView1 ? "visible" : ""}>
 					<DescriptionText>
 						<DescriptionTextHeading>
 							CREATE AN ACCOUNT
@@ -186,7 +259,7 @@ function Main() {
 						/>
 					</DescriptionImageContainer>
 				</DescriptionContainer>
-				<DescriptionContainer>
+				<DescriptionContainer ref={ref2} className={inView2 ? "visible" : ""}>
 					{isMobile === true ? (
 						<>
 							<DescriptionText>
@@ -237,7 +310,7 @@ function Main() {
 						</>
 					)}
 				</DescriptionContainer>
-				<DescriptionContainer>
+				<DescriptionContainer ref={ref3} className={inView3 ? "visible" : ""}>
 					<DescriptionText>
 						<DescriptionTextHeading>
 							PICKUP AND DELIVERY SERVICES
@@ -260,7 +333,7 @@ function Main() {
 						/>
 					</DescriptionImageContainer>
 				</DescriptionContainer>
-				<DescriptionContainer>
+				<DescriptionContainer ref={ref4} className={inView4 ? "visible" : ""}>
 					{isMobile === true ? (
 						<>
 							<DescriptionText>
@@ -320,7 +393,7 @@ function Main() {
 				))}
 				<SectionHeading color="#0077B6">PRICING</SectionHeading>
 				<PriceBoxContainer>
-					<PriceBox>
+					<PriceBox ref={ref5} className={inView5 ? "visible" : ""}>
 						<PriceIcon>
 							<i className="fa-solid fa-star-half-stroke"></i>
 						</PriceIcon>
@@ -332,7 +405,7 @@ function Main() {
 							<Description>-</Description>
 						</PlanDescription>
 					</PriceBox>
-					<PriceBox>
+					<PriceBox ref={ref6} className={inView6 ? "visible" : ""}>
 						<PriceIcon>
 							<i className="fa-solid fa-star"></i>
 						</PriceIcon>
@@ -344,7 +417,7 @@ function Main() {
 							<Description>-</Description>
 						</PlanDescription>
 					</PriceBox>
-					<PriceBox>
+					<PriceBox ref={ref7} className={inView7 ? "visible" : ""}>
 						<PriceIcon>
 							<i className="fa-solid fa-rocket"></i>
 						</PriceIcon>
@@ -357,9 +430,9 @@ function Main() {
 						</PlanDescription>
 					</PriceBox>
 				</PriceBoxContainer>
-				<Button onclick={() => router.push("/signup")}>
-					Get Started &rarr;
-				</Button>
+				<Link href={"/signup"}>
+					<Button >Get Started &rarr;</Button>
+				</Link>
 			</SectionPricing>
 		</StyledMain>
 	);

@@ -3,6 +3,7 @@ import Button from "./Button";
 import { useState } from "react";
 import useMediaQuery from "@/Hooks/useMediaQuery";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const MoveDown = keyframes`
 0%{
@@ -111,7 +112,9 @@ function Navigation() {
 				<ListItem>About Us</ListItem>
 				<ListItem>Contact</ListItem>
 				<ListItem>Outsourcing</ListItem>
-				<Button onclick={() => router.push("/login")}>Log in</Button>
+				<Link href={"/login"}>
+					<Button>Log in</Button>
+				</Link>
 				{/* <Menu onClick={handleMenu}>
 					<i className="fa-solid fa-bars"></i>
 				</Menu> */}

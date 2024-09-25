@@ -1,8 +1,10 @@
-import {styled, keyframes} from "styled-components";
+import { styled, keyframes } from "styled-components";
 import Navigation from "@/_components/navigation";
 import Image from "next/image";
 import Button from "./Button";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { useInView } from "react-intersection-observer";
 const MoveUp = keyframes`
 0%{
 	transform: translateY(2rem);
@@ -34,6 +36,7 @@ const HeaderTextContainer = styled.div`
 	align-self: flex-start;
 	width: 50%;
 	padding-top: 3.5rem;
+	
 	@media only screen and (max-width: 30rem) {
 		width: 100%;
 		text-align: center;
@@ -123,9 +126,9 @@ function Header() {
 					<HeadingTextParagraph>
 						{`Welcome to Laundex Laundry, your trusted partner in keeping your clothes spotless and fresh! We understand that life gets busy, and laundry can often take a back seat. That's why we're here to make laundry day easy and hassle-free. Whether it's a single shirt or a mountain of laundry, our expert team is dedicated to delivering exceptional service with a personal touch.`}
 					</HeadingTextParagraph>
-					<Button animation={"MoveUp 1s .75s"} onclick={() => router.push("/signup")}>
-						Get started &rarr;
-					</Button>
+					<Link href={"/signup"}>
+						<Button>Get started &rarr;</Button>
+					</Link>
 				</HeaderTextContainer>
 
 				<HeaderImageContainer>
