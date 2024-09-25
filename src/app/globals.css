@@ -51,14 +51,7 @@ html {
 	color: #0077b6;
 }
 @media only screen and (max-width: 30rem) {
-	.link {
-		color: #03045e;
-		text-decoration: none;
-		padding: 1rem;
-		border-radius: 1rem;
-		transition: all 0.3s;
-	}
-	.link:active {
+	.link:hover{
 		background-color: none;
 		color: none;
 	}
