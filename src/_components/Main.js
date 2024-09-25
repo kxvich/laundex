@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Image from "next/image";
 import Button from "./Button";
 import useMediaQuery from "@/Hooks/useMediaQuery";
+import { useRouter } from "next/navigation";
 const StyledMain = styled.main``;
 const SectionHow = styled.section`
 	/* background-color: #caf0f8; */
@@ -34,7 +35,7 @@ const DescriptionContainer = styled.div`
 	margin-bottom: 15rem;
 	@media only screen and (max-width: 30rem) {
 		flex-direction: column;
-		padding: 0 2rem;
+		padding: 0 1rem;
 	}
 `;
 const DescriptionText = styled.div`
@@ -65,6 +66,8 @@ const DescriptionImageContainer = styled.div`
 	width: 50%;
 	@media only screen and (max-width: 30rem) {
 		width: 100%;
+		border-radius: 2rem;
+		overflow: hidden;
 	}
 `;
 const SectionPricing = styled.section`
@@ -95,7 +98,6 @@ const PriceBox = styled.div`
 	padding-top: 2rem;
 	text-align: center;
 	@media only screen and (max-width: 30rem) {
-		
 		margin-bottom: 6rem;
 	}
 `;
@@ -155,6 +157,7 @@ const decorationAsteriskPositions = [
 
 function Main() {
 	const isMobile = useMediaQuery("(max-width: 500px)");
+	const router = useRouter();
 	return (
 		<StyledMain>
 			<SectionHow>
@@ -354,7 +357,9 @@ function Main() {
 						</PlanDescription>
 					</PriceBox>
 				</PriceBoxContainer>
-				<Button>Get Started &rarr;</Button>
+				<Button onclick={() => router.push("/signup")}>
+					Get Started &rarr;
+				</Button>
 			</SectionPricing>
 		</StyledMain>
 	);

@@ -1,8 +1,16 @@
-import styled from "styled-components";
+import {styled, keyframes} from "styled-components";
 import Navigation from "@/_components/navigation";
 import Image from "next/image";
 import Button from "./Button";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
+const MoveUp = keyframes`
+0%{
+	transform: translateY(2rem);
+}
+100%{
+	transform: translateY(0);
+}
+`;
 
 const StyledHeader = styled.header`
 	max-width: 90%;
@@ -11,7 +19,6 @@ const StyledHeader = styled.header`
 	position: relative;
 	padding-bottom: 2rem;
 `;
-
 const HeaderContent = styled.div`
 	display: flex;
 	justify-content: space-between;
@@ -38,6 +45,7 @@ const HeadingTextPrimary = styled.h1`
 	font-size: 3.7rem;
 	margin-bottom: 1.5rem;
 	animation: moveup 1s 0.25s;
+	animation-fill-mode: backwards;
 	@media only screen and (max-width: 30rem) {
 		width: 100%;
 	}
@@ -45,6 +53,7 @@ const HeadingTextPrimary = styled.h1`
 const HeadingTextSecondary = styled.h2`
 	color: #0077b6;
 	font-size: 1.1rem;
+	animation-fill-mode: backwards;
 	animation: moveup 1s;
 `;
 const HeadingTextParagraph = styled.p`
@@ -55,6 +64,8 @@ const HeadingTextParagraph = styled.p`
 	font-weight: 500;
 	line-height: 2.2rem;
 	animation: moveup 1s 0.5s;
+	animation-fill-mode: backwards;
+
 	@media only screen and (max-width: 30rem) {
 		width: 100%;
 	}
@@ -64,6 +75,8 @@ const HeaderImageContainer = styled.div`
 	position: relative;
 	height: 52rem;
 	width: 50%;
+	animation: ${MoveUp} 1s;
+	animation-fill-mode: backwards;
 	@media only screen and (max-width: 30rem) {
 		width: 100%;
 	}
@@ -89,6 +102,7 @@ const decorationAsteriskPositions = [
 ];
 
 function Header() {
+	const router = useRouter();
 	return (
 		<StyledHeader>
 			<Navigation />
@@ -109,9 +123,9 @@ function Header() {
 					<HeadingTextParagraph>
 						{`Welcome to Laundex Laundry, your trusted partner in keeping your clothes spotless and fresh! We understand that life gets busy, and laundry can often take a back seat. That's why we're here to make laundry day easy and hassle-free. Whether it's a single shirt or a mountain of laundry, our expert team is dedicated to delivering exceptional service with a personal touch.`}
 					</HeadingTextParagraph>
-					<Link href="/signup">
-						<Button>Get started &rarr;</Button>
-					</Link>
+					<Button animation={"MoveUp 1s .75s"} onclick={() => router.push("/signup")}>
+						Get started &rarr;
+					</Button>
 				</HeaderTextContainer>
 
 				<HeaderImageContainer>

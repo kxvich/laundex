@@ -7,6 +7,7 @@ const StyledButton = styled.button`
 	border-radius: 10rem;
 	color: ${(props) => props.color || "#fff"};
 	cursor: pointer;
+	
 `;
 
 StyledButton.defaultProps = {
