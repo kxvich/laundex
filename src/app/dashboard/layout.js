@@ -1,5 +1,5 @@
 "use client";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import Script from "next/script";
 import Link from "next/link";
 import supabase from "@/services/supabase";
@@ -12,6 +12,7 @@ import {
 	useQuery,
 	QueryClientProvider,
 } from "@tanstack/react-query";
+import useMediaQuery from "@/Hooks/useMediaQuery";
 const SpinnerContainer = styled.div`
 	height: 100vh;
 	width: 100%;
@@ -20,13 +21,39 @@ const SpinnerContainer = styled.div`
 	align-items: center;
 `;
 
+const MoveInLeft = keyframes`
+0%{
+	transform: translateX(-1rem);
+	opacity: 0;
+}
+100%{
+	transform: translateX(0);
+	opacity: 1;
+}
+`;
+const Close = styled.span`
+	margin: 0 0 1.5rem 1.5rem;
+	color: #fff;
+	font-size: 1.5rem;
+`;
+
 const Dashboard = styled.div`
 	display: flex;
+`;
+const Menu = styled.div`
+	font-size: 2rem;
+	margin: 6rem 0 0 3rem;
 `;
 const SideBar = styled.div`
 	background-color: #1f7a8c;
 	padding: 6rem 0 8.35rem;
 	width: 18%;
+	animation: ${MoveInLeft} 0.2s;
+	animation-fill-mode: backwards;
+	@media only screen and (max-width: 30rem) {
+		width: 80%;
+		padding: 3rem 0 8.35rem;
+	}
 `;
 const ProfileContainer = styled.div`
 	display: flex;
@@ -61,6 +88,8 @@ const SideBarlistItems = styled.li`
 	margin-bottom: 2rem;
 	padding: 1rem 2rem;
 	cursor: pointer;
+	animation: ${MoveInLeft} 0.2s 0.25s;
+	animation-fill-mode: backwards;
 
 	transition: all 0.3s;
 	&:hover {
@@ -71,6 +100,9 @@ const SideBarlistItems = styled.li`
 const Container = styled.div`
 	flex: 1;
 	padding: 7rem 4rem;
+	@media only screen and (max-width: 30rem) {
+		padding: 4rem 2rem;
+	}
 `;
 
 async function FetchRowById(id) {
@@ -93,6 +125,9 @@ export default function Layout({ children }) {
 	const [userId, setUserId] = useState(null);
 	const [userEmail, setUserEmail] = useState(null);
 	const [queryClient] = useState(() => new QueryClient());
+	const [isOpen, setIsOpen] = useState(false);
+	const isMobile = useMediaQuery("(max-width: 500px)");
+
 
 	useEffect(
 		function () {
@@ -163,66 +198,99 @@ export default function Layout({ children }) {
 				) : null}
 				{isAuthenticated && data && (
 					<Dashboard>
-						<SideBar>
-							<ProfileContainer>
-								<ProfilePicture></ProfilePicture>
-								<Username>
-									{data && data[0]?.firstName && data[0].firstName}
-								</Username>
-							</ProfileContainer>
+						{!isOpen && (
+							<Menu>
+								<i
+									onClick={() => setIsOpen(true)}
+									className="fa-solid fa-bars"
+								></i>
+							</Menu>
+						)}
+						{isOpen && (
+							<SideBar>
+								{isMobile && (
+									<Close>
+										<i
+											onClick={() => setIsOpen(false)}
+											className="fa-solid fa-x"
+										></i>
+									</Close>
+								)}
+								<ProfileContainer>
+									<ProfilePicture></ProfilePicture>
+									<Username>
+										{data && data[0]?.firstName && data[0].firstName}
+									</Username>
+								</ProfileContainer>
 
-							<SideBarlist>
-								<Link
-								 className="textDecor" href="/dashboard">
-									<SideBarlistItems>
-										<SideBarIcon>
-											<i className="fa-solid fa-house"></i>
-										</SideBarIcon>
-										Dashboard
-									</SideBarlistItems>
-								</Link>
-								<Link href="/dashboard/account" className="textDecor">
-									<SideBarlistItems>
-										<SideBarIcon>
-											<i className="fa-solid fa-user"></i>
-										</SideBarIcon>
-										Account
-									</SideBarlistItems>
-								</Link>
-								<Link className="textDecor" href={"/dashboard/support"}>
-									<SideBarlistItems>
-										<SideBarIcon>
-											<i className="fa-solid fa-headset"></i>
-										</SideBarIcon>
-										Support & Help
-									</SideBarlistItems>
-								</Link>
-								<Link className="textDecor" href={"/dashboard/settings"}>
-									<SideBarlistItems>
-										<SideBarIcon>
-											<i className="fa-solid fa-gear"></i>
-										</SideBarIcon>
-										Settings
-									</SideBarlistItems>
-								</Link>
-								<Link
-									onClick={(e) => {
-										e.preventDefault();
-										setIsLoading(true)
-										handleLogout();
-									}}
-									className="textDecor"
-									href="/"
-								>
-									<SideBarlistItems>
-										<SideBarIcon>
-											<i className="fa-solid fa-right-from-bracket"></i>
-										</SideBarIcon>
-										Logout
-									</SideBarlistItems>
-								</Link>
-							</SideBarlist>
-						</SideBar>
+								<SideBarlist>
+									<Link
+										onClick={() => setIsOpen(false)}
+										className="textDecor"
+										href="/dashboard"
+									>
+										<SideBarlistItems>
+											<SideBarIcon>
+												<i className="fa-solid fa-house"></i>
+											</SideBarIcon>
+											Dashboard
+										</SideBarlistItems>
+									</Link>
+									<Link
+										onClick={() => setIsOpen(false)}
+										href="/dashboard/account"
+										className="textDecor"
+									>
+										<SideBarlistItems>
+											<SideBarIcon>
+												<i className="fa-solid fa-user"></i>
+											</SideBarIcon>
+											Account
+										</SideBarlistItems>
+									</Link>
+									<Link
+										onClick={() => setIsOpen(false)}
+										className="textDecor"
+										href={"/dashboard/support"}
+									>
+										<SideBarlistItems>
+											<SideBarIcon>
+												<i className="fa-solid fa-headset"></i>
+											</SideBarIcon>
+											Support & Help
+										</SideBarlistItems>
+									</Link>
+									<Link
+										onClick={() => setIsOpen(false)}
+										className="textDecor"
+										href={"/dashboard/settings"}
+									>
+										<SideBarlistItems>
+											<SideBarIcon>
+												<i className="fa-solid fa-gear"></i>
+											</SideBarIcon>
+											Settings
+										</SideBarlistItems>
+									</Link>
+									<Link
+										onClick={(e) => {
+											e.preventDefault();
+											setIsLoading(true);
+											handleLogout();
+										}}
+										className="textDecor"
+										href="/"
+									>
+										<SideBarlistItems>
+											<SideBarIcon>
+												<i className="fa-solid fa-right-from-bracket"></i>
+											</SideBarIcon>
+											Logout
+										</SideBarlistItems>
+									</Link>
+								</SideBarlist>
+							</SideBar>
+						)}
 						<Container>{children}</Container>
 					</Dashboard>
 				)}

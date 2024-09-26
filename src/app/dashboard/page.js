@@ -1,8 +1,8 @@
 "use client";
-import styled from "styled-components";
+import {styled,keyframes} from "styled-components";
 import Script from "next/script";
 import Link from "next/link";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { UserContext } from "@/app/dashboard/layout";
 
 // const Dashboard = styled.div`
@@ -58,19 +58,46 @@ import { UserContext } from "@/app/dashboard/layout";
 // 	padding: 7rem 4rem;
 // `;
 
+const MoveUp = keyframes`
+0%{
+	transform: translateY(1rem);
+	opacity: 0;
+}
+100%{
+	transform: translateY(0);
+	opacity: 1;
+}
+`;
+const MoveInLeft = keyframes`
+0%{
+	transform: translateX(-1rem);
+	opacity: 0;
+}
+100%{
+	transform: translateX(0);
+	opacity: 1;
+}`
 const NavName = styled.h1`
 	color: #1f7a8c;
 	font-size: 2.5rem;
+	animation: ${MoveInLeft} 0.5s;
+	animation-fill-mode: backwards;
 `;
 const Message = styled.h2`
 	color: #022b3a;
 	margin-bottom: 5rem;
+	animation: ${MoveInLeft} 0.5s;
+	animation-fill-mode: backwards;
 `;
 const BoxContainer = styled.div`
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	padding: 0 5rem;
+	@media only screen and (max-width: 30rem) {
+		flex-direction: column;
+		padding: 0;
+	}
 `;
 const Box = styled.div`
 	width: 20rem;
@@ -84,6 +111,12 @@ const Box = styled.div`
 	cursor: pointer;
 	box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2);
 	text-align: center;
+	animation: ${MoveUp} 0.5s;
+	animation-fill-mode: backwards;
+
+	@media only screen and (max-width: 30rem) {
+		margin-bottom: 5rem;
+	}
 `;
 const BoxIcon = styled.div`
 	color: #022b3a;
@@ -101,6 +134,7 @@ const BoxDescription = styled.p`
 
 function Page() {
 	const { data } = useContext(UserContext);
+	const [isOpen, setIsOpen] = useState(false);
 
 	return (
 		<>
