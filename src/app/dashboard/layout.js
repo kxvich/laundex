@@ -34,7 +34,7 @@ const MoveInLeft = keyframes`
 const Close = styled.span`
 	margin: 0 0 1.5rem 1.5rem;
 	color: #fff;
-	font-size: 1.5rem;
+	font-size: 2.3rem;
 `;
 
 const Dashboard = styled.div`
@@ -48,6 +48,7 @@ const SideBar = styled.div`
 	background-color: #1f7a8c;
 	padding: 6rem 0 8.35rem;
 	width: 18%;
+	height: 100vh;
 	animation: ${MoveInLeft} 0.2s;
 	animation-fill-mode: backwards;
 	@media only screen and (max-width: 30rem) {
@@ -198,7 +199,7 @@ export default function Layout({ children }) {
 				) : null}
 				{isAuthenticated && data && (
 					<Dashboard>
-						{!isOpen && (
+						{!isOpen && isMobile && (
 							<Menu>
 								<i
 									onClick={() => setIsOpen(true)}
@@ -206,7 +207,90 @@ export default function Layout({ children }) {
 								></i>
 							</Menu>
 						)}
-						{isOpen && (
+						{!isMobile && <SideBar>
+								{isMobile && (
+									<Close>
+										<i
+											onClick={() => setIsOpen(false)}
+											className="fa-solid fa-x"
+										></i>
+									</Close>
+								)}
+								<ProfileContainer>
+									<ProfilePicture></ProfilePicture>
+									<Username>
+										{data && data[0]?.firstName && data[0].firstName}
+									</Username>
+								</ProfileContainer>
+
+								<SideBarlist>
+									<Link
+										onClick={() => setIsOpen(false)}
+										className="textDecor"
+										href="/dashboard"
+									>
+										<SideBarlistItems>
+											<SideBarIcon>
+												<i className="fa-solid fa-house"></i>
+											</SideBarIcon>
+											Dashboard
+										</SideBarlistItems>
+									</Link>
+									<Link
+										onClick={() => setIsOpen(false)}
+										href="/dashboard/account"
+										className="textDecor"
+									>
+										<SideBarlistItems>
+											<SideBarIcon>
+												<i className="fa-solid fa-user"></i>
+											</SideBarIcon>
+											Account
+										</SideBarlistItems>
+									</Link>
+									<Link
+										onClick={() => setIsOpen(false)}
+										className="textDecor"
+										href={"/dashboard/support"}
+									>
+										<SideBarlistItems>
+											<SideBarIcon>
+												<i className="fa-solid fa-headset"></i>
+											</SideBarIcon>
+											Support & Help
+										</SideBarlistItems>
+									</Link>
+									<Link
+										onClick={() => setIsOpen(false)}
+										className="textDecor"
+										href={"/dashboard/settings"}
+									>
+										<SideBarlistItems>
+											<SideBarIcon>
+												<i className="fa-solid fa-gear"></i>
+											</SideBarIcon>
+											Settings
+										</SideBarlistItems>
+									</Link>
+									<Link
+										onClick={(e) => {
+											e.preventDefault();
+											setIsLoading(true);
+											handleLogout();
+										}}
+										className="textDecor"
+										href="/"
+									>
+										<SideBarlistItems>
+											<SideBarIcon>
+												<i className="fa-solid fa-right-from-bracket"></i>
+											</SideBarIcon>
+											Logout
+										</SideBarlistItems>
+									</Link>
+								</SideBarlist>
+							</SideBar>}
+						{isOpen && isMobile && (
 							<SideBar>
 								{isMobile && (
 									<Close>

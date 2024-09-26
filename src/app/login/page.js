@@ -25,6 +25,7 @@ const LoginPage = styled.div`
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	
 	@media only screen and (max-width: 30rem) {
 		background-image: none;
 	}
@@ -32,7 +33,7 @@ const LoginPage = styled.div`
 
 const Container = styled.div`
 	background-image: linear-gradient(120deg, #0077b6 0, #0077b6 50%, #fff 50%);
-	height: 60vh;
+	height: 80vh;
 	width: 80%;
 	border-radius: 2rem;
 	padding: 4rem;
@@ -43,6 +44,7 @@ const Container = styled.div`
 		background-image: none;
 		background-color: #0077b6;
 		padding: 4rem 2rem;
+		height: 60vh;
 	}
 `;
 const FormContainer = styled.div`
