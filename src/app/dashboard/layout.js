@@ -68,6 +68,7 @@ const ProfilePicture = styled.div`
 	height: 3rem;
 	background-color: #1f7a8c;
 	margin-right: 1rem;
+	border-radius: 50%;
 `;
 const Username = styled.h2`
 	color: #fff;

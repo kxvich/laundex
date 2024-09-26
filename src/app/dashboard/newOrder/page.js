@@ -2,23 +2,42 @@
 
 import Button from "@/_components/Button";
 import { useContext, useEffect, useState } from "react";
-import styled from "styled-components";
+import { styled, keyframes } from "styled-components";
 import { UserContext } from "../layout";
 import { useRouter } from "next/navigation";
 import supabase from "@/services/supabase";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
-const NewOrder = styled.div``;
+const MoveUp = keyframes`
+0%{
+	transform: translateY(1rem);
+	opacity: 0;
+}
+100%{
+	transform: translateY(0);
+	opacity: 1;
+}`;
+const NewOrder = styled.div`
+	animation: ${MoveUp} 0.5s;
+	animation-fill-mode: backwards;
+`;
 const Form = styled.form`
 	padding-top: 4rem;
 	display: flex;
 	justify-content: space-between;
+
+	@media only screen and (max-width: 30rem) {
+		flex-direction: column;
+		width: 100%;
+	}
 `;
 const Heading = styled.h2`
 	color: #022b3a;
 	font-size: 2rem;
 	margin-bottom: 2rem;
+	@media only screen and (max-width: 30rem) {
+		width: 100%;
+	}
 `;
 
 const Label = styled.label`
@@ -35,6 +54,9 @@ const Input = styled.input`
 	padding: 0.5rem;
 	margin-bottom: 2rem;
 	border-bottom: 1px solid #022b3a;
+	@media only screen and (max-width: 30rem) {
+		width: 60%;
+	}
 
 	&:focus {
 		outline: none;
@@ -72,6 +94,9 @@ const ClotheItem = styled.div`
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	@media only screen and (max-width: 30rem) {
+		width: 40%;
+	}
 `;
 const Checkbox = styled.input`
 	margin-top: -1rem;
@@ -79,9 +104,15 @@ const Checkbox = styled.input`
 
 const Container1 = styled.div`
 	width: 50%;
+	@media only screen and (max-width: 30rem) {
+		width: 100%;
+	}
 `;
 const Container2 = styled.div`
 	width: 50%;
+	@media only screen and (max-width: 30rem) {
+		width: 100%;
+	}
 `;
 function Page() {
 	const { data, userEmail, userId } = useContext(UserContext);
