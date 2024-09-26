@@ -103,7 +103,7 @@ const Container = styled.div`
 	flex: 1;
 	padding: 7rem 4rem;
 	@media only screen and (max-width: 30rem) {
-		padding: 4rem 2rem;
+		padding: 4rem 2rem 0;
 	}
 `;
 
