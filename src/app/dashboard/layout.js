@@ -48,12 +48,12 @@ const SideBar = styled.div`
 	background-color: #1f7a8c;
 	padding: 6rem 0 8.35rem;
 	width: 18%;
-	height: 100vh;
 	animation: ${MoveInLeft} 0.2s;
 	animation-fill-mode: backwards;
 	@media only screen and (max-width: 30rem) {
 		width: 80%;
 		padding: 3rem 0 8.35rem;
+		height: 100vh;
 	}
 `;
 const ProfileContainer = styled.div`
@@ -129,7 +129,6 @@ export default function Layout({ children }) {
 	const [queryClient] = useState(() => new QueryClient());
 	const [isOpen, setIsOpen] = useState(false);
 	const isMobile = useMediaQuery("(max-width: 500px)");
-
 
 	useEffect(
 		function () {
@@ -208,7 +207,8 @@ export default function Layout({ children }) {
 								></i>
 							</Menu>
 						)}
-						{!isMobile && <SideBar>
+						{!isMobile && (
+							<SideBar>
 								{isMobile && (
 									<Close>
 										<i
@@ -290,7 +290,8 @@ export default function Layout({ children }) {
 										</SideBarlistItems>
 									</Link>
 								</SideBarlist>
-							</SideBar>}
+							</SideBar>
+						)}
 						{isOpen && isMobile && (
 							<SideBar>
 								{isMobile && (
