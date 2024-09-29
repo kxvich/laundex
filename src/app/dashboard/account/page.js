@@ -140,7 +140,7 @@ function Page() {
 			<NavName>Account</NavName>
 			<Message>update account information</Message>
 			<BoxContainer>
-				<Link className="textDecor" href={"#"}>
+				<Link className="textDecor" href={"/dashboard/account/profile"}>
 					<Box>
 						<BoxIcon>
 							<i className="fa-solid fa-file"></i>
