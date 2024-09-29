@@ -147,9 +147,7 @@ function Page() {
 				fullName: `${data[0]?.surname} ${data[0]?.firstName}`,
 				phoneNumber: data[0]?.phoneNumber || "",
 				email: userEmail,
-				contactMethod: "email",
-				plan: "classic",
-				pickupDelivery: "pickup",
+				address: data[0]?.address || ""
 			}));
 		}
 	}, [data, userEmail]);
