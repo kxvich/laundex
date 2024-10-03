@@ -85,19 +85,9 @@ const TopContainer = styled.div`
 	animation-fill-mode: backwards;
 	@media only screen and (max-width: 30rem) {
 		width: 90%;
-
 	}
 `;
-const NavName = styled.h1`
-	font-size: 2.5rem;
-	animation: ${MoveInLeft} 0.5s 0.2s;
-	animation-fill-mode: backwards;
-`;
-const Message = styled.h2`
-	animation: ${MoveInLeft} 0.5s 0.2s;
-	animation-fill-mode: backwards;
-	font-weight: 400;
-`;
+
 const NavName = styled.h1`
 	font-size: 2.5rem;
 	animation: ${MoveInLeft} 0.5s 0.2s;
