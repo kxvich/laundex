@@ -23,6 +23,7 @@ const NewOrder = styled.div`
 `;
 const Form = styled.form`
 	padding-top: 4rem;
+	padding-bottom: 4rem;
 	display: flex;
 	justify-content: space-between;
 
