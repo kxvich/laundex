@@ -88,7 +88,6 @@ const TopContainer = styled.div`
 	animation-fill-mode: backwards;
 	@media only screen and (max-width: 30rem) {
 		width: 90%;
-
 	}
 `;
 const NavName = styled.h1`
