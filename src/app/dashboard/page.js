@@ -1,5 +1,5 @@
 "use client";
-import {styled,keyframes} from "styled-components";
+import { styled, keyframes } from "styled-components";
 import Script from "next/script";
 import Link from "next/link";
 import { useContext, useState } from "react";
@@ -76,34 +76,53 @@ const MoveInLeft = keyframes`
 100%{
 	transform: translateX(0);
 	opacity: 1;
-}`
-const NavName = styled.h1`
-	color: #1f7a8c;
-	font-size: 2.5rem;
-	animation: ${MoveInLeft} 0.5s;
-	animation-fill-mode: backwards;
-`;
-const Message = styled.h2`
-	color: #022b3a;
+}`;
+const TopContainer = styled.div`
+	color: #fff;
+	background-color: #1f7a8c;
+	width: 100%;
+	border-radius: 1rem;
+	padding: 1rem 2rem;
 	margin-bottom: 5rem;
 	animation: ${MoveInLeft} 0.5s;
 	animation-fill-mode: backwards;
+	@media only screen and (max-width: 30rem) {
+		width: 90%;
+
+	}
+`;
+const NavName = styled.h1`
+	font-size: 2.5rem;
+	animation: ${MoveInLeft} 0.5s 0.2s;
+	animation-fill-mode: backwards;
+`;
+const Message = styled.h2`
+	animation: ${MoveInLeft} 0.5s 0.2s;
+	animation-fill-mode: backwards;
+	font-weight: 400;
 `;
 const BoxContainer = styled.div`
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	padding: 0 5rem;
+	padding: 8rem 5rem;
+	border-radius: 1rem;
+	background-color: #1f7a8c;
+	animation: ${MoveUp} 0.5s;
+	animation-fill-mode: backwards;
 	@media only screen and (max-width: 30rem) {
 		flex-direction: column;
-		padding: 0;
+		padding: 4rem 0;
+		margin-bottom: 4rem;
+		margin-right: 4rem;
 	}
 `;
-const Box = styled.div`
+const Box1 = styled.div`
 	width: 20rem;
 	height: 18rem;
 	border-radius: 1rem;
-	border: 2px solid #1f7a8c;
+	border: 2px solid #77878b;
+	background-color: #fff;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -111,19 +130,60 @@ const Box = styled.div`
 	cursor: pointer;
 	box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2);
 	text-align: center;
-	animation: ${MoveUp} 0.5s;
+	animation: ${MoveUp} 0.5s 0.4s;
 	animation-fill-mode: backwards;
 
 	@media only screen and (max-width: 30rem) {
 		margin-bottom: 5rem;
 	}
 `;
+const Box2 = styled.div`
+	width: 20rem;
+	height: 18rem;
+	border-radius: 1rem;
+	border: 2px solid #77878b;
+	background-color: #fff;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	cursor: pointer;
+	box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2);
+	text-align: center;
+	animation: ${MoveUp} 0.5s 0.4s;
+	animation-fill-mode: backwards;
+
+	@media only screen and (max-width: 30rem) {
+		margin-bottom: 5rem;
+	}
+`;
+const Box3 = styled.div`
+	width: 20rem;
+	height: 18rem;
+	border-radius: 1rem;
+	border: 2px solid #77878b;
+	background-color: #fff;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	cursor: pointer;
+	box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2);
+	text-align: center;
+	animation: ${MoveUp} 0.5s 0.4s;
+	animation-fill-mode: backwards;
+
+	@media only screen and (max-width: 30rem) {
+	}
+`;
 const BoxIcon = styled.div`
 	color: #022b3a;
+
 	font-size: 2rem;
 `;
 const BoxText = styled.h2`
 	color: #1f7a8c;
+
 	margin-bottom: 2rem;
 `;
 const BoxDescription = styled.p`
@@ -142,28 +202,30 @@ function Page() {
 				src="https://kit.fontawesome.com/b778254e02.js"
 				crossorigin="anonymous"
 			></Script>
-			<NavName>Dashboard</NavName>
-			<Message> Welcome {data && data[0]?.firstName}</Message>
+			<TopContainer>
+				<NavName>Dashboard</NavName>
+				<Message> Welcome {data && data[0]?.firstName}</Message>
+			</TopContainer>
 			<BoxContainer>
 				<Link className="textDecor" href={"/dashboard/newOrder"}>
-					<Box>
+					<Box1>
 						<BoxIcon>
 							<i className="fa-solid fa-plus"></i>
 						</BoxIcon>
 
 						<BoxText>NEW ORDER</BoxText>
 						<BoxDescription>Place a new order</BoxDescription>
-					</Box>
+					</Box1>
 				</Link>
 
-				<Box>
+				<Box2>
 					<BoxIcon>
 						<i className="fa-solid fa-eye"></i>
 					</BoxIcon>
 					<BoxText>TRACK ORDER</BoxText>
 					<BoxDescription>Track all orders</BoxDescription>
-				</Box>
-				<Box>
+				</Box2>
+				<Box3>
 					<BoxIcon>
 						<i className="fa-solid fa-truck"></i>
 					</BoxIcon>
@@ -171,7 +233,7 @@ function Page() {
 					<BoxDescription>
 						schedule/reschedule pick up and delivery
 					</BoxDescription>
-				</Box>
+				</Box3>
 			</BoxContainer>
 		</>
 	);

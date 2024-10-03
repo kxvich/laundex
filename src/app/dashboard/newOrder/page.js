@@ -147,7 +147,10 @@ function Page() {
 				fullName: `${data[0]?.surname} ${data[0]?.firstName}`,
 				phoneNumber: data[0]?.phoneNumber || "",
 				email: userEmail,
-				address: data[0]?.address || ""
+				address: data[0]?.address || "",
+				contactMethod: "email",
+				plan: "classic",
+				pickupDelivery: "pickup",
 			}));
 		}
 	}, [data, userEmail]);
