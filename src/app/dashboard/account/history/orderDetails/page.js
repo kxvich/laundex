@@ -96,7 +96,7 @@ function OrderDetails() {
 					</ItemsContainer>
 					<ItemsContainer>
 						<ItemName>Total</ItemName>
-						<ItemValue>{Details?.at(id).status}</ItemValue>
+						<ItemValue>{Details?.at(id).created_at}</ItemValue>
 					</ItemsContainer>
 				</Container>
 			</StyledOrderDetails>
