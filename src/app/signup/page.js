@@ -17,6 +17,16 @@ const SpinnerContainer = styled.div`
 	justify-content: center;
 	align-items: center;
 `;
+const MoveUp = keyframes`
+0%{
+	transform: translateY(1rem);
+	opacity: 0;
+}
+100%{
+	transform: translateY(0);
+	opacity: 1;
+}
+`;
 
 const SignupPage = styled.div`
 	background-image: linear-gradient(120deg, #fff 0, #fff 50%, #0077b6 50%);
@@ -37,6 +47,8 @@ const Container = styled.div`
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	animation: ${MoveUp} 0.5s;
+	animation-fill-mode: backwards;
 	@media only screen and (max-width: 30rem) {
 		background-image: none;
 		background-color: #0077b6;
@@ -52,6 +64,8 @@ const FormContainer = styled.div`
 const Form = styled.form`
 	padding: 3rem 2rem;
 	width: 50%;
+	animation: ${MoveUp} 0.5s 0.4s;
+	animation-fill-mode: backwards;
 	@media only screen and (max-width: 30rem) {
 		width: 100%;
 	}
@@ -324,7 +338,7 @@ function Page() {
 								</Button>
 							</Form>
 							<NewUser>
-								<span style={{width: "100%"}}>
+								<span style={{ width: "100%" }}>
 									Already Have An Account
 									<Link className="link margin-left-small" href={"/login"}>
 										Login

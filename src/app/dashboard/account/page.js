@@ -85,7 +85,7 @@ const TopContainer = styled.div`
 	animation: ${MoveInLeft} 0.5s;
 	animation-fill-mode: backwards;
 	@media only screen and (max-width: 30rem) {
-		width: 90%;
+		width: 95%;
 	}
 `;
 

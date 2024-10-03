@@ -20,10 +20,11 @@ const MoveUp = keyframes`
 const NewOrder = styled.div`
 	animation: ${MoveUp} 0.5s;
 	animation-fill-mode: backwards;
+	padding-bottom: 4rem;
+	
 `;
 const Form = styled.form`
 	padding-top: 4rem;
-	padding-bottom: 4rem;
 	display: flex;
 	justify-content: space-between;
 

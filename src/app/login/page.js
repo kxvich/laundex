@@ -1,6 +1,6 @@
 "use client";
 
-import styled from "styled-components";
+import {styled,keyframes} from "styled-components";
 import Image from "next/image";
 import Button from "@/_components/Button";
 import Link from "next/link";
@@ -16,6 +16,16 @@ const SpinnerContainer = styled.div`
 	display: flex;
 	justify-content: center;
 	align-items: center;
+`;
+const MoveUp = keyframes`
+0%{
+	transform: translateY(1rem);
+	opacity: 0;
+}
+100%{
+	transform: translateY(0);
+	opacity: 1;
+}
 `;
 
 const LoginPage = styled.div`
@@ -39,6 +49,8 @@ const Container = styled.div`
 	padding: 4rem;
 	display: flex;
 	justify-content: space-between;
+	animation: ${MoveUp} 0.5s;
+	animation-fill-mode: backwards;
 	/* overflow: hidden; */
 	@media only screen and (max-width: 30rem) {
 		background-image: none;
@@ -56,6 +68,8 @@ const FormContainer = styled.div`
 const Form = styled.form`
 	padding: 3rem 2rem;
 	width: 50%;
+	animation: ${MoveUp} 0.5s .4s;
+	animation-fill-mode: backwards;
 	@media only screen and (max-width: 30rem) {
 		width: 100%;
 	}

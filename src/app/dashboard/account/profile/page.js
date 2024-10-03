@@ -21,10 +21,10 @@ const Profile = styled.div`
 	animation: ${MoveUp} 0.5s;
 	animation-fill-mode: backwards;
 	height: 100vh;
+	padding-bottom: 4rem;
 `;
 const Form = styled.form`
 	padding-top: 4rem;
-	padding-bottom: 4rem;
 	display: flex;
 	justify-content: space-between;
 
@@ -96,7 +96,7 @@ function Page() {
 				surname: `${data[0]?.surname}`,
 				phoneNumber: data[0]?.phoneNumber || "",
 				email: userEmail,
-				address:  data[0]?.address || ""
+				address: data[0]?.address || "",
 			}));
 		}
 	}, [data, userEmail]);
