@@ -1,6 +1,6 @@
 "use client";
 
-import {styled,keyframes} from "styled-components";
+import { styled, keyframes } from "styled-components";
 import Image from "next/image";
 import Button from "@/_components/Button";
 import Link from "next/link";
@@ -35,7 +35,7 @@ const LoginPage = styled.div`
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	
+
 	@media only screen and (max-width: 30rem) {
 		background-image: none;
 	}
@@ -61,6 +61,8 @@ const Container = styled.div`
 `;
 const FormContainer = styled.div`
 	width: 50%;
+	animation: ${MoveUp} 0.5s 0.4s;
+	animation-fill-mode: backwards;
 	@media only screen and (max-width: 30rem) {
 		width: 100%;
 	}
@@ -68,8 +70,7 @@ const FormContainer = styled.div`
 const Form = styled.form`
 	padding: 3rem 2rem;
 	width: 50%;
-	animation: ${MoveUp} 0.5s .4s;
-	animation-fill-mode: backwards;
+
 	@media only screen and (max-width: 30rem) {
 		width: 100%;
 	}

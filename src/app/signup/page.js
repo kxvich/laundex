@@ -57,6 +57,8 @@ const Container = styled.div`
 `;
 const FormContainer = styled.div`
 	width: 50%;
+	animation: ${MoveUp} 0.5s 0.4s;
+	animation-fill-mode: backwards;
 	@media only screen and (max-width: 30rem) {
 		width: 100%;
 	}
@@ -64,8 +66,7 @@ const FormContainer = styled.div`
 const Form = styled.form`
 	padding: 3rem 2rem;
 	width: 50%;
-	animation: ${MoveUp} 0.5s 0.4s;
-	animation-fill-mode: backwards;
+	
 	@media only screen and (max-width: 30rem) {
 		width: 100%;
 	}
