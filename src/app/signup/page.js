@@ -1,6 +1,6 @@
 "use client";
 
-import styled from "styled-components";
+import {styled,keyframes} from "styled-components";
 import Image from "next/image";
 import Button from "@/_components/Button";
 import Link from "next/link";
