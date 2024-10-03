@@ -39,6 +39,8 @@ const Close = styled.span`
 
 const Dashboard = styled.div`
 	display: flex;
+	background-color: #E5F0F0;
+
 `;
 const Menu = styled.div`
 	font-size: 2rem;
