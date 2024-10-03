@@ -99,6 +99,16 @@ const Message = styled.h2`
 	animation-fill-mode: backwards;
 	font-weight: 400;
 `;
+const NavName = styled.h1`
+	font-size: 2.5rem;
+	animation: ${MoveInLeft} 0.5s 0.2s;
+	animation-fill-mode: backwards;
+`;
+const Message = styled.h2`
+	animation: ${MoveInLeft} 0.5s 0.2s;
+	animation-fill-mode: backwards;
+	font-weight: 400;
+`;
 const BoxContainer = styled.div`
 	display: flex;
 	justify-content: space-between;
