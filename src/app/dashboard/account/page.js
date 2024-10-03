@@ -85,7 +85,7 @@ const TopContainer = styled.div`
 	animation: ${MoveInLeft} 0.5s;
 	animation-fill-mode: backwards;
 	@media only screen and (max-width: 30rem) {
-		width: 95%;
+		width: 90%;
 	}
 `;
 
@@ -112,7 +112,7 @@ const BoxContainer = styled.div`
 		flex-direction: column;
 		padding: 4rem 0;
 		margin-bottom: 4rem;
-		margin-right: 2rem;
+		margin-right: 4rem;
 	}
 `;
 const Box1 = styled.div`

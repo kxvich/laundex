@@ -54,7 +54,7 @@ const SideBar = styled.div`
 	animation: ${MoveInLeft} 0.2s;
 	animation-fill-mode: backwards;
 	@media only screen and (max-width: 30rem) {
-		width: 85%;
+		width: 90%;
 		padding: 3rem 0 8.35rem;
 		height: 100vh;
 	}
