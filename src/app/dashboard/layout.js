@@ -40,7 +40,7 @@ const Close = styled.span`
 const Dashboard = styled.div`
 	display: flex;
 	background-color: #e5f0f0;
-	padding-bottom: 4rem;
+	/* padding-bottom: 4rem; */
 `;
 const Menu = styled.div`
 	font-size: 2rem;

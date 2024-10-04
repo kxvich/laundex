@@ -7,7 +7,6 @@ body {
 	padding: 0;
 	font-family: "Poppins", sans-serif;
 	-webkit-tap-highlight-color: transparent;
-	
 }
 
 html {
@@ -20,7 +19,9 @@ html {
 		font-size: 50%;
 	}
 
-	input, textarea, select {
+	input,
+	textarea,
+	select {
 		font-size: 16px;
 	}
 }

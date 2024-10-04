@@ -21,7 +21,7 @@ const StyledOrderDetails = styled.div`
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	margin-top: 1rem;
+	margin-top: 5rem;
 	animation: ${MoveUp} 0.5s;
 	animation-fill-mode: backwards;
 `;
@@ -32,6 +32,11 @@ const Container = styled.div`
 	border-radius: 2rem;
 	overflow: hidden;
 	color: #fff;
+
+	@media only screen and (max-width: 48rem) {
+		width: 100%;
+		margin-right: 2rem;
+	}
 `;
 
 const Heading = styled.h1`
@@ -96,7 +101,7 @@ function OrderDetails() {
 					</ItemsContainer>
 					<ItemsContainer>
 						<ItemName>Total</ItemName>
-						<ItemValue>{Details?.at(id).created_at}</ItemValue>
+						<ItemValue>{Details?.at(id).status}</ItemValue>
 					</ItemsContainer>
 				</Container>
 			</StyledOrderDetails>

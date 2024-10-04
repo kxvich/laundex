@@ -6,8 +6,8 @@ import { styled, keyframes } from "styled-components";
 import { UserContext } from "../../layout";
 import { useRouter } from "next/navigation";
 import supabase from "@/services/supabase";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import useMediaQuery from "@/Hooks/useMediaQuery";
+
 import {
 	useQuery,
 	QueryClient,
@@ -39,16 +39,10 @@ const History = styled.div`
 const Container = styled.div`
 	padding-top: 4rem;
 	position: relative;
-	height: 100vh;
+	/* height: 100vh; */
 	overflow: hidden;
-
-	/* display: flex;
-	justify-content: space-between; */
-
-	@media only screen and (max-width: 48rem) {
-		position: relative;
-
-	}
+	display: flex;
+	flex-direction: column;
 `;
 const Heading = styled.h2`
 	color: #022b3a;
@@ -58,20 +52,66 @@ const Heading = styled.h2`
 		width: 100%;
 	}
 `;
+// const Wrapper = styled.div`
+// 	width: 100%;
+// 	border: 1px solid #022b3a;
+// 	border-radius: 1rem;
+// 	align-self: center;
+// 	animation: ${MoveUp} 0.5s;
+// 	animation-fill-mode: backwards;
+// `;
+// const Header = styled.ul`
+// 	list-style: none;
+// 	display: flex;
+// 	justify-content: space-between;
+// 	align-items: center;
+// 	font-size: 1.3rem;
+// 	font-weight: bold;
+// 	border-bottom: 2px solid #ddd;
+// 	color: #1f7a8c;
+// 	/* margin-bottom: 1.5rem; */
+// 	padding: 1.5rem 3rem;
+// `;
+// const HeaderItems = styled.li`
+// 	flex: 1;
+// 	animation: ${MoveUp} 0.5s 0.25s backwards;
+// `;
+
+// const Row = styled.ul`
+// 	display: flex;
+// 	justify-content: space-between;
+// 	align-items: center;
+// 	list-style: none;
+// 	width: 100%;
+// 	background-color: #1f7a8c;
+// 	padding: 1.5rem 3rem;
+// 	animation: ${MoveUp} 0.5s 0.25s backwards;
+// 	&:not(:last-child) {
+// 		border-bottom: 1px solid #ddd;
+// 	}
+// 	&:hover {
+// 		background-color: #022b3a;
+// 		/* color: #022b3a; */
+// 		transition: all 0.3s;
+// 		cursor: pointer;
+// 	}
+// `;
+// const RowItem = styled.li`
+// 	color: #fff;
+// 	flex: 1;
+// 	font-size: 1.2rem;
+// 	&:not(:last-child) {
+// 		/* margin-bottom: 1.5rem; */
+// 	}
+// `;
+
 const TableWrapper = styled.div`
 	border-radius: 1rem;
 	overflow: hidden;
 	border: 1px solid #022b3a;
 	margin-bottom: 3rem;
 	animation: ${MoveUp} 0.5s 0.25s backwards;
-	@media only screen and (max-width: 48rem) {
-		position: absolute;
-		top: 35%;
-		left: 50%;
-		transform: translate(-50%,-50%);
-		
-
-	}
+	
 `;
 const Table = styled.table`
 	width: 100%;
@@ -80,8 +120,7 @@ const Table = styled.table`
 	border-collapse: collapse;
 `;
 const TableHeader = styled.thead``;
-const TableRow = styled.tr`
-`
+const TableRow = styled.tr``;
 const TableHead = styled.th`
 	text-align: left;
 	border-bottom: 2px solid #ddd;
@@ -89,7 +128,6 @@ const TableHead = styled.th`
 	color: #1f7a8c;
 	padding: 2rem 2rem 1rem;
 	/* font-size: .2rem; */
-
 
 	/* @media only screen and (max-width: 48rem ) {
 		display: block;
@@ -115,9 +153,8 @@ const TableItem = styled.td`
 	font-weight: 500;
 	border-bottom: 1px solid #ddd;
 
-	@media only screen and (max-width: 48rem ) {
-		font-size: .8rem;
-
+	@media only screen and (max-width: 48rem) {
+		font-size: 0.8rem;
 	}
 `;
 
@@ -137,6 +174,7 @@ export async function fetchOrderHistory(Id) {
 function Page() {
 	const { data, userEmail, userId } = useContext(UserContext);
 	const router = useRouter();
+	const isMobile = useMediaQuery("(max-width: 500px)");
 
 	function handleSelection(id) {
 		router.push(`/dashboard/account/history/orderDetails?id=${id}`);
@@ -166,34 +204,118 @@ function Page() {
 							<Loader />
 						</SpinnerContainer>
 					) : (
+						// <Wrapper>
+						// 	{isMobile ? (
+						// 		<>
+						// 		<Header>
+						// 			<HeaderItems>Date</HeaderItems>
+						// 			<HeaderItems>Order id</HeaderItems>
+						// 			<HeaderItems>Status</HeaderItems>
+						// 		</Header>
+						// 		{orderHistoryData
+						// 				? orderHistoryData.map((value, index) => (
+						// 						<>
+						// 							<Row
+						// 								key={index}
+						// 								onClick={() => handleSelection(index)}
+						// 							>
+						// 								<RowItem>{value.created_at.slice(0, 10)}</RowItem>
+						// 								<RowItem>{value.orderId}</RowItem>
+						// 								<RowItem>{value.plan}</RowItem>
+
+						// 							</Row>
+						// 						</>
+						// 				  ))
+						// 				: ""}</>
+						// 	) : (
+						// 		<>
+						// 			<Header>
+						// 				<HeaderItems>Order id</HeaderItems>
+						// 				<HeaderItems>Date</HeaderItems>
+						// 				<HeaderItems>Plan</HeaderItems>
+						// 				<HeaderItems>Status</HeaderItems>
+						// 				<HeaderItems>Total</HeaderItems>
+						// 			</Header>
+						// 			{orderHistoryData
+						// 				? orderHistoryData.map((value, index) => (
+						// 						<>
+						// 							<Row
+						// 								key={index}
+						// 								onClick={() => handleSelection(index)}
+						// 							>
+						// 								<RowItem>{value.orderId}</RowItem>
+						// 								<RowItem>{value.created_at.slice(0, 10)}</RowItem>
+						// 								<RowItem>{value.plan}</RowItem>
+						// 								<RowItem>{value.status}</RowItem>
+						// 								<RowItem>{"price"}</RowItem>
+						// 							</Row>
+						// 						</>
+						// 				  ))
+						// 				: ""}
+						// 		</>
+						// 	)}
+						// </Wrapper>
+
 						<TableWrapper>
-							<Table>
-								<TableHeader>
-									<TableRow>
-										<TableHead>Order id</TableHead>
-										<TableHead>Date</TableHead>
-										<TableHead>Plan</TableHead>
-										<TableHead>Status</TableHead>
-										<TableHead>Total</TableHead>
-									</TableRow>
-								</TableHeader>
-								<TableBody>
-									{orderHistoryData
-										? orderHistoryData.map((value, index) => (
-												<TableBodyRow
-													key={value.orderId}
-													onClick={() => handleSelection(index)}
-												>
-													<TableItem>{value.orderId}</TableItem>
-													<TableItem>{value.created_at.slice(0, 10)}</TableItem>
-													<TableItem>{value.plan}</TableItem>
-													<TableItem>{value.status}</TableItem>
-													<TableItem>$40</TableItem>
-												</TableBodyRow>
-										  ))
-										: ""}
-								</TableBody>
-							</Table>
+							{isMobile ? (
+								<Table>
+									<TableHeader>
+										<TableRow>
+											<TableHead>Date</TableHead>
+											<TableHead>Order id</TableHead>
+											<TableHead>Status</TableHead>
+											<TableHead>Total</TableHead>
+										</TableRow>
+									</TableHeader>
+									<TableBody>
+										{orderHistoryData
+											? orderHistoryData.map((value, index) => (
+													<TableBodyRow
+														key={value.orderId}
+														onClick={() => handleSelection(index)}
+													>
+														<TableItem>
+															{value.created_at.slice(0, 10)}
+														</TableItem>
+														<TableItem>{value.orderId}</TableItem>
+														<TableItem>{value.status}</TableItem>
+														<TableItem>$40</TableItem>
+													</TableBodyRow>
+											  ))
+											: ""}
+									</TableBody>
+								</Table>
+							) : (
+								<Table>
+									<TableHeader>
+										<TableRow>
+											<TableHead>Order id</TableHead>
+											<TableHead>Date</TableHead>
+											<TableHead>Plan</TableHead>
+											<TableHead>Status</TableHead>
+											<TableHead>Total</TableHead>
+										</TableRow>
+									</TableHeader>
+									<TableBody>
+										{orderHistoryData
+											? orderHistoryData.map((value, index) => (
+													<TableBodyRow
+														key={value.orderId}
+														onClick={() => handleSelection(index)}
+													>
+														<TableItem>{value.orderId}</TableItem>
+														<TableItem>
+															{value.created_at.slice(0, 10)}
+														</TableItem>
+														<TableItem>{value.plan}</TableItem>
+														<TableItem>{value.status}</TableItem>
+														<TableItem>$40</TableItem>
+													</TableBodyRow>
+											  ))
+											: ""}
+									</TableBody>
+								</Table>
+							)}
 						</TableWrapper>
 					)}
 				</Container>
