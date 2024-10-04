@@ -39,9 +39,8 @@ const Close = styled.span`
 
 const Dashboard = styled.div`
 	display: flex;
-	background-color: #E5F0F0;
+	background-color: #e5f0f0;
 	padding-bottom: 4rem;
-
 `;
 const Menu = styled.div`
 	font-size: 2rem;
@@ -105,6 +104,7 @@ const SideBarlistItems = styled.li`
 const Container = styled.div`
 	flex: 1;
 	padding: 7rem 4rem;
+
 	@media only screen and (max-width: 30rem) {
 		padding: 4rem 2rem 0;
 	}

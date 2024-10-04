@@ -36,17 +36,19 @@ const History = styled.div`
 	animation: ${MoveUp} 0.5s;
 	animation-fill-mode: backwards;
 `;
-const Container = styled.form`
+const Container = styled.div`
 	padding-top: 4rem;
 	position: relative;
+	height: 100vh;
+	overflow: hidden;
 
 	/* display: flex;
 	justify-content: space-between; */
 
-	/* @media only screen and (max-width: 30rem) {
-		flex-direction: column;
-		width: 100%;
-	} */
+	@media only screen and (max-width: 48rem) {
+		position: relative;
+
+	}
 `;
 const Heading = styled.h2`
 	color: #022b3a;
@@ -62,6 +64,14 @@ const TableWrapper = styled.div`
 	border: 1px solid #022b3a;
 	margin-bottom: 3rem;
 	animation: ${MoveUp} 0.5s 0.25s backwards;
+	@media only screen and (max-width: 48rem) {
+		position: absolute;
+		top: 35%;
+		left: 50%;
+		transform: translate(-50%,-50%);
+		
+
+	}
 `;
 const Table = styled.table`
 	width: 100%;
@@ -70,13 +80,20 @@ const Table = styled.table`
 	border-collapse: collapse;
 `;
 const TableHeader = styled.thead``;
-const TableRow = styled.tr``;
+const TableRow = styled.tr`
+`
 const TableHead = styled.th`
 	text-align: left;
 	border-bottom: 2px solid #ddd;
 	font-weight: bold;
 	color: #1f7a8c;
 	padding: 2rem 2rem 1rem;
+	/* font-size: .2rem; */
+
+
+	/* @media only screen and (max-width: 48rem ) {
+		display: block;
+	} */
 `;
 const TableBody = styled.tbody`
 	background-color: #1f7a8c;
@@ -95,9 +112,13 @@ const TableBodyRow = styled.tr`
 const TableItem = styled.td`
 	text-align: left;
 	padding: 2rem 2rem 1rem;
-
 	font-weight: 500;
 	border-bottom: 1px solid #ddd;
+
+	@media only screen and (max-width: 48rem ) {
+		font-size: .8rem;
+
+	}
 `;
 
 export async function fetchOrderHistory(Id) {
