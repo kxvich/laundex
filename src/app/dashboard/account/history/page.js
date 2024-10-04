@@ -111,7 +111,6 @@ const TableWrapper = styled.div`
 	border: 1px solid #022b3a;
 	margin-bottom: 3rem;
 	animation: ${MoveUp} 0.5s 0.25s backwards;
-	
 `;
 const Table = styled.table`
 	width: 100%;
@@ -137,6 +136,7 @@ const TableBody = styled.tbody`
 	background-color: #1f7a8c;
 `;
 const TableBodyRow = styled.tr`
+	-webkit-tap-highlight-color: transparent;
 	color: #fff;
 
 	&:hover {
@@ -144,6 +144,16 @@ const TableBodyRow = styled.tr`
 		color: #022b3a;
 		transition: all 0.3s;
 		cursor: pointer;
+	}
+
+	@media only screen and (max-width: 48rem) {
+		&:hover,
+		:active {
+			background-color: none;
+			color: none;
+			transition: all 0.3s;
+			cursor: pointer;
+		}
 	}
 `;
 
