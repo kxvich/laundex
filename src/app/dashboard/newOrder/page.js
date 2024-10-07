@@ -126,7 +126,7 @@ const ClotheItem = styled.div`
 	animation: ${MoveUp} 0.5s 0.2s;
 	animation-fill-mode: backwards;
 	@media only screen and (max-width: 30rem) {
-		width: 40%;
+		width: 20rem;
 	}
 `;
 const Checkbox = styled.input`
@@ -174,12 +174,12 @@ function Page() {
 		plan: "",
 		pickupDelivery: "",
 		clothes: {
-			shirts: "",
-			pants: "",
-			dresses: "",
-			bedspread: "",
-			duvet: "",
-			towels: "",
+			shirts: 1,
+			pants: 1,
+			dresses: 1,
+			bedspread: 1,
+			duvet: 1,
+			towels: 1,
 		},
 		customEntry: "",
 	});
