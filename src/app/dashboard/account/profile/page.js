@@ -24,9 +24,14 @@ const Profile = styled.div`
 	padding-bottom: 4rem;
 `;
 const Form = styled.form`
-	padding-top: 4rem;
+	padding: 4rem 0 2rem 4rem;
 	display: flex;
 	justify-content: space-between;
+	border: 1px solid #e5f0f0;
+	border-radius: 1rem;
+	margin-top: 2rem;
+	margin-bottom: 3rem;
+	background-color: #1f7a8c;
 
 	@media only screen and (max-width: 30rem) {
 		flex-direction: column;
@@ -34,9 +39,11 @@ const Form = styled.form`
 	}
 `;
 const Heading = styled.h2`
-	color: #022b3a;
+	color: #fff;
 	font-size: 2rem;
 	margin-bottom: 2rem;
+	animation: ${MoveUp} 0.5s 0.2s;
+	animation-fill-mode: backwards;
 	@media only screen and (max-width: 30rem) {
 		width: 100%;
 	}
@@ -45,17 +52,24 @@ const Heading = styled.h2`
 const Label = styled.label`
 	display: block;
 	font-size: 1.5rem;
-	color: #1f7a8c;
+	color: #fff;
 	margin-bottom: 1rem;
+	animation: ${MoveUp} 0.5s 0.2s;
+	animation-fill-mode: backwards;
 `;
 const Input = styled.input`
 	display: block;
 	border: none;
 	width: 50%;
-	color: rgba(0, 0, 0, 0.8);
+	/* color: rgba(0, 0, 0, 0.8); */
+	color: #fff;
 	padding: 0.5rem;
 	margin-bottom: 2rem;
-	border-bottom: 1px solid #022b3a;
+	border-bottom: 1px solid #fff;
+	transition: all 0.3s;
+	background-color: transparent;
+	animation: ${MoveUp} 0.5s 0.2s;
+	animation-fill-mode: backwards;
 	@media only screen and (max-width: 30rem) {
 		width: 60%;
 	}

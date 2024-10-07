@@ -21,12 +21,18 @@ const NewOrder = styled.div`
 	animation: ${MoveUp} 0.5s;
 	animation-fill-mode: backwards;
 	padding-bottom: 4rem;
-	
 `;
 const Form = styled.form`
-	padding-top: 4rem;
+	/* padding-top: 4rem;
+	padding-left: 2rem; */
+	padding: 4rem 0 2rem 4rem;
 	display: flex;
 	justify-content: space-between;
+	border: 1px solid #e5f0f0;
+	border-radius: 1rem;
+	margin-top: 2rem;
+	margin-bottom: 3rem;
+	background-color: #1f7a8c;
 
 	@media only screen and (max-width: 30rem) {
 		flex-direction: column;
@@ -34,9 +40,12 @@ const Form = styled.form`
 	}
 `;
 const Heading = styled.h2`
-	color: #022b3a;
+	/* color: #022b3a; */
+	color: #fff;
 	font-size: 2rem;
 	margin-bottom: 2rem;
+	animation: ${MoveUp} 0.5s 0.2s;
+	animation-fill-mode: backwards;
 	@media only screen and (max-width: 30rem) {
 		width: 100%;
 	}
@@ -45,19 +54,31 @@ const Heading = styled.h2`
 const Label = styled.label`
 	display: block;
 	font-size: 1.5rem;
-	color: #1f7a8c;
+	/* color: #1f7a8c; */
+	color: #fff;
 	margin-bottom: 1rem;
+	animation: ${MoveUp} 0.5s 0.2s;
+	animation-fill-mode: backwards;
 `;
 const Input = styled.input`
 	display: block;
 	border: none;
 	width: 50%;
-	color: rgba(0, 0, 0, 0.8);
+	/* color: rgba(0, 0, 0, 0.8); */
+	color: #fff;
 	padding: 0.5rem;
 	margin-bottom: 2rem;
-	border-bottom: 1px solid #022b3a;
+	/* border-bottom: 1px solid #022b3a; */
+	border-bottom: 1px solid #fff;
+	transition: all 0.3s;
+	background-color: transparent;
+	animation: ${MoveUp} 0.5s 0.2s;
+	animation-fill-mode: backwards;
 	@media only screen and (max-width: 30rem) {
 		width: 60%;
+	}
+	&::placeholder{
+		color: #fff;
 	}
 
 	&:focus {
@@ -69,16 +90,22 @@ const Selection = styled.select`
 	width: 30%;
 	padding: 1rem;
 	border-radius: 1rem;
-	border: 1px solid #1f7a8c;
+	/* border: 1px solid #1f7a8c; */
+	border: 1px solid #fff;
 	font-size: 1.2rem;
-	color: #022b3a;
-	background-color: white;
+	/* color: #022b3a; */
+	color: #fff;
+	/* background-color: white; */
+	background-color: transparent;
 	outline: none;
 	cursor: pointer;
 	margin-bottom: 2rem;
+	animation: ${MoveUp} 0.5s 0.2s;
+	animation-fill-mode: backwards;
 
 	&:focus {
-		border-color: #022b3a;
+		/* border-color: #022b3a; */
+		border-color: #fff;
 	}
 `;
 const Option = styled.option`
@@ -92,18 +119,32 @@ const Option = styled.option`
 	}
 `;
 const ClotheItem = styled.div`
-	width: 20%;
+	width: 20rem;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	animation: ${MoveUp} 0.5s 0.2s;
+	animation-fill-mode: backwards;
 	@media only screen and (max-width: 30rem) {
 		width: 40%;
 	}
 `;
 const Checkbox = styled.input`
 	margin-top: -1rem;
+	animation: ${MoveUp} 0.5s 0.2s;
+	animation-fill-mode: backwards;
 `;
-
+const NumberPicker = styled.input`
+width: 6rem;
+background-color: transparent;
+color: #fff;
+border: 1px solid #fff;
+border-radius: .5rem;
+padding: .25rem .5rem;
+&:focus{
+	outline: none;
+}
+`;
 const Container1 = styled.div`
 	width: 50%;
 	@media only screen and (max-width: 30rem) {
@@ -133,11 +174,12 @@ function Page() {
 		plan: "",
 		pickupDelivery: "",
 		clothes: {
-			shirts: false,
-			pants: false,
-			dresses: false,
-			beddings: false,
-			towels: false,
+			shirts: "",
+			pants: "",
+			dresses: "",
+			bedspread: "",
+			duvet: "",
+			towels: "",
 		},
 		customEntry: "",
 	});
@@ -159,12 +201,20 @@ function Page() {
 
 	function handleChange(e) {
 		const { name, type, checked, value } = e.target;
-		if (type === "checkbox") {
+		// if (type === "checkbox") {
+		// 	setFormData((formData) => ({
+		// 		...formData,
+		// 		clothes: {
+		// 			...formData.clothes,
+		// 			[name]: checked,
+		// 		},
+		// 	}));
+		if (type === "number") {
 			setFormData((formData) => ({
 				...formData,
 				clothes: {
 					...formData.clothes,
-					[name]: checked,
+					[name]: value,
 				},
 			}));
 		} else {
@@ -313,53 +363,118 @@ function Page() {
 					<Heading>Clothes:</Heading>
 					<ClotheItem>
 						<Label htmlFor="shirts">shirts</Label>
-						<Checkbox
+						<NumberPicker
+							name="shirts"
+							type="number"
+							min={1}
+							max={100}
+							step={1}
+							value={formData.clothes.shirts}
+							onChange={handleChange}
+						></NumberPicker>
+						{/* <Checkbox
 							className="margin-left-small"
 							type="checkbox"
 							name="shirts"
 							checked={formData.clothes.shirts}
 							onChange={handleChange}
-						></Checkbox>
+						></Checkbox> */}
 					</ClotheItem>
 					<ClotheItem>
 						<Label htmlFor="pants">pants</Label>
-						<Checkbox
+						<NumberPicker
+							name="pants"
+							type="number"
+							min={1}
+							max={100}
+							step={1}
+							value={formData.clothes.pants}
+							onChange={handleChange}
+						></NumberPicker>
+						{/* <Checkbox
 							className="margin-left-small"
 							type="checkbox"
 							name="pants"
 							checked={formData.clothes.pants}
 							onChange={handleChange}
-						></Checkbox>
+						></Checkbox> */}
 					</ClotheItem>
 					<ClotheItem>
 						<Label htmlFor="dresses">dresses</Label>
-						<Checkbox
+						<NumberPicker
+							name="dresses"
+							type="number"
+							min={1}
+							max={100}
+							step={1}
+							value={formData.clothes.dresses}
+							onChange={handleChange}
+						></NumberPicker>
+						{/* <Checkbox
 							className="margin-left-small"
 							type="checkbox"
 							name="dresses"
 							checked={formData.clothes.dresses}
 							onChange={handleChange}
-						></Checkbox>
+						></Checkbox> */}
 					</ClotheItem>
 					<ClotheItem>
-						<Label htmlFor="beddings">beddings</Label>
-						<Checkbox
+						<Label htmlFor="bedspread">bedspread</Label>
+						<NumberPicker
+							name="bedspread"
+							type="number"
+							min={1}
+							max={100}
+							step={1}
+							value={formData.clothes.bedspread}
+							onChange={handleChange}
+						></NumberPicker>
+						{/* <Checkbox
 							className="margin-left-small"
 							type="checkbox"
 							name="beddings"
 							checked={formData.clothes.beddings}
 							onChange={handleChange}
-						></Checkbox>
+						></Checkbox> */}
 					</ClotheItem>
 					<ClotheItem>
+						<Label htmlFor="duvet">duvet</Label>
+						<NumberPicker
+							name="duvet"
+							type="number"
+							min={1}
+							max={100}
+							step={1}
+							value={formData.clothes.duvet}
+							onChange={handleChange}
+						></NumberPicker>
+						{/* <Checkbox
+							className="margin-left-small"
+							type="checkbox"
+							name="beddings"
+							checked={formData.clothes.beddings}
+							onChange={handleChange}
+						></Checkbox> */}
+					</ClotheItem>
+					
+					<ClotheItem>
 						<Label htmlFor="towels">towels</Label>
-						<Checkbox
+						<NumberPicker
+							name="towels"
+							type="number"
+							min={1}
+							max={100}
+							step={1}
+							value={formData.clothes.towels}
+							onChange={handleChange}
+						></NumberPicker>
+						{/* <Checkbox
 							className="margin-left-small"
 							type="checkbox"
 							name="towels"
 							checked={formData.clothes.towels}
 							onChange={handleChange}
-						></Checkbox>
+						></Checkbox> */}
 					</ClotheItem>
 
 					<Label htmlFor="customEntry">custom Entry: </Label>
