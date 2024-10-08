@@ -217,13 +217,15 @@ function Page() {
 					</Box1>
 				</Link>
 
-				<Box2>
-					<BoxIcon>
-						<i className="fa-solid fa-eye"></i>
-					</BoxIcon>
-					<BoxText>TRACK ORDER</BoxText>
-					<BoxDescription>Track all orders</BoxDescription>
-				</Box2>
+				<Link className="textDecor" href={"/dashboard/trackOrder"}>
+					<Box2>
+						<BoxIcon>
+							<i className="fa-solid fa-eye"></i>
+						</BoxIcon>
+						<BoxText>TRACK ORDER</BoxText>
+						<BoxDescription>Track all orders</BoxDescription>
+					</Box2>
+				</Link>
 				<Box3>
 					<BoxIcon>
 						<i className="fa-solid fa-truck"></i>

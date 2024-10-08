@@ -7,15 +7,8 @@ import { UserContext } from "../../layout";
 import { useRouter } from "next/navigation";
 import supabase from "@/services/supabase";
 import useMediaQuery from "@/Hooks/useMediaQuery";
-
-import {
-	useQuery,
-	QueryClient,
-	QueryClientProvider,
-} from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import Loader from "@/_components/Loader";
-
-const queryClient = new QueryClient();
 const SpinnerContainer = styled.div`
 	height: 100vh;
 	width: 100%;
@@ -182,7 +175,7 @@ export async function fetchOrderHistory(Id) {
 }
 
 function Page() {
-	const { data, userEmail, userId } = useContext(UserContext);
+	const { userId } = useContext(UserContext);
 	const router = useRouter();
 	const isMobile = useMediaQuery("(max-width: 500px)");
 
@@ -203,135 +196,129 @@ function Page() {
 	console.log(orderHistoryData);
 
 	return (
-		<QueryClientProvider client={queryClient}>
-			<History>
-				<Button onclick={() => router.back()}>Back</Button>
+		<History>
+			<Button onclick={() => router.back()}>Back</Button>
 
-				<Container>
-					<Heading>Order history:</Heading>
-					{isLoading ? (
-						<SpinnerContainer>
-							<Loader />
-						</SpinnerContainer>
-					) : (
-						// <Wrapper>
-						// 	{isMobile ? (
-						// 		<>
-						// 		<Header>
-						// 			<HeaderItems>Date</HeaderItems>
-						// 			<HeaderItems>Order id</HeaderItems>
-						// 			<HeaderItems>Status</HeaderItems>
-						// 		</Header>
-						// 		{orderHistoryData
-						// 				? orderHistoryData.map((value, index) => (
-						// 						<>
-						// 							<Row
-						// 								key={index}
-						// 								onClick={() => handleSelection(index)}
-						// 							>
-						// 								<RowItem>{value.created_at.slice(0, 10)}</RowItem>
-						// 								<RowItem>{value.orderId}</RowItem>
-						// 								<RowItem>{value.plan}</RowItem>
+			<Container>
+				<Heading>Order history:</Heading>
+				{isLoading ? (
+					<SpinnerContainer>
+						<Loader />
+					</SpinnerContainer>
+				) : (
+					// <Wrapper>
+					// 	{isMobile ? (
+					// 		<>
+					// 		<Header>
+					// 			<HeaderItems>Date</HeaderItems>
+					// 			<HeaderItems>Order id</HeaderItems>
+					// 			<HeaderItems>Status</HeaderItems>
+					// 		</Header>
+					// 		{orderHistoryData
+					// 				? orderHistoryData.map((value, index) => (
+					// 						<>
+					// 							<Row
+					// 								key={index}
+					// 								onClick={() => handleSelection(index)}
+					// 							>
+					// 								<RowItem>{value.created_at.slice(0, 10)}</RowItem>
+					// 								<RowItem>{value.orderId}</RowItem>
+					// 								<RowItem>{value.plan}</RowItem>
 
-						// 							</Row>
-						// 						</>
-						// 				  ))
-						// 				: ""}</>
-						// 	) : (
-						// 		<>
-						// 			<Header>
-						// 				<HeaderItems>Order id</HeaderItems>
-						// 				<HeaderItems>Date</HeaderItems>
-						// 				<HeaderItems>Plan</HeaderItems>
-						// 				<HeaderItems>Status</HeaderItems>
-						// 				<HeaderItems>Total</HeaderItems>
-						// 			</Header>
-						// 			{orderHistoryData
-						// 				? orderHistoryData.map((value, index) => (
-						// 						<>
-						// 							<Row
-						// 								key={index}
-						// 								onClick={() => handleSelection(index)}
-						// 							>
-						// 								<RowItem>{value.orderId}</RowItem>
-						// 								<RowItem>{value.created_at.slice(0, 10)}</RowItem>
-						// 								<RowItem>{value.plan}</RowItem>
-						// 								<RowItem>{value.status}</RowItem>
-						// 								<RowItem>{"price"}</RowItem>
-						// 							</Row>
-						// 						</>
-						// 				  ))
-						// 				: ""}
-						// 		</>
-						// 	)}
-						// </Wrapper>
+					// 							</Row>
+					// 						</>
+					// 				  ))
+					// 				: ""}</>
+					// 	) : (
+					// 		<>
+					// 			<Header>
+					// 				<HeaderItems>Order id</HeaderItems>
+					// 				<HeaderItems>Date</HeaderItems>
+					// 				<HeaderItems>Plan</HeaderItems>
+					// 				<HeaderItems>Status</HeaderItems>
+					// 				<HeaderItems>Total</HeaderItems>
+					// 			</Header>
+					// 			{orderHistoryData
+					// 				? orderHistoryData.map((value, index) => (
+					// 						<>
+					// 							<Row
+					// 								key={index}
+					// 								onClick={() => handleSelection(index)}
+					// 							>
+					// 								<RowItem>{value.orderId}</RowItem>
+					// 								<RowItem>{value.created_at.slice(0, 10)}</RowItem>
+					// 								<RowItem>{value.plan}</RowItem>
+					// 								<RowItem>{value.status}</RowItem>
+					// 								<RowItem>{"price"}</RowItem>
+					// 							</Row>
+					// 						</>
+					// 				  ))
+					// 				: ""}
+					// 		</>
+					// 	)}
+					// </Wrapper>
 
-						<TableWrapper>
-							{isMobile ? (
-								<Table>
-									<TableHeader>
-										<TableRow>
-											<TableHead>Date</TableHead>
-											<TableHead>Order id</TableHead>
-											<TableHead>Status</TableHead>
-											<TableHead>Total</TableHead>
-										</TableRow>
-									</TableHeader>
-									<TableBody>
-										{orderHistoryData
-											? orderHistoryData.map((value, index) => (
-													<TableBodyRow
-														key={value.orderId}
-														onClick={() => handleSelection(index)}
-													>
-														<TableItem>
-															{value.created_at.slice(0, 10)}
-														</TableItem>
-														<TableItem>{value.orderId}</TableItem>
-														<TableItem>{value.status}</TableItem>
-														<TableItem>$40</TableItem>
-													</TableBodyRow>
-											  ))
-											: ""}
-									</TableBody>
-								</Table>
-							) : (
-								<Table>
-									<TableHeader>
-										<TableRow>
-											<TableHead>Order id</TableHead>
-											<TableHead>Date</TableHead>
-											<TableHead>Plan</TableHead>
-											<TableHead>Status</TableHead>
-											<TableHead>Total</TableHead>
-										</TableRow>
-									</TableHeader>
-									<TableBody>
-										{orderHistoryData
-											? orderHistoryData.map((value, index) => (
-													<TableBodyRow
-														key={value.orderId}
-														onClick={() => handleSelection(index)}
-													>
-														<TableItem>{value.orderId}</TableItem>
-														<TableItem>
-															{value.created_at.slice(0, 10)}
-														</TableItem>
-														<TableItem>{value.plan}</TableItem>
-														<TableItem>{value.status}</TableItem>
-														<TableItem>$40</TableItem>
-													</TableBodyRow>
-											  ))
-											: ""}
-									</TableBody>
-								</Table>
-							)}
-						</TableWrapper>
-					)}
-				</Container>
-				{/* <Button>Save</Button> */}
-			</History>
-		</QueryClientProvider>
+					<TableWrapper>
+						{isMobile ? (
+							<Table>
+								<TableHeader>
+									<TableRow>
+										<TableHead>Date</TableHead>
+										<TableHead>Order id</TableHead>
+										<TableHead>Status</TableHead>
+										<TableHead>Total</TableHead>
+									</TableRow>
+								</TableHeader>
+								<TableBody>
+									{orderHistoryData
+										? orderHistoryData.map((value, index) => (
+												<TableBodyRow
+													key={value.orderId}
+													onClick={() => handleSelection(index)}
+												>
+													<TableItem>{value.created_at.slice(0, 10)}</TableItem>
+													<TableItem>{value.orderId}</TableItem>
+													<TableItem>{value.status}</TableItem>
+													<TableItem>$40</TableItem>
+												</TableBodyRow>
+										  ))
+										: ""}
+								</TableBody>
+							</Table>
+						) : (
+							<Table>
+								<TableHeader>
+									<TableRow>
+										<TableHead>Order id</TableHead>
+										<TableHead>Date</TableHead>
+										<TableHead>Plan</TableHead>
+										<TableHead>Status</TableHead>
+										<TableHead>Total</TableHead>
+									</TableRow>
+								</TableHeader>
+								<TableBody>
+									{orderHistoryData
+										? orderHistoryData.map((value, index) => (
+												<TableBodyRow
+													key={value.orderId}
+													onClick={() => handleSelection(index)}
+												>
+													<TableItem>{value.orderId}</TableItem>
+													<TableItem>{value.created_at.slice(0, 10)}</TableItem>
+													<TableItem>{value.plan}</TableItem>
+													<TableItem>{value.status}</TableItem>
+													<TableItem>$40</TableItem>
+												</TableBodyRow>
+										  ))
+										: ""}
+								</TableBody>
+							</Table>
+						)}
+					</TableWrapper>
+				)}
+			</Container>
+			{/* <Button>Save</Button> */}
+		</History>
 	);
 }
 

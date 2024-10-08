@@ -8,7 +8,7 @@ import { createContext, useEffect, useState } from "react";
 import Loader from "@/_components/Loader";
 import NotAuthorized from "@/_components/NotAuthorized";
 import {
-	QueryClient,
+	// QueryClient,
 	useQuery,
 	QueryClientProvider,
 } from "@tanstack/react-query";
@@ -129,7 +129,7 @@ export default function Layout({ children }) {
 	const [isAuthenticated, setIsAuthenticated] = useState(false);
 	const [userId, setUserId] = useState(null);
 	const [userEmail, setUserEmail] = useState(null);
-	const [queryClient] = useState(() => new QueryClient());
+	// const [queryClient] = useState(() => new QueryClient());
 	const [isOpen, setIsOpen] = useState(false);
 	const isMobile = useMediaQuery("(max-width: 500px)");
 
@@ -181,209 +181,207 @@ export default function Layout({ children }) {
 	}
 
 	return (
-		<QueryClientProvider client={queryClient}>
-			<UserContext.Provider value={{ data, userEmail, userId }}>
-				<Script
-					src="https://kit.fontawesome.com/b778254e02.js"
-					strategy="afterInteractive"
-					crossorigin="anonymous"
-				></Script>
-				{isLoading && (
-					<SpinnerContainer>
-						<Loader />
-					</SpinnerContainer>
-				)}
+		<UserContext.Provider value={{ data, userEmail, userId }}>
+			<Script
+				src="https://kit.fontawesome.com/b778254e02.js"
+				strategy="afterInteractive"
+				crossorigin="anonymous"
+			></Script>
+			{isLoading && (
+				<SpinnerContainer>
+					<Loader />
+				</SpinnerContainer>
+			)}
 
-				{!isAuthenticated && !isLoading && <NotAuthorized />}
-				{isAuthenticated && !data ? (
-					<SpinnerContainer>
-						<Loader />
-					</SpinnerContainer>
-				) : null}
-				{isAuthenticated && data && (
-					<Dashboard>
-						{!isOpen && isMobile && (
-							<Menu>
-								<i
-									onClick={() => setIsOpen(true)}
-									className="fa-solid fa-bars"
-								></i>
-							</Menu>
-						)}
-						{!isMobile && (
-							<SideBar>
-								{isMobile && (
-									<Close>
-										<i
-											onClick={() => setIsOpen(false)}
-											className="fa-solid fa-x"
-										></i>
-									</Close>
-								)}
-								<ProfileContainer>
-									<ProfilePicture></ProfilePicture>
-									<Username>
-										{data && data[0]?.firstName && data[0].firstName}
-									</Username>
-								</ProfileContainer>
+			{!isAuthenticated && !isLoading && <NotAuthorized />}
+			{isAuthenticated && !data ? (
+				<SpinnerContainer>
+					<Loader />
+				</SpinnerContainer>
+			) : null}
+			{isAuthenticated && data && (
+				<Dashboard>
+					{!isOpen && isMobile && (
+						<Menu>
+							<i
+								onClick={() => setIsOpen(true)}
+								className="fa-solid fa-bars"
+							></i>
+						</Menu>
+					)}
+					{!isMobile && (
+						<SideBar>
+							{isMobile && (
+								<Close>
+									<i
+										onClick={() => setIsOpen(false)}
+										className="fa-solid fa-x"
+									></i>
+								</Close>
+							)}
+							<ProfileContainer>
+								<ProfilePicture></ProfilePicture>
+								<Username>
+									{data && data[0]?.firstName && data[0].firstName}
+								</Username>
+							</ProfileContainer>
 
-								<SideBarlist>
-									<Link
+							<SideBarlist>
+								<Link
+									onClick={() => setIsOpen(false)}
+									className="textDecor"
+									href="/dashboard"
+								>
+									<SideBarlistItems>
+										<SideBarIcon>
+											<i className="fa-solid fa-house"></i>
+										</SideBarIcon>
+										Dashboard
+									</SideBarlistItems>
+								</Link>
+								<Link
+									onClick={() => setIsOpen(false)}
+									href="/dashboard/account"
+									className="textDecor"
+								>
+									<SideBarlistItems>
+										<SideBarIcon>
+											<i className="fa-solid fa-user"></i>
+										</SideBarIcon>
+										Account
+									</SideBarlistItems>
+								</Link>
+								<Link
+									onClick={() => setIsOpen(false)}
+									className="textDecor"
+									href={"/dashboard/support"}
+								>
+									<SideBarlistItems>
+										<SideBarIcon>
+											<i className="fa-solid fa-headset"></i>
+										</SideBarIcon>
+										Support & Help
+									</SideBarlistItems>
+								</Link>
+								<Link
+									onClick={() => setIsOpen(false)}
+									className="textDecor"
+									href={"/dashboard/settings"}
+								>
+									<SideBarlistItems>
+										<SideBarIcon>
+											<i className="fa-solid fa-gear"></i>
+										</SideBarIcon>
+										Settings
+									</SideBarlistItems>
+								</Link>
+								<Link
+									onClick={(e) => {
+										e.preventDefault();
+										setIsLoading(true);
+										handleLogout();
+									}}
+									className="textDecor"
+									href="/"
+								>
+									<SideBarlistItems>
+										<SideBarIcon>
+											<i className="fa-solid fa-right-from-bracket"></i>
+										</SideBarIcon>
+										Logout
+									</SideBarlistItems>
+								</Link>
+							</SideBarlist>
+						</SideBar>
+					)}
+					{isOpen && isMobile && (
+						<SideBar>
+							{isMobile && (
+								<Close>
+									<i
 										onClick={() => setIsOpen(false)}
-										className="textDecor"
-										href="/dashboard"
-									>
-										<SideBarlistItems>
-											<SideBarIcon>
-												<i className="fa-solid fa-house"></i>
-											</SideBarIcon>
-											Dashboard
-										</SideBarlistItems>
-									</Link>
-									<Link
-										onClick={() => setIsOpen(false)}
-										href="/dashboard/account"
-										className="textDecor"
-									>
-										<SideBarlistItems>
-											<SideBarIcon>
-												<i className="fa-solid fa-user"></i>
-											</SideBarIcon>
-											Account
-										</SideBarlistItems>
-									</Link>
-									<Link
-										onClick={() => setIsOpen(false)}
-										className="textDecor"
-										href={"/dashboard/support"}
-									>
-										<SideBarlistItems>
-											<SideBarIcon>
-												<i className="fa-solid fa-headset"></i>
-											</SideBarIcon>
-											Support & Help
-										</SideBarlistItems>
-									</Link>
-									<Link
-										onClick={() => setIsOpen(false)}
-										className="textDecor"
-										href={"/dashboard/settings"}
-									>
-										<SideBarlistItems>
-											<SideBarIcon>
-												<i className="fa-solid fa-gear"></i>
-											</SideBarIcon>
-											Settings
-										</SideBarlistItems>
-									</Link>
-									<Link
-										onClick={(e) => {
-											e.preventDefault();
-											setIsLoading(true);
-											handleLogout();
-										}}
-										className="textDecor"
-										href="/"
-									>
-										<SideBarlistItems>
-											<SideBarIcon>
-												<i className="fa-solid fa-right-from-bracket"></i>
-											</SideBarIcon>
-											Logout
-										</SideBarlistItems>
-									</Link>
-								</SideBarlist>
-							</SideBar>
-						)}
-						{isOpen && isMobile && (
-							<SideBar>
-								{isMobile && (
-									<Close>
-										<i
-											onClick={() => setIsOpen(false)}
-											className="fa-solid fa-x"
-										></i>
-									</Close>
-								)}
-								<ProfileContainer>
-									<ProfilePicture></ProfilePicture>
-									<Username>
-										{data && data[0]?.firstName && data[0].firstName}
-									</Username>
-								</ProfileContainer>
+										className="fa-solid fa-x"
+									></i>
+								</Close>
+							)}
+							<ProfileContainer>
+								<ProfilePicture></ProfilePicture>
+								<Username>
+									{data && data[0]?.firstName && data[0].firstName}
+								</Username>
+							</ProfileContainer>
 
-								<SideBarlist>
-									<Link
-										onClick={() => setIsOpen(false)}
-										className="textDecor"
-										href="/dashboard"
-									>
-										<SideBarlistItems>
-											<SideBarIcon>
-												<i className="fa-solid fa-house"></i>
-											</SideBarIcon>
-											Dashboard
-										</SideBarlistItems>
-									</Link>
-									<Link
-										onClick={() => setIsOpen(false)}
-										href="/dashboard/account"
-										className="textDecor"
-									>
-										<SideBarlistItems>
-											<SideBarIcon>
-												<i className="fa-solid fa-user"></i>
-											</SideBarIcon>
-											Account
-										</SideBarlistItems>
-									</Link>
-									<Link
-										onClick={() => setIsOpen(false)}
-										className="textDecor"
-										href={"/dashboard/support"}
-									>
-										<SideBarlistItems>
-											<SideBarIcon>
-												<i className="fa-solid fa-headset"></i>
-											</SideBarIcon>
-											Support & Help
-										</SideBarlistItems>
-									</Link>
-									<Link
-										onClick={() => setIsOpen(false)}
-										className="textDecor"
-										href={"/dashboard/settings"}
-									>
-										<SideBarlistItems>
-											<SideBarIcon>
-												<i className="fa-solid fa-gear"></i>
-											</SideBarIcon>
-											Settings
-										</SideBarlistItems>
-									</Link>
-									<Link
-										onClick={(e) => {
-											e.preventDefault();
-											setIsLoading(true);
-											handleLogout();
-										}}
-										className="textDecor"
-										href="/"
-									>
-										<SideBarlistItems>
-											<SideBarIcon>
-												<i className="fa-solid fa-right-from-bracket"></i>
-											</SideBarIcon>
-											Logout
-										</SideBarlistItems>
-									</Link>
-								</SideBarlist>
-							</SideBar>
-						)}
-						{!isOpen && <Container>{children}</Container>}
-					</Dashboard>
-				)}
-			</UserContext.Provider>
-		</QueryClientProvider>
+							<SideBarlist>
+								<Link
+									onClick={() => setIsOpen(false)}
+									className="textDecor"
+									href="/dashboard"
+								>
+									<SideBarlistItems>
+										<SideBarIcon>
+											<i className="fa-solid fa-house"></i>
+										</SideBarIcon>
+										Dashboard
+									</SideBarlistItems>
+								</Link>
+								<Link
+									onClick={() => setIsOpen(false)}
+									href="/dashboard/account"
+									className="textDecor"
+								>
+									<SideBarlistItems>
+										<SideBarIcon>
+											<i className="fa-solid fa-user"></i>
+										</SideBarIcon>
+										Account
+									</SideBarlistItems>
+								</Link>
+								<Link
+									onClick={() => setIsOpen(false)}
+									className="textDecor"
+									href={"/dashboard/support"}
+								>
+									<SideBarlistItems>
+										<SideBarIcon>
+											<i className="fa-solid fa-headset"></i>
+										</SideBarIcon>
+										Support & Help
+									</SideBarlistItems>
+								</Link>
+								<Link
+									onClick={() => setIsOpen(false)}
+									className="textDecor"
+									href={"/dashboard/settings"}
+								>
+									<SideBarlistItems>
+										<SideBarIcon>
+											<i className="fa-solid fa-gear"></i>
+										</SideBarIcon>
+										Settings
+									</SideBarlistItems>
+								</Link>
+								<Link
+									onClick={(e) => {
+										e.preventDefault();
+										setIsLoading(true);
+										handleLogout();
+									}}
+									className="textDecor"
+									href="/"
+								>
+									<SideBarlistItems>
+										<SideBarIcon>
+											<i className="fa-solid fa-right-from-bracket"></i>
+										</SideBarIcon>
+										Logout
+									</SideBarlistItems>
+								</Link>
+							</SideBarlist>
+						</SideBar>
+					)}
+					{!isOpen && <Container>{children}</Container>}
+				</Dashboard>
+			)}
+		</UserContext.Provider>
 	);
 }
