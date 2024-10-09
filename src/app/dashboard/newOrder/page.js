@@ -50,7 +50,6 @@ const Heading = styled.h2`
 		width: 100%;
 	}
 `;
-
 const Label = styled.label`
 	display: block;
 	font-size: 1.5rem;

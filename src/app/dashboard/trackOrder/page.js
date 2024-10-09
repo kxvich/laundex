@@ -3,11 +3,12 @@
 import { styled, keyframes } from "styled-components";
 import Button from "@/_components/Button";
 import { useRouter } from "next/navigation";
-import supabase from "@/services/supabase";
+// import supabase from "@/services/supabase";
 import { useQuery } from "@tanstack/react-query";
 import { useContext } from "react";
 import { UserContext } from "../layout";
 import Loader from "@/_components/Loader";
+import { fetchOrderHistory } from "../account/history/page";
 const SpinnerContainer = styled.div`
 	width: 100%;
 	display: flex;
@@ -46,8 +47,8 @@ const SearchBarContainer = styled.div`
 	animation: ${MoveUp} 0.5s 0.2s;
 	animation-fill-mode: backwards;
 	@media only screen and (max-width: 48rem) {
-        display: flex;
-		justify-content:center;
+		display: flex;
+		justify-content: center;
 		width: 100%;
 	}
 `;
@@ -61,7 +62,7 @@ const SearchBar = styled.input`
 	color: #fff;
 
 	@media only screen and (max-width: 48rem) {
-		font-size: 1.2rem;
+		font-size: 1.6rem;
 	}
 
 	&::placeholder {
@@ -118,7 +119,8 @@ const RecentOrder = styled.div`
 	animation: ${MoveUp} 0.5s 0.2s;
 	animation-fill-mode: backwards;
 	transition: all 0.3s;
-	padding: 0.5rem 1rem;
+	padding: 0.5rem 0;
+	cursor: pointer;
 	&:not(:last-child) {
 		margin-bottom: 2rem;
 		border-bottom: 1px solid #ddd;
@@ -126,6 +128,7 @@ const RecentOrder = styled.div`
 	&:hover {
 		background-color: #e5f0f0;
 		color: #022b3a;
+		padding: 0.5rem 1rem;
 	}
 	@media only screen and (max-width: 48rem) {
 		padding: 0;
@@ -156,25 +159,29 @@ const Message = styled.p`
 	animation-fill-mode: backwards;
 `;
 
-async function fetchPendingOrders(id) {
-	if (!id) return;
-	const { data, error } = await supabase
-		.from("newOrder")
-		.select("*")
-		.eq("userId", id);
-	if (error) {
-		console.log(error);
-	}
-	return data || null;
-}
+//  export async function fetchPendingOrders(id) {
+// 	if (!id) return;
+// 	const { data, error } = await supabase
+// 		.from("newOrder")
+// 		.select("*")
+// 		.eq("userId", id);
+// 	if (error) {
+// 		console.log(error);
+// 	}
+// 	return data || null;
+// }
 function Page() {
 	const { userId } = useContext(UserContext);
 	const { data, isLoading, isError, error } = useQuery({
 		queryKey: ["usersOrders", userId],
-		queryFn: () => fetchPendingOrders(userId),
+		queryFn: () => fetchOrderHistory(userId),
 		enabled: !!userId,
 	});
 	const router = useRouter();
+
+	function handleSelection(id) {
+		router.push(`/dashboard/trackOrder/orderDetails?id=${id}`);
+	}
 
 	return (
 		<StyledTrackOrder>
@@ -191,20 +198,25 @@ function Page() {
 						<Loader />
 					</SpinnerContainer>
 				) : data && data.length > 0 ? (
-					data
-						.filter((value) => value.status === "pending")
-						.map((value) => (
-							<>
-								<Header>
-									<OrderIdHeader>Order ID</OrderIdHeader>
-									<Status>Status</Status>
-								</Header>
-								<RecentOrder key={value.orderId}>
-									<RecentOrderId>{value.orderId}</RecentOrderId>
-									<RecentOrderStatus>{value.status}</RecentOrderStatus>
-								</RecentOrder>
-							</>
-						))
+					<>
+						<Header>
+							<OrderIdHeader>Order ID</OrderIdHeader>
+							<Status>Status</Status>
+						</Header>
+						{data
+							.filter((value) => value.status === "pending")
+							.map((value, index) => (
+								<>
+									<RecentOrder
+										onClick={() => handleSelection(index + 1)}
+										key={value.orderId}
+									>
+										<RecentOrderId>{value.orderId}</RecentOrderId>
+										<RecentOrderStatus>{value.status}</RecentOrderStatus>
+									</RecentOrder>
+								</>
+							))}
+					</>
 				) : (
 					<Message>You have no pending orders</Message>
 				)}

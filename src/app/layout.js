@@ -10,6 +10,11 @@ export default function RootLayout({ children }) {
 	return (
 		<html lang="en">
 			<head>
+			<Script
+				src="https://kit.fontawesome.com/b778254e02.js"
+				crossorigin="anonymous"
+				strategy="afterInteractive"
+			></Script>
 				<title>Laundex</title>
 				<meta
 					name="description"
