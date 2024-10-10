@@ -3,7 +3,7 @@ import styled, { keyframes } from "styled-components";
 import Script from "next/script";
 import Link from "next/link";
 import supabase from "@/services/supabase";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { createContext, useEffect, useState } from "react";
 import Loader from "@/_components/Loader";
 import NotAuthorized from "@/_components/NotAuthorized";
@@ -20,7 +20,6 @@ const SpinnerContainer = styled.div`
 	justify-content: center;
 	align-items: center;
 `;
-
 const MoveInLeft = keyframes`
 0%{
 	transform: translateX(-1rem);
@@ -36,7 +35,6 @@ const Close = styled.span`
 	color: #fff;
 	font-size: 2.3rem;
 `;
-
 const Dashboard = styled.div`
 	display: flex;
 	background-color: #e5f0f0;
@@ -80,13 +78,11 @@ const SideBarlist = styled.ul`
 	list-style-type: none;
 	color: #fff;
 `;
-
 const SideBarIcon = styled.span`
 	color: #fff;
 
 	margin-right: 1rem;
 `;
-
 const SideBarlistItems = styled.li`
 	font-size: 1.8rem;
 	margin-bottom: 2rem;
@@ -100,7 +96,6 @@ const SideBarlistItems = styled.li`
 		background-color: #022b3a;
 	}
 `;
-
 const Container = styled.div`
 	flex: 1;
 	padding: 7rem 4rem;
@@ -129,9 +124,9 @@ export default function Layout({ children }) {
 	const [isAuthenticated, setIsAuthenticated] = useState(false);
 	const [userId, setUserId] = useState(null);
 	const [userEmail, setUserEmail] = useState(null);
-	// const [queryClient] = useState(() => new QueryClient());
 	const [isOpen, setIsOpen] = useState(false);
 	const isMobile = useMediaQuery("(max-width: 500px)");
+	const pathname = usePathname();
 
 	useEffect(
 		function () {
@@ -232,7 +227,9 @@ export default function Layout({ children }) {
 									className="textDecor"
 									href="/dashboard"
 								>
-									<SideBarlistItems>
+									<SideBarlistItems
+										className={pathname === "/dashboard" ? "active" : ""}
+									>
 										<SideBarIcon>
 											<i className="fa-solid fa-house"></i>
 										</SideBarIcon>
@@ -244,7 +241,11 @@ export default function Layout({ children }) {
 									href="/dashboard/account"
 									className="textDecor"
 								>
-									<SideBarlistItems>
+									<SideBarlistItems
+										className={
+											pathname === "/dashboard/account" ? "active" : ""
+										}
+									>
 										<SideBarIcon>
 											<i className="fa-solid fa-user"></i>
 										</SideBarIcon>
@@ -256,7 +257,11 @@ export default function Layout({ children }) {
 									className="textDecor"
 									href={"/dashboard/support"}
 								>
-									<SideBarlistItems>
+									<SideBarlistItems
+										className={
+											pathname === "/dashboard/support" ? "active" : ""
+										}
+									>
 										<SideBarIcon>
 											<i className="fa-solid fa-headset"></i>
 										</SideBarIcon>
@@ -268,7 +273,11 @@ export default function Layout({ children }) {
 									className="textDecor"
 									href={"/dashboard/settings"}
 								>
-									<SideBarlistItems>
+									<SideBarlistItems
+										className={
+											pathname === "/dashboard/settings" ? "active" : ""
+										}
+									>
 										<SideBarIcon>
 											<i className="fa-solid fa-gear"></i>
 										</SideBarIcon>
@@ -317,7 +326,9 @@ export default function Layout({ children }) {
 									className="textDecor"
 									href="/dashboard"
 								>
-									<SideBarlistItems>
+									<SideBarlistItems
+										className={pathname === "/dashboard" ? "active" : ""}
+									>
 										<SideBarIcon>
 											<i className="fa-solid fa-house"></i>
 										</SideBarIcon>
@@ -329,7 +340,11 @@ export default function Layout({ children }) {
 									href="/dashboard/account"
 									className="textDecor"
 								>
-									<SideBarlistItems>
+									<SideBarlistItems
+										className={
+											pathname === "/dashboard/account" ? "active" : ""
+										}
+									>
 										<SideBarIcon>
 											<i className="fa-solid fa-user"></i>
 										</SideBarIcon>
@@ -341,7 +356,11 @@ export default function Layout({ children }) {
 									className="textDecor"
 									href={"/dashboard/support"}
 								>
-									<SideBarlistItems>
+									<SideBarlistItems
+										className={
+											pathname === "/dashboard/support" ? "active" : ""
+										}
+									>
 										<SideBarIcon>
 											<i className="fa-solid fa-headset"></i>
 										</SideBarIcon>
@@ -353,7 +372,11 @@ export default function Layout({ children }) {
 									className="textDecor"
 									href={"/dashboard/settings"}
 								>
-									<SideBarlistItems>
+									<SideBarlistItems
+										className={
+											pathname === "/dashboard/settings" ? "active" : ""
+										}
+									>
 										<SideBarIcon>
 											<i className="fa-solid fa-gear"></i>
 										</SideBarIcon>

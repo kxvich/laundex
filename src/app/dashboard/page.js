@@ -4,6 +4,8 @@ import Script from "next/script";
 import Link from "next/link";
 import { useContext, useState } from "react";
 import { UserContext } from "@/app/dashboard/layout";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 // const Dashboard = styled.div`
 // 	display: flex;
@@ -194,9 +196,26 @@ const BoxDescription = styled.p`
 function Page() {
 	const { data } = useContext(UserContext);
 	const [isOpen, setIsOpen] = useState(false);
+	const toastMessage = (message) =>
+		toast(message, {
+			style: { backgroundColor: "#022b3a", color: "#fff", fontSize: "1.5rem" },
+		});
 
 	return (
 		<>
+			<ToastContainer
+				position="top-center" // You can also try "bottom-center"
+				autoClose={3000}
+				hideProgressBar={false}
+				closeOnClick
+				pauseOnHover
+				draggable
+				theme="colored"
+				// style={{
+				// 	top: "50%", // Adjust this to center vertically
+				// 	transform: "translateY(-50%)", // Adjust to center perfectly in Y axis
+				// }}
+			/>
 			<Script
 				src="https://kit.fontawesome.com/b778254e02.js"
 				crossorigin="anonymous"
@@ -226,7 +245,9 @@ function Page() {
 						<BoxDescription>Track all orders</BoxDescription>
 					</Box2>
 				</Link>
-				<Box3>
+				<Box3
+					onClick={() => toastMessage("this section has not been implemented")}
+				>
 					<BoxIcon>
 						<i className="fa-solid fa-truck"></i>
 					</BoxIcon>

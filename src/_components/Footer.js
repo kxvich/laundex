@@ -1,6 +1,11 @@
 import useMediaQuery from "@/Hooks/useMediaQuery";
 import styled from "styled-components";
+import { Satisfy } from "@next/font/google";
 
+const satisfy = Satisfy({
+	weight: ["400"],
+	subsets: ["latin"],
+});
 const StyledFooter = styled.section`
 	background-color: #0077b6;
 	height: 50vh;
@@ -15,16 +20,13 @@ const StyledFooter = styled.section`
 `;
 const Logo = styled.h1`
 	color: #fff;
-	font-size: 2.25rem;
+	font-size: 2.5rem;
 	position: relative;
-	/* width: 50%; */
-	@media only screen and (max-width: 30rem) {
-		/* margin-right: 3rem; */
-	}
+	font-family: ${satisfy.style.fontFamily};
+	display: inline-block;
 `;
 const NavLinksContainer = styled.div`
 	display: flex;
-	
 `;
 const NavLinksHeading = styled.h2`
 	color: #fff;
@@ -46,10 +48,7 @@ function Footer() {
 	const isMobile = useMediaQuery("(max-width: 500px)");
 	return (
 		<StyledFooter>
-			{!isMobile && <Logo>
-				<i className="fa-solid fa-link"></i>
-				Laundex
-			</Logo>}
+			{!isMobile && <Logo>Laundex</Logo>}
 			<NavLinksContainer>
 				<NavLinks>
 					<NavLinksHeading>Navigation</NavLinksHeading>

@@ -63,6 +63,7 @@ function OrderDetails() {
 		enabled: !!userId, // Optional, to ensure the query runs only when `userId` is available
 	});
 	const { id } = router.query || {};
+	console.log(Details);
 
 	return (
 		<>
@@ -77,23 +78,23 @@ function OrderDetails() {
 					</ItemsContainer>
 					<ItemsContainer>
 						<ItemName>Shirts</ItemName>
-						<ItemValue>{Details?.at(id).status}</ItemValue>
+						<ItemValue>{Details?.at(id).clothes.shirts}</ItemValue>
 					</ItemsContainer>
 					<ItemsContainer>
 						<ItemName>Pants</ItemName>
-						<ItemValue>{Details?.at(id).status}</ItemValue>
+						<ItemValue>{Details?.at(id).clothes.pants}</ItemValue>
 					</ItemsContainer>
 					<ItemsContainer>
 						<ItemName>Dresses</ItemName>
-						<ItemValue>{Details?.at(id).status}</ItemValue>
+						<ItemValue>{Details?.at(id).clothes.dresses}</ItemValue>
 					</ItemsContainer>
 					<ItemsContainer>
 						<ItemName>Beddings</ItemName>
-						<ItemValue>{Details?.at(id).status}</ItemValue>
+						<ItemValue>{"x"}</ItemValue>
 					</ItemsContainer>
 					<ItemsContainer>
 						<ItemName>Towels</ItemName>
-						<ItemValue>{Details?.at(id).status}</ItemValue>
+						<ItemValue>{Details?.at(id).clothes.towels}</ItemValue>
 					</ItemsContainer>
 					<ItemsContainer>
 						<ItemName>Status</ItemName>

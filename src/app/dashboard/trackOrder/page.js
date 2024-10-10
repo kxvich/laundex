@@ -5,10 +5,11 @@ import Button from "@/_components/Button";
 import { useRouter } from "next/navigation";
 // import supabase from "@/services/supabase";
 import { useQuery } from "@tanstack/react-query";
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import { UserContext } from "../layout";
 import Loader from "@/_components/Loader";
 import { fetchOrderHistory } from "../account/history/page";
+import supabase from "@/services/supabase";
 const SpinnerContainer = styled.div`
 	width: 100%;
 	display: flex;
@@ -151,28 +152,79 @@ const RecentOrderStatus = styled.h3`
 		font-size: 1.2rem;
 	}
 `;
+const SearchOrder = styled.div`
+	display: flex;
+	color: #fff;
+	display: flex;
+	justify-content: space-between;
+	padding-bottom: 0.5rem;
+	animation: ${MoveUp} 0.5s 0.2s;
+	animation-fill-mode: backwards;
+	transition: all 0.3s;
+	padding: 0.5rem 0;
+	margin-top: 2rem;
+	cursor: pointer;
+	&:not(:last-child) {
+		margin-bottom: 2rem;
+		border-bottom: 1px solid #ddd;
+	}
+	&:hover {
+		background-color: #e5f0f0;
+		color: #022b3a;
+		padding: 0.5rem 1rem;
+	}
+	@media only screen and (max-width: 48rem) {
+		padding: 0;
+
+		&:hover {
+			background-color: none;
+			color: none;
+		}
+	}
+`;
+const SearchOrderId = styled.h3`
+	font-size: 1.4rem;
+	@media only screen and (max-width: 30rem) {
+		font-size: 1.2rem;
+	}
+`;
+const SearchOrderStatus = styled.h3`
+	font-size: 1.4rem;
+	@media only screen and (max-width: 30rem) {
+		font-size: 1.2rem;
+	}
+`;
 const Message = styled.p`
 	text-align: center;
 	color: #fff;
 	font-size: 2rem;
 	animation: ${MoveUp} 0.5s 0.2s;
 	animation-fill-mode: backwards;
+	margin-top: 2rem;
 `;
 
-//  export async function fetchPendingOrders(id) {
-// 	if (!id) return;
-// 	const { data, error } = await supabase
-// 		.from("newOrder")
-// 		.select("*")
-// 		.eq("userId", id);
-// 	if (error) {
-// 		console.log(error);
-// 	}
-// 	return data || null;
-// }
+async function UserSearch(input) {
+	if (input.length === 0) return;
+	const { data, error } = await supabase
+		.from("newOrder")
+		.select("*")
+		.eq("orderId", input);
+	if (error) {
+		return;
+	}
+	return data;
+}
 function Page() {
 	const { userId } = useContext(UserContext);
-	const { data, isLoading, isError, error } = useQuery({
+	const [searchInput, setSearchInput] = useState("");
+	const [error, setError] = useState("");
+	const [searchResult, setSearchResult] = useState({});
+	const {
+		data,
+		isLoading,
+		isError,
+		error: queryError,
+	} = useQuery({
 		queryKey: ["usersOrders", userId],
 		queryFn: () => fetchOrderHistory(userId),
 		enabled: !!userId,
@@ -182,6 +234,33 @@ function Page() {
 	function handleSelection(id) {
 		router.push(`/dashboard/trackOrder/orderDetails?id=${id}`);
 	}
+	async function handleSearch() {
+		const searchData = await UserSearch(searchInput);
+		if (searchData && searchData.length > 0) {
+			setSearchResult(searchData.at(0));
+		} else {
+			setError("order not found");
+		}
+		return;
+	}
+
+	function debounce(func, delay) {
+		let timeout;
+		return (...args) => {
+			if (timeout) clearTimeout(timeout);
+			timeout = setTimeout(() => {
+				func(...args);
+			}, delay);
+		};
+	}
+	const debouncedSearch = debounce(handleSearch, 500);
+	useEffect(() => {
+		if (searchInput) {
+			debouncedSearch(searchInput);
+		}
+		setSearchResult({});
+		setError("");
+	}, [searchInput]);
 
 	return (
 		<StyledTrackOrder>
@@ -189,36 +268,63 @@ function Page() {
 
 			<Container>
 				<SearchBarContainer>
-					<SearchBar placeholder="Enter your order id to track your laundry"></SearchBar>
-					<Button>search</Button>
+					<SearchBar
+						type="text"
+						value={searchInput}
+						onChange={(e) => setSearchInput(e.target.value)}
+						placeholder="Enter your order id to track your laundry"
+					></SearchBar>
+					<Button onclick={handleSearch}>search</Button>
 				</SearchBarContainer>
-				<Heading>Recent orders:</Heading>
 				{isLoading ? (
 					<SpinnerContainer>
 						<Loader />
 					</SpinnerContainer>
-				) : data && data.length > 0 ? (
+				) : searchInput.length > 0 && error ? (
 					<>
-						<Header>
-							<OrderIdHeader>Order ID</OrderIdHeader>
-							<Status>Status</Status>
-						</Header>
-						{data
-							.filter((value) => value.status === "pending")
-							.map((value, index) => (
-								<>
-									<RecentOrder
-										onClick={() => handleSelection(index + 1)}
-										key={value.orderId}
-									>
-										<RecentOrderId>{value.orderId}</RecentOrderId>
-										<RecentOrderStatus>{value.status}</RecentOrderStatus>
-									</RecentOrder>
-								</>
-							))}
+						<Message>order not found</Message>
+					</>
+				) : searchInput.length > 0 && Object.keys(searchResult).length > 0 ? (
+					<>
+						<SearchOrder
+							onClick={() => handleSelection(1)}
+							key={searchResult.orderId}
+						>
+							<SearchOrderId>{searchResult.orderId}</SearchOrderId>
+							<SearchOrderStatus>{searchResult.status}</SearchOrderStatus>
+						</SearchOrder>
 					</>
 				) : (
-					<Message>You have no pending orders</Message>
+					<>
+						<Heading>Recent orders:</Heading>
+						{isLoading ? (
+							<SpinnerContainer>
+								<Loader />
+							</SpinnerContainer>
+						) : data && data.length > 0 ? (
+							<>
+								<Header>
+									<OrderIdHeader>Order ID</OrderIdHeader>
+									<Status>Status</Status>
+								</Header>
+								{data
+									.filter((value) => value.status === "pending")
+									.map((value, index) => (
+										<>
+											<RecentOrder
+												onClick={() => handleSelection(index + 1)}
+												key={value.orderId}
+											>
+												<RecentOrderId>{value.orderId}</RecentOrderId>
+												<RecentOrderStatus>{value.status}</RecentOrderStatus>
+											</RecentOrder>
+										</>
+									))}
+							</>
+						) : (
+							<Message>You have no pending orders</Message>
+						)}
+					</>
 				)}
 			</Container>
 		</StyledTrackOrder>

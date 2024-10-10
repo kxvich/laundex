@@ -78,6 +78,10 @@ const Input = styled.input`
 		outline: none;
 		border-bottom: 1px solid #03045e;
 	}
+
+	&::placeholder {
+		color: #fff;
+	}
 `;
 const Container1 = styled.div`
 	width: 50%;
@@ -107,7 +111,7 @@ function Page() {
 			setFormData((formData) => ({
 				...formData,
 				firstName: ` ${data[0]?.firstName}`,
-				surname: `${data[0]?.surname}`,
+				surname: `${data[0]?.lastName}`,
 				phoneNumber: data[0]?.phoneNumber || "",
 				email: userEmail,
 				address: data[0]?.address || "",
@@ -189,7 +193,7 @@ function Page() {
 						onChange={handleChange}
 						required
 					></Input>
-					<Label htmlFor="Surname">Surname: </Label>
+					<Label htmlFor="Surname">Last Name: </Label>
 					<Input
 						name="surname"
 						placeholder="Enter surname"

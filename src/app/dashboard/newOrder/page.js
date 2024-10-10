@@ -187,7 +187,7 @@ function Page() {
 		if (data && data.length > 0) {
 			setFormData((formData) => ({
 				...formData,
-				fullName: `${data[0]?.surname} ${data[0]?.firstName}`,
+				fullName: `${data[0]?.lastName} ${data[0]?.firstName}`,
 				phoneNumber: data[0]?.phoneNumber || "",
 				email: userEmail,
 				address: data[0]?.address || "",
@@ -285,7 +285,7 @@ function Page() {
 						name="fullName"
 						placeholder="Enter Full Name"
 						type="text"
-						value={`${data && data[0]?.surname ? data[0].surname : ""} ${
+						value={`${data && data[0]?.lastName ? data[0].lastName : ""} ${
 							data && data[0]?.firstName ? data[0].firstName : ""
 						}`}
 						// onChange={handleChange}

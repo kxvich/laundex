@@ -99,7 +99,7 @@ const DecorAsterisk = styled.span`
 
 const decorationAsteriskPositions = [
 	{ top: "40%", left: "40%" },
-	{ top: "25%", left: "0%" },
+	{ top: "8%", left: "0%" },
 	{ top: "15%", left: "90%" },
 	{ top: "90%", left: "60%" },
 ];

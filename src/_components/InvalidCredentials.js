@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 const Text = styled.h1`
-	font-size: 2rem;
-	color: #fff;
+	font-size: 1.5rem;
+	color: crimson;
 `;
 
 function InvalidCredentials({message}) {
