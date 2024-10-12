@@ -4,7 +4,6 @@ import { useState } from "react";
 import useMediaQuery from "@/Hooks/useMediaQuery";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { Satisfy } from "@next/font/google";
 
 const MoveDown = keyframes`
 0%{
@@ -17,10 +16,6 @@ const MoveDown = keyframes`
 	transform: translateY(0);
 }
 `;
-const satisfy = Satisfy({
-	weight: ["400"],
-	subsets: ["latin"],
-});
 
 const Nav = styled.nav`
 	display: flex;
@@ -37,7 +32,7 @@ const Logo = styled.h1`
 	color: #022b3a;
 	font-size: 2.5rem;
 	position: relative;
-	font-family: ${satisfy.style.fontFamily};
+	font-family: "Satisfy", serif;
 	display: inline-block;
 `;
 
@@ -105,7 +100,7 @@ const TopGroup = styled.div`
 const Top = styled.div`
 	display: flex;
 	justify-content: space-between;
-	width:100%;
+	width: 100%;
 	margin-bottom: 4rem;
 	animation: ${MoveDown} 0.5s 0.2s;
 	animation-fill-mode: backwards;
@@ -163,7 +158,9 @@ function Navigation() {
 							</SideBarList>
 						</TopGroup>
 						<ButtonContainer>
-							<Button onclick={() => router.push("/signup")} width={"34rem"}>Sign up</Button>
+							<Button onclick={() => router.push("/signup")} width={"34rem"}>
+								Sign up
+							</Button>
 						</ButtonContainer>
 					</SideBar>
 				)}

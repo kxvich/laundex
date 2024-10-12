@@ -210,11 +210,7 @@ function Page() {
 				// 	transform: "translateY(-50%)", // Adjust to center perfectly in Y axis
 				// }}
 			/>
-			<Script
-				src="https://kit.fontawesome.com/b778254e02.js"
-				crossorigin="anonymous"
-				strategy="afterInteractive"
-			></Script>
+			
 			<TopContainer>
 				<NavName>Account</NavName>
 				<Message>update account information</Message>

@@ -177,11 +177,6 @@ export default function Layout({ children }) {
 
 	return (
 		<UserContext.Provider value={{ data, userEmail, userId }}>
-			<Script
-				src="https://kit.fontawesome.com/b778254e02.js"
-				strategy="afterInteractive"
-				crossorigin="anonymous"
-			></Script>
 			{isLoading && (
 				<SpinnerContainer>
 					<Loader />

@@ -216,10 +216,7 @@ function Page() {
 				// 	transform: "translateY(-50%)", // Adjust to center perfectly in Y axis
 				// }}
 			/>
-			<Script
-				src="https://kit.fontawesome.com/b778254e02.js"
-				crossorigin="anonymous"
-			></Script>
+			
 			<TopContainer>
 				<NavName>Dashboard</NavName>
 				<Message> Welcome {data && data[0]?.firstName}</Message>
