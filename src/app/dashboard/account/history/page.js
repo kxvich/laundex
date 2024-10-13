@@ -149,7 +149,6 @@ const TableBodyRow = styled.tr`
 		}
 	}
 `;
-
 const TableItem = styled.td`
 	text-align: left;
 	padding: 2rem 2rem 1rem;
@@ -160,7 +159,6 @@ const TableItem = styled.td`
 		font-size: 0.8rem;
 	}
 `;
-
 export async function fetchOrderHistory(Id) {
 	if (!Id) return;
 	const { data, error } = await supabase

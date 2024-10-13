@@ -55,7 +55,7 @@ const DescriptionContainer = styled.div`
 	transition: opacity 0.6s ease-out, transform 0.6s ease-out;
 	animation-fill-mode: forwards;
 
-	// Apply the animation when the item is in view
+	
 	&.visible {
 		opacity: 1;
 		animation: ${MoveUp} 0.6s ease-out;
@@ -107,13 +107,12 @@ const SectionPricing = styled.section`
 	 */
 	/* height: 100vh; */
 `;
-
 const PriceBoxContainer = styled.div`
 	display: flex;
 	justify-content: space-between;
 	width: 85%;
 	margin-bottom: 7rem;
-	@media only screen and (max-width: 30rem) {
+	@media only screen and (max-width: 48rem) {
 		flex-direction: column;
 		align-items: center;
 	}
@@ -133,11 +132,10 @@ const PriceBox = styled.div`
 		opacity: 1;
 		animation: ${MoveUp} 0.6s ease-out;
 	}
-	@media only screen and (max-width: 30rem) {
+	@media only screen and (max-width: 48rem) {
 		margin-bottom: 6rem;
 	}
 `;
-
 const PriceIcon = styled.div`
 	color: #0077b6;
 	font-size: 4rem;
@@ -168,27 +166,25 @@ const Description = styled.h3`
 		border-bottom: 1px solid #00b4d8;
 	}
 `;
-
 const DecorAsterisk = styled.span`
 	font-size: 3rem;
 	color: #03045e;
 	border-radius: 50%;
 	position: absolute;
-	top: ${(props) => props.top};
-	left: ${(props) => props.left};
+	top: ${(props) => props.$top};
+	left: ${(props) => props.$left};
 	transform: translate(-50%, -50%);
 	animation: spin 2s linear infinite;
 	z-index: 10;
 `;
-
 const decorationAsteriskPositions = [
-	// { top: "40%", left: "40%" },
-	{ top: "25%", left: "0%" },
-	{ top: "15%", left: "90%" },
-	{ top: "90%", left: "60%" },
-	{ top: "80%", left: "20%" },
-	{ top: "13%", left: "52%" },
-	{ top: "80%", left: "90%" },
+	// { $top: "40%", $left: "40%" },
+	{ $top: "25%", $left: "0%" },
+	{ $top: "15%", $left: "90%" },
+	{ $top: "90%", $left: "60%" },
+	{ $top: "80%", $left: "20%" },
+	{ $top: "13%", $left: "52%" },
+	{ $top: "80%", $left: "90%" },
 ];
 
 function Main() {
@@ -255,8 +251,7 @@ function Main() {
 							alt="signup-vector"
 							fill
 							sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw"
-							style={{ objectFit: "cover" }}
-							objectPosition="top"
+							style={{ objectFit: "cover", objectPosition: "top" }}
 						/>
 					</DescriptionImageContainer>
 				</DescriptionContainer>
@@ -391,7 +386,7 @@ function Main() {
 			</SectionHow>
 			<SectionPricing>
 				{decorationAsteriskPositions.map((value, i) => (
-					<DecorAsterisk top={value.top} left={value.left} key={i}>
+					<DecorAsterisk $top={value.$top} $left={value.$left} key={i}>
 						<i className="fa-solid fa-asterisk"></i>
 					</DecorAsterisk>
 				))}

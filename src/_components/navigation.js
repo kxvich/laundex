@@ -12,7 +12,6 @@ const MoveDown = keyframes`
 }
 100%{
 	opacity: 1;
-
 	transform: translateY(0);
 }
 `;
@@ -22,7 +21,7 @@ const Nav = styled.nav`
 	justify-content: space-between;
 	align-items: center;
 	padding-top: 2.5rem;
-	animation: movedown 1s;
+	animation: ${MoveDown} 1s 0.25s;
 	animation-fill-mode: backwards;
 	@media only screen and (max-width: 30rem) {
 		margin-bottom: 1.5rem;

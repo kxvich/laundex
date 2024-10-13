@@ -13,7 +13,7 @@ const StyledFooter = styled.section`
 	display: flex;
 	justify-content: space-between;
 
-	@media only screen and (max-width: 30rem) {
+	@media only screen and (max-width: 48rem) {
 		height: 40vh;
 		padding: 3rem;
 	}

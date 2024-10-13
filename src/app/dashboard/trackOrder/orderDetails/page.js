@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { useContext } from "react";
 import { UserContext } from "@/app/dashboard/layout";
-import { fetchOrderHistory } from "../page";
+import { fetchOrderHistory } from "@/app/dashboard/account/history/page";
 
 const MoveUp = keyframes`
 0%{
