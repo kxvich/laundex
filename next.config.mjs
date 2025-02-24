@@ -1,12 +1,19 @@
-// /** @type {import('next').NextConfig} */
-// const nextConfig = {};
-
-// export default nextConfig;
-
+/** @type {import('next').NextConfig} */
 const nextConfig = {
 	compiler: {
-		styledComponents: true,
+	  styledComponents: true,
 	},
-};
-
-export default nextConfig;
+	experimental: {
+	  turbo: {
+		rules: {
+		  // Correcting the structure for JavaScript and TypeScript loaders
+		  ".js": { loaders: [] },
+		  ".ts": { loaders: [] },
+		  ".tsx": { loaders: [] },
+		},
+	  },
+	},
+  };
+  
+  export default nextConfig;
+  

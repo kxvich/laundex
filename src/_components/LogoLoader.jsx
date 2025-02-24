@@ -14,7 +14,6 @@ const StyledLogoLoader = styled(motion.div)`
 `;
 
 const Logo = styled(motion.span)`
-	// Change h1 to span for individual letters
 	font-family: "Satisfy", sans-serif;
 	font-size: 5rem;
 	width: 5%;
@@ -65,7 +64,7 @@ const textVariants = {
 };
 
 const AnimatedText = () => {
-	const text = "Laundex"; 
+	const text = "Laundex";
 
 	return (
 		<StyledLogoLoader
@@ -81,7 +80,7 @@ const AnimatedText = () => {
 					initial="hidden"
 					animate="visible"
 					exit="exit"
-					custom={index} // Use index for delay
+					custom={index}
 				>
 					{letter}
 				</Logo>

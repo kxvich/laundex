@@ -131,7 +131,7 @@ function Navigation() {
 			</Logo>
 
 			<List>
-				<ListItem>Services</ListItem>
+				<ListItem onClick={() => router.push("/services")}>Services</ListItem>
 				<ListItem>Pricing</ListItem>
 				<ListItem>About Us</ListItem>
 				<ListItem>Contact</ListItem>
