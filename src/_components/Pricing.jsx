@@ -145,7 +145,7 @@ function Pricing() {
 						y: 100,
 						transition: { duration: 0.8, ease: [0.75, 0, 0.24, 1] },
 					}}
-					onClick={() => router.push("/")}
+					// onClick={() => router.push("/")}
 				>
 					<Menu onClick={handleMenu}>
 						<i className="fa-solid fa-bars"></i>

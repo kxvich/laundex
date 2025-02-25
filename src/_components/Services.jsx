@@ -19,7 +19,6 @@ const LogoContainer = styled.div`
 	justify-content: space-between;
 	align-items: center;
 	padding-right: 2rem;
-	/* padding: 0 2rem; */
 `;
 const Logo = styled(motion.h1)`
 	padding: 2rem;
@@ -159,7 +158,7 @@ function Services() {
 						y: 100,
 						transition: { duration: 0.8, ease: [0.75, 0, 0.24, 1] },
 					}}
-					onClick={() => router.push("/")}
+					// onClick={() => router.push("/")}
 				>
 					<Menu onClick={handleMenu}>
 						<i className="fa-solid fa-bars"></i>
