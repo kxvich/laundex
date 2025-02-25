@@ -6,7 +6,6 @@ import { useState } from "react";
 import Script from "next/script";
 import { UserProvider } from "@/contexts/UserContexts";
 
-
 export default function RootLayout({ children }) {
 	const [queryClient] = useState(() => new QueryClient());
 	return (
