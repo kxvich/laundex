@@ -4,8 +4,8 @@ import "./globals.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useState } from "react";
 import Script from "next/script";
+import { UserProvider } from "@/contexts/UserContexts";
 // import { Poppins } from "next/font/google";
-
 
 // const poppins = Poppins({
 // 	subsets: ["latin"],
@@ -42,7 +42,7 @@ export default function RootLayout({ children }) {
 				style={{ backgroundColor: "#e5f0f0" }}
 			>
 				<QueryClientProvider client={queryClient}>
-					{children}
+					<UserProvider>{children}</UserProvider>
 				</QueryClientProvider>
 			</body>
 		</html>

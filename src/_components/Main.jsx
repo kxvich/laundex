@@ -4,6 +4,7 @@ import Button from "./Button";
 import useMediaQuery from "@/Hooks/useMediaQuery";
 import Link from "next/link";
 import { useInView } from "react-intersection-observer";
+import { useRouter } from "next/navigation";
 const MoveUp = keyframes`
 0%{
 	transform: translateY(2rem);
@@ -36,12 +37,11 @@ const SectionHeading = styled.h2`
 	transition: opacity 0.6s ease-out, transform 0.6s ease-out;
 	animation-fill-mode: forwards;
 
-	// Apply the animation when the item is in view
 	&.visible {
 		opacity: 1;
 		animation: ${MoveUp} 0.6s ease-out;
 	}
-	@media only screen and (max-width: 30rem) {
+	@media only screen and (max-width: 48rem) {
 		margin-bottom: 5rem;
 	}
 `;
@@ -55,23 +55,26 @@ const DescriptionContainer = styled.div`
 	transition: opacity 0.6s ease-out, transform 0.6s ease-out;
 	animation-fill-mode: forwards;
 
-	
 	&.visible {
 		opacity: 1;
 		animation: ${MoveUp} 0.6s ease-out;
 	}
-	@media only screen and (max-width: 30rem) {
+	@media only screen and (max-width: 48rem) {
 		flex-direction: column;
 		padding: 0 1rem;
+		gap: 2rem;
 	}
 `;
 const DescriptionText = styled.div`
 	width: 42%;
 	text-align: left;
-	@media only screen and (max-width: 30rem) {
+	@media only screen and (max-width: 48rem) {
 		width: 100%;
 		text-align: center;
 		margin-bottom: 4rem;
+		&:nth-child(2) {
+			order: -1;
+		}
 	}
 `;
 const DescriptionTextHeading = styled.h2`
@@ -91,7 +94,7 @@ const DescriptionImageContainer = styled.div`
 	position: relative;
 	height: 40rem;
 	width: 50%;
-	@media only screen and (max-width: 30rem) {
+	@media only screen and (max-width: 48rem) {
 		width: 100%;
 		border-radius: 2rem;
 		overflow: hidden;
@@ -115,6 +118,7 @@ const PriceBoxContainer = styled.div`
 	@media only screen and (max-width: 48rem) {
 		flex-direction: column;
 		align-items: center;
+		width: 90%;
 	}
 `;
 const PriceBox = styled.div`
@@ -122,18 +126,22 @@ const PriceBox = styled.div`
 	border-radius: 1rem;
 	width: 30rem;
 	padding-top: 2rem;
+	padding-bottom: 1rem;
 	text-align: center;
 	opacity: 0;
 	transition: opacity 0.6s ease-out, transform 0.6s ease-out;
 	animation-fill-mode: forwards;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
 
-	// Apply the animation when the item is in view
 	&.visible {
 		opacity: 1;
 		animation: ${MoveUp} 0.6s ease-out;
 	}
 	@media only screen and (max-width: 48rem) {
 		margin-bottom: 6rem;
+		width: 100%;
 	}
 `;
 const PriceIcon = styled.div`
@@ -189,6 +197,7 @@ const decorationAsteriskPositions = [
 
 function Main() {
 	const isMobile = useMediaQuery("(max-width: 500px)");
+	const router = useRouter();
 	const [ref, inView] = useInView({
 		threshold: 0.1,
 		triggerOnce: true,
@@ -240,7 +249,7 @@ function Main() {
 							</span>
 						</DescriptionTextHeading>
 						<DescriptionTextParagraph>
-							{`Welcome to Laundex Laundry. Start by creating an account. You can
+							{`Welcome to Kardinal Laundry. Start by creating an account. You can
 							place and track your orders; it's fast and easy. If you have an
 							account already, proceed to login.`}
 						</DescriptionTextParagraph>
@@ -376,7 +385,7 @@ function Main() {
 								</DescriptionTextHeading>
 								<DescriptionTextParagraph>
 									{`
-							We pride ourselves on good customers relations and quality of service,so we offer top notch customer service to help assist in all your needs.
+							We pride ourselves on good customers relations and quality of service,so we offer top notch customer service to assist in all your needs.
 							`}
 								</DescriptionTextParagraph>
 							</DescriptionText>
@@ -396,24 +405,31 @@ function Main() {
 						<PriceIcon>
 							<i className="fa-solid fa-star-half-stroke"></i>
 						</PriceIcon>
-						<PricePlan>CLASSIC</PricePlan>
-						<Price>$ 10</Price>
+						<PricePlan>Basic</PricePlan>
+						<Price> (wash n fold)</Price>
+						<Price>starting at ₦150</Price>
 						<PlanDescription>
-							<Description>pick up or delivery</Description>
-							<Description>-</Description>
-							<Description>-</Description>
+							<Description>Wash</Description>
+							<Description>Fold</Description>
+							<Description>Pick up & Delivery</Description>
+							<Button onclick={() => router.push("/pricing")}>
+								See pricing
+							</Button>
 						</PlanDescription>
 					</PriceBox>
 					<PriceBox ref={ref6} className={inView6 ? "visible" : ""}>
 						<PriceIcon>
 							<i className="fa-solid fa-star"></i>
 						</PriceIcon>
-						<PricePlan>CLASSIC+</PricePlan>
-						<Price>$ 20</Price>
+						<PricePlan>Standard</PricePlan>
+						<Price>starting at ₦400</Price>
 						<PlanDescription>
-							<Description>pick up </Description>
-							<Description>delivery</Description>
-							<Description>-</Description>
+							<Description>Wash n Fold </Description>
+							<Description>Pressing & Packaging</Description>
+							<Description>Pickup & Delivery</Description>
+							<Button onclick={() => router.push("/pricing")}>
+								See pricing
+							</Button>
 						</PlanDescription>
 					</PriceBox>
 					<PriceBox ref={ref7} className={inView7 ? "visible" : ""}>
@@ -421,11 +437,15 @@ function Main() {
 							<i className="fa-solid fa-rocket"></i>
 						</PriceIcon>
 						<PricePlan>EXPRESS</PricePlan>
-						<Price>$ 30</Price>
+						<Price>starting at ₦600</Price>
 						<PlanDescription>
-							<Description>pick up</Description>
-							<Description> delivery</Description>
+							<Description>Wash n Fold </Description>
+							<Description>Pressing & Packaging</Description>
+							<Description>Pickup & Delivery</Description>
 							<Description>24 hrs process time</Description>
+							<Button onclick={() => router.push("/pricing")}>
+								See pricing
+							</Button>
 						</PlanDescription>
 					</PriceBox>
 				</PriceBoxContainer>

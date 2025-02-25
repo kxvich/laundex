@@ -1,19 +1,11 @@
-import { styled, keyframes } from "styled-components";
+import { styled } from "styled-components";
 import Navigation from "@/_components/navigation";
 import Image from "next/image";
 import Button from "./Button";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-const MoveUp = keyframes`
-0%{
-	opacity: 0;
-	transform: translateY(2rem);
-}
-100%{
-	opacity: 1;
-	transform: translateY(0);
-}
-`;
+import { motion } from "framer-motion";
+
 const StyledHeader = styled.header`
 	max-width: 90%;
 	margin: 0 auto;
@@ -40,43 +32,46 @@ const HeaderTextContainer = styled.div`
 		margin-bottom: 3rem;
 	}
 `;
-const HeadingTextPrimary = styled.h1`
+const HeadingTextPrimaryContainer = styled.div`
+	overflow: hidden;
+	margin-bottom: 1.5rem;
+`;
+const HeadingTextPrimary = styled(motion.h1)`
 	color: #022b3a;
 	width: 45%;
 	font-size: 3.7rem;
-	margin-bottom: 1.5rem;
-	animation: ${MoveUp} 1s 0.5s;
-	animation-fill-mode: backwards;
 	@media only screen and (max-width: 56.25rem) {
 		width: 100%;
 	}
 `;
-const HeadingTextSecondary = styled.h2`
+const HeaderTextSecondaryContainer = styled.div`
+	overflow: hidden;
+`;
+const HeadingTextSecondary = styled(motion.h2)`
 	color: #0077b6;
 	font-size: 1.1rem;
-	animation-fill-mode: backwards;
-	animation: ${MoveUp} 1s 0.2s;
 `;
-const HeadingTextParagraph = styled.p`
+const HeadingTextParagraphContainer = styled.div`
+	overflow: hidden;
+	margin-bottom: 3rem;
+`;
+const HeadingTextParagraph = styled(motion.p)`
 	color: #0077b6;
 	font-size: 1.37rem;
-	margin-bottom: 3rem;
 	width: 75%;
 	font-weight: 500;
 	line-height: 2.2rem;
-	animation: ${MoveUp} 1s 0.75s;
-	animation-fill-mode: backwards;
 
 	@media only screen and (max-width: 56.25rem) {
 		width: 100%;
 	}
 `;
-const HeaderImageContainer = styled.div`
+const ButtonContainer = styled(motion.div)``;
+const HeaderImageContainer = styled(motion.div)`
 	position: relative;
 	height: 52rem;
 	width: 50%;
-	animation: ${MoveUp} 1s;
-	animation-fill-mode: backwards;
+
 	@media only screen and (max-width: 56.25rem) {
 		width: 100%;
 	}
@@ -112,21 +107,110 @@ function Header() {
 
 			<HeaderContent>
 				<HeaderTextContainer>
-					<HeadingTextSecondary>
-						Where Your Clothes Sparkle Again!
-					</HeadingTextSecondary>
-					<HeadingTextPrimary>
-						Making Your Laundry Day, a Breeze!
-					</HeadingTextPrimary>
-					<HeadingTextParagraph>
-						{`Welcome to Laundex Laundry, your trusted partner in keeping your clothes spotless and fresh! We understand that life gets busy, and laundry can often take a back seat. That's why we're here to make laundry day easy and hassle-free. Whether it's a single shirt or a mountain of laundry, our expert team is dedicated to delivering exceptional service with a personal touch.`}
-					</HeadingTextParagraph>
-					<Link href={"/signup"}>
-						<Button $animation={`moveup 1s .8s`}>Get started &rarr;</Button>
-					</Link>
+					<HeaderTextSecondaryContainer>
+						<HeadingTextSecondary
+							initial={{ opacity: 0, y: 100 }}
+							animate={{
+								opacity: 1,
+								y: 0,
+								transition: {
+									duration: 0.8,
+									ease: [0.75, 0, 0.24, 1],
+									delay: 0.1,
+								},
+							}}
+							exit={{
+								opacity: 0,
+								y: 100,
+								transition: { duration: 0.8, ease: [0.75, 0, 0.24, 1] },
+							}}
+						>
+							Where Your Clothes Sparkle Again!
+						</HeadingTextSecondary>
+					</HeaderTextSecondaryContainer>
+					<HeadingTextPrimaryContainer>
+						<HeadingTextPrimary
+							initial={{ opacity: 0, y: 100 }}
+							animate={{
+								opacity: 1,
+								y: 0,
+								transition: {
+									duration: 0.8,
+									ease: [0.75, 0, 0.24, 1],
+									delay: 0.2,
+								},
+							}}
+							exit={{
+								opacity: 0,
+								y: 100,
+								transition: { duration: 0.8, ease: [0.75, 0, 0.24, 1] },
+							}}
+						>
+							Making Your Laundry Day, a Breeze!
+						</HeadingTextPrimary>
+					</HeadingTextPrimaryContainer>
+					<HeadingTextParagraphContainer>
+						<HeadingTextParagraph
+							initial={{ opacity: 0, y: 100 }}
+							animate={{
+								opacity: 1,
+								y: 0,
+								transition: {
+									duration: 0.8,
+									ease: [0.75, 0, 0.24, 1],
+									delay: 0.3,
+								},
+							}}
+							exit={{
+								opacity: 0,
+								y: 100,
+								transition: { duration: 0.8, ease: [0.75, 0, 0.24, 1] },
+							}}
+						>
+							{`Welcome to Kardinal Laundry, your trusted partner in keeping your clothes spotless and fresh! We understand that life gets busy, and laundry can often take a back seat. That's why we're here to make laundry day easy and hassle-free. Whether it's a single shirt or a mountain of laundry, our expert team is dedicated to delivering exceptional service with a personal touch.`}
+						</HeadingTextParagraph>
+					</HeadingTextParagraphContainer>
+
+					<ButtonContainer
+						initial={{ opacity: 0, y: 100 }}
+						animate={{
+							opacity: 1,
+							y: 0,
+							transition: {
+								duration: 0.8,
+								ease: [0.75, 0, 0.24, 1],
+								delay: 0.4,
+							},
+						}}
+						exit={{
+							opacity: 0,
+							y: 100,
+							transition: { duration: 0.8, ease: [0.75, 0, 0.24, 1] },
+						}}
+					>
+						<Link href={"/signup"}>
+							<Button $animation={`moveup 1s .8s`}>Get started &rarr;</Button>
+						</Link>
+					</ButtonContainer>
 				</HeaderTextContainer>
 
-				<HeaderImageContainer>
+				<HeaderImageContainer
+					initial={{ opacity: 0, y: 100 }}
+					animate={{
+						opacity: 1,
+						y: 0,
+						transition: {
+							duration: 0.8,
+							ease: [0.75, 0, 0.24, 1],
+							delay: 0.4,
+						},
+					}}
+					exit={{
+						opacity: 0,
+						y: 100,
+						transition: { duration: 0.8, ease: [0.75, 0, 0.24, 1] },
+					}}
+				>
 					<Image
 						src={"/images/headerImage.png"}
 						fill

@@ -1,5 +1,6 @@
 import {styled,keyframes} from "styled-components";
 
+
 const MoveUp = keyframes`
 0%{
 	opacity: 0;

@@ -7,12 +7,18 @@ import { useRouter } from "next/navigation";
 import Loader from "@/_components/Loader";
 import { useState } from "react";
 import useMediaQuery from "@/Hooks/useMediaQuery";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
+import { useUser } from "@/contexts/UserContexts";
+import SideBar from "./SideBar";
 
 const ServicesPage = styled.div``;
 const LogoContainer = styled.div`
 	overflow: hidden;
-	margin-bottom: 2rem;
+	margin-bottom: 1.5rem;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0 2rem;
 `;
 const Logo = styled(motion.h1)`
 	padding: 2rem;
@@ -21,6 +27,7 @@ const Logo = styled(motion.h1)`
 	position: relative;
 	font-family: "Satisfy", serif;
 	display: inline-block;
+	cursor: pointer;
 `;
 const Container = styled.div`
 	padding: 2rem;
@@ -32,7 +39,7 @@ const HeaderContainer = styled.div`
 `;
 const Header = styled(motion.h3)`
 	color: #022b3a;
-	font-size: 1.5rem;
+	font-size: 2rem;
 	font-weight: 100;
 `;
 const HeadingContainer = styled.div`
@@ -110,51 +117,9 @@ const Menu = styled.li`
 		display: inline-block;
 	}
 `;
-const SideBar = styled.div`
-	height: 100vh;
-	width: 100%;
-	background-color: #fff;
-	position: fixed;
-	top: 0;
-	right: 0;
-	z-index: 20;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	flex-direction: column;
-	padding-top: 3rem;
-	border-bottom: 1px solid #022b3a;
-	/* animation: ${MoveDown} 0.5s; */
-	animation-fill-mode: backwards;
-	transition: all 0.2s;
-`;
-const SideBarList = styled.ul`
-	list-style: none;
-	text-align: center;
-`;
-const SideBarListItem = styled.li`
-	font-size: 2.5rem;
-	text-transform: capitalize;
-	animation-fill-mode: backwards;
-	&:not(:last-child) {
-		margin-bottom: 2rem;
-	}
-`;
-const TopGroup = styled.div`
-	width: 88%;
-`;
-const Top = styled.div`
-	display: flex;
-	justify-content: space-between;
-	width: 100%;
-	margin-bottom: 4rem;
-`;
-const Close = styled.span`
-	font-size: 2.5rem;
-`;
 
 function Services() {
-	const [isOpen, setIsOpen] = useState(false);
+	const { isOpen, setIsOpen } = useUser();
 	const isMobile = useMediaQuery("(max-width: 765px)");
 	const [isLoading, setIsLoading] = useState(false);
 	const router = useRouter();
@@ -179,14 +144,21 @@ function Services() {
 					animate={{
 						opacity: 1,
 						y: 0,
+						transition: { duration: 0.8, ease: [0.75, 0, 0.24, 1], delay: 0.1 },
+					}}
+					exit={{
+						opacity: 0,
+						y: 100,
 						transition: { duration: 0.8, ease: [0.75, 0, 0.24, 1] },
 					}}
+					onClick={() => router.push("/")}
 				>
 					<Menu onClick={handleMenu}>
 						<i className="fa-solid fa-bars"></i>
 					</Menu>
 					Kardinal laundry
 				</Logo>
+				<Button onclick={() => router.back()}>Back</Button>
 			</LogoContainer>
 			<Container>
 				<HeaderContainer>
@@ -353,29 +325,7 @@ function Services() {
 			</ButtonContainer>
 
 			<Footer />
-			{isMobile && isOpen && (
-				<SideBar>
-					<TopGroup>
-						<Top>
-							<Logo>Laundex</Logo>
-							<Close onClick={() => setIsOpen(false)}>
-								<i className="fa-solid fa-x"></i>
-							</Close>
-						</Top>
-						<SideBarList>
-							<SideBarListItem>Pricing</SideBarListItem>
-							<SideBarListItem>About Us</SideBarListItem>
-							<SideBarListItem>Contact</SideBarListItem>
-							<SideBarListItem>Outsourcing</SideBarListItem>
-						</SideBarList>
-					</TopGroup>
-					<ButtonContainer>
-						<Button onclick={() => router.push("/signup")} width={"34rem"}>
-							Sign up
-						</Button>
-					</ButtonContainer>
-				</SideBar>
-			)}
+			<AnimatePresence>{isMobile && isOpen && <SideBar />}</AnimatePresence>
 		</ServicesPage>
 	);
 }

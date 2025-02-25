@@ -1,7 +1,7 @@
 "use client";
 
 import styled from "styled-components";
-import { AnimatePresence, delay, motion } from "framer-motion";
+import { motion } from "framer-motion";
 
 const StyledLogoLoader = styled(motion.div)`
 	width: 100%;
@@ -64,7 +64,7 @@ const textVariants = {
 };
 
 const AnimatedText = () => {
-	const text = "Laundex";
+	const text = "Kardinal laundry";
 
 	return (
 		<StyledLogoLoader

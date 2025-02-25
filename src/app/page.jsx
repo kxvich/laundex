@@ -1,12 +1,11 @@
 "use client";
 
-// import Header from "@/_components/Header";
-// import Main from "@/_components/Main";
-// import Footer from "@/_components/Footer";
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import LogoLoader from "@/_components/LogoLoader";
-import { AnimatePresence, delay, motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
+import { useUser } from "@/contexts/UserContexts";
+import useMediaQuery from "@/Hooks/useMediaQuery";
 
 const DynamicHeader = dynamic(() => import("@/_components/Header"), {
 	ssr: false,
@@ -17,12 +16,16 @@ const DynamicMain = dynamic(() => import("@/_components/Main"), {
 const DynamicFooter = dynamic(() => import("@/_components/Footer"), {
 	ssr: false,
 });
+const DynamicSideBar = dynamic(() => import("@/_components/SideBar"), {
+	ssr: false,
+});
 
 function Page() {
 	const [isLoading, setIsLoading] = useState(true);
+	const { isOpen } = useUser();
+	const isMobile = useMediaQuery("(max-width: 765px)");
 
-	useEffect(function loader() {
-		// setIsLoading(true);
+	useEffect(() => {
 		const timer = setTimeout(() => {
 			setIsLoading(false);
 		}, 3000);
@@ -38,7 +41,7 @@ function Page() {
 						initial={{ opacity: 1, y: 0 }}
 						animate={{ opacity: 1, y: 0 }}
 						exit={{ opacity: 0, y: "-100vh" }}
-						transition={{ duration: 1, ease: [0.76, 0, 0.24, 1] }}
+						transition={{ duration: 0.5, ease: [0.76, 0, 0.24, 1] }}
 					>
 						<LogoLoader />
 					</motion.div>
@@ -51,21 +54,10 @@ function Page() {
 					<DynamicFooter />
 				</>
 			)}
+			<AnimatePresence>
+				{isMobile && isOpen && <DynamicSideBar />}
+			</AnimatePresence>
 		</>
-		// <>
-		// 	{isLoading ? (
-		// 		<LogoLoader isLoading={isLoading} key="loader" />
-		// 	) : (
-		// 		<>
-		// 			<DynamicHeader key="header" />
-		// 			<DynamicMain key="main" />
-		// 			<DynamicFooter key="footer" />
-		// 		</>
-		// 	)}
-		// 	{/* <Header />
-		// 	<Main />
-		// 	<Footer /> */}
-		// </>
 	);
 }
 
