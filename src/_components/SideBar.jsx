@@ -21,7 +21,7 @@ const Logo = styled(motion.h1)`
 	cursor: pointer;
 `;
 const SideBarPage = styled(motion.div)`
-	height: 100vh;
+	/* height: 100vh; */
 	width: 100%;
 	background-color: #fff;
 	position: fixed;
