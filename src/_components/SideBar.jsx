@@ -28,13 +28,15 @@ const SideBarPage = styled(motion.div)`
 	top: 0;
 	right: 0;
 	z-index: 20;
-	display: flex;
+	/* display: flex; */
 	justify-content: space-between;
 	align-items: center;
 	flex-direction: column;
 	padding-top: 3rem;
 	border-bottom: 1px solid #022b3a;
 	transition: all 0.2s;
+	opacity: 0;
+	display: none;
 `;
 const SideBarList = styled.ul`
 	list-style: none;
@@ -74,6 +76,7 @@ function SideBar() {
 				opacity: 1,
 				height: "100vh",
 				transition: { duration: 0.8, ease: [0.75, 0, 0.24, 1] },
+				display: "flex",
 			}}
 			exit={{
 				opacity: 0,

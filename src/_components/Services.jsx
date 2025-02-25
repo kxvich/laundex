@@ -18,6 +18,7 @@ const LogoContainer = styled.div`
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+
 	padding-right: 2rem;
 `;
 const Logo = styled(motion.h1)`
