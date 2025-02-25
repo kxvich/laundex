@@ -21,14 +21,14 @@ const Logo = styled(motion.h1)`
 	cursor: pointer;
 `;
 const SideBarPage = styled(motion.div)`
-	/* height: 100vh; */
 	width: 100%;
+	height: 100vh;
 	background-color: #fff;
 	position: fixed;
 	top: 0;
 	right: 0;
 	z-index: 20;
-	/* display: flex; */
+	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	flex-direction: column;
@@ -36,7 +36,6 @@ const SideBarPage = styled(motion.div)`
 	border-bottom: 1px solid #022b3a;
 	transition: all 0.2s;
 	opacity: 0;
-	display: none;
 `;
 const SideBarList = styled.ul`
 	list-style: none;
@@ -67,20 +66,19 @@ const ButtonContainer = styled(motion.div)`
 
 function SideBar() {
 	const router = useRouter();
-	const { isOpen, setIsOpen } = useUser();
+	const { setIsOpen } = useUser();
 
 	return (
 		<SideBarPage
-			initial={{ opacity: 0, height: 0 }}
+			initial={{ opacity: 0, y: -100 }}
 			animate={{
 				opacity: 1,
-				height: "100vh",
+				y: 0,
 				transition: { duration: 0.8, ease: [0.75, 0, 0.24, 1] },
-				display: "flex",
 			}}
 			exit={{
 				opacity: 0,
-				height: 0,
+				y: 0,
 				transition: { duration: 0.8, ease: [0.75, 0, 0.24, 1] },
 			}}
 		>
