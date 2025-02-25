@@ -22,7 +22,7 @@ const Logo = styled.h1`
 	color: #fff;
 	font-size: 2.5rem;
 	position: relative;
-	font-family: ${satisfy.style.fontFamily};
+	font-family: "Satisfy", serif;
 	display: inline-block;
 `;
 const NavLinksContainer = styled.div`
@@ -48,7 +48,7 @@ function Footer() {
 	const isMobile = useMediaQuery("(max-width: 500px)");
 	return (
 		<StyledFooter>
-			{!isMobile && <Logo>Laundex</Logo>}
+			{!isMobile && <Logo>Kardinal Laundry</Logo>}
 			<NavLinksContainer>
 				<NavLinks>
 					<NavLinksHeading>Navigation</NavLinksHeading>

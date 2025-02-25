@@ -4,15 +4,8 @@ import "./globals.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useState } from "react";
 import Script from "next/script";
-// import { Poppins } from "next/font/google";
+import { UserProvider } from "@/contexts/UserContexts";
 
-
-// const poppins = Poppins({
-// 	subsets: ["latin"],
-// 	weight: ["100", "400", "500"],
-// 	style: ["normal", "italic"],
-// 	display: "swap",
-// });
 
 export default function RootLayout({ children }) {
 	const [queryClient] = useState(() => new QueryClient());
@@ -37,12 +30,9 @@ export default function RootLayout({ children }) {
 				/>
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
 			</head>
-			<body
-				// className={poppins.className}
-				style={{ backgroundColor: "#e5f0f0" }}
-			>
+			<body style={{ backgroundColor: "#e5f0f0" }}>
 				<QueryClientProvider client={queryClient}>
-					{children}
+					<UserProvider>{children}</UserProvider>
 				</QueryClientProvider>
 			</body>
 		</html>

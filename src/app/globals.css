@@ -1,14 +1,14 @@
-/* @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"); */
+
 @font-face {
 	font-family: "Satisfy";
-	src: url("./fonts/Satisfy-Regular.ttf") format("truetype");
+	src: url("/fonts/Satisfy-Regular.ttf") format("truetype");
 	font-weight: 400;
 	font-style: normal;
 	font-display: swap;
 }
 @font-face {
 	font-family: "Poppins";
-	src: url("./fonts/Poppins-Light.ttf") format("truetype");
+	src: url("/fonts/Poppins-Light.ttf") format("truetype");
 	font-weight: 100;
 	font-style: normal;
 	font-display: swap;
@@ -16,7 +16,7 @@
 
 @font-face {
 	font-family: "Poppins";
-	src: url("./fonts/Poppins-Regular.ttf") format("truetype");
+	src: url("/fonts/Poppins-Regular.ttf") format("truetype");
 	font-weight: 400;
 	font-style: normal;
 	font-display: swap;
@@ -24,7 +24,7 @@
 
 @font-face {
 	font-family: "Poppins";
-	src: url("./fonts/Poppins-Medium.ttf") format("truetype");
+	src: url("/fonts/Poppins-Medium.ttf") format("truetype");
 	font-weight: 500;
 	font-style: normal;
 	font-display: swap;
@@ -35,7 +35,7 @@ body {
 	box-sizing: border-box;
 	margin: 0;
 	padding: 0;
-	font-family: "Poppins", sans-serif;
+	font-family: "Poppins", sans-serif ;
 	-webkit-tap-highlight-color: transparent;
 }
 

@@ -7,12 +7,19 @@ import { useRouter } from "next/navigation";
 import Loader from "@/_components/Loader";
 import { useState } from "react";
 import useMediaQuery from "@/Hooks/useMediaQuery";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
+import { useUser } from "@/contexts/UserContexts";
+import SideBar from "./SideBar";
 
 const ServicesPage = styled.div``;
 const LogoContainer = styled.div`
 	overflow: hidden;
-	margin-bottom: 2rem;
+	margin-bottom: 1.5rem;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding-right: 2rem;
+	/* padding: 0 2rem; */
 `;
 const Logo = styled(motion.h1)`
 	padding: 2rem;
@@ -21,6 +28,7 @@ const Logo = styled(motion.h1)`
 	position: relative;
 	font-family: "Satisfy", serif;
 	display: inline-block;
+	cursor: pointer;
 `;
 const Container = styled.div`
 	padding: 2rem;
@@ -32,8 +40,9 @@ const HeaderContainer = styled.div`
 `;
 const Header = styled(motion.h3)`
 	color: #022b3a;
-	font-size: 1.5rem;
+	font-size: 2rem;
 	font-weight: 100;
+	font-family: "poppins", sans-serif !important;
 `;
 const HeadingContainer = styled.div`
 	overflow: hidden;
@@ -42,10 +51,12 @@ const HeadingContainer = styled.div`
 const Heading = styled(motion.h1)`
 	color: #022b3a;
 	font-size: 4rem;
+	font-family: "poppins", sans-serif !important;
 `;
 const Paragraph = styled(motion.p)`
 	color: #022b3a;
 	font-size: 1.8rem;
+	font-family: "poppins", sans-serif !important;
 `;
 const BackgroundImage = styled(motion.div)`
 	width: 100%;
@@ -64,6 +75,7 @@ const ImageText = styled(motion.h1)`
 	color: #fff;
 	font-size: 6rem;
 	text-align: center;
+	font-family: "poppins", sans-serif !important;
 `;
 const ParagraphContainer = styled.div`
 	text-align: center;
@@ -75,6 +87,7 @@ const Paragraph2 = styled(motion.p)`
 	width: 80%;
 	font-size: 1.8rem;
 	color: #022b3a;
+	font-family: "poppins", sans-serif !important;
 `;
 const Heading2Container = styled.div`
 	overflow: hidden;
@@ -84,6 +97,7 @@ const Heading2 = styled.h2`
 	font-size: 2rem;
 	color: #022b3a;
 	text-align: center;
+	font-family: "poppins", sans-serif !important;
 `;
 const Paragraph3 = styled.p`
 	margin: 0 auto 4rem;
@@ -91,6 +105,7 @@ const Paragraph3 = styled.p`
 	font-size: 1.8rem;
 	color: #022b3a;
 	text-align: center;
+	font-family: "poppins", sans-serif !important;
 `;
 const ButtonContainer = styled.div`
 	margin-bottom: 3.5rem;
@@ -110,51 +125,9 @@ const Menu = styled.li`
 		display: inline-block;
 	}
 `;
-const SideBar = styled.div`
-	height: 100vh;
-	width: 100%;
-	background-color: #fff;
-	position: fixed;
-	top: 0;
-	right: 0;
-	z-index: 20;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	flex-direction: column;
-	padding-top: 3rem;
-	border-bottom: 1px solid #022b3a;
-	/* animation: ${MoveDown} 0.5s; */
-	animation-fill-mode: backwards;
-	transition: all 0.2s;
-`;
-const SideBarList = styled.ul`
-	list-style: none;
-	text-align: center;
-`;
-const SideBarListItem = styled.li`
-	font-size: 2.5rem;
-	text-transform: capitalize;
-	animation-fill-mode: backwards;
-	&:not(:last-child) {
-		margin-bottom: 2rem;
-	}
-`;
-const TopGroup = styled.div`
-	width: 88%;
-`;
-const Top = styled.div`
-	display: flex;
-	justify-content: space-between;
-	width: 100%;
-	margin-bottom: 4rem;
-`;
-const Close = styled.span`
-	font-size: 2.5rem;
-`;
 
 function Services() {
-	const [isOpen, setIsOpen] = useState(false);
+	const { isOpen, setIsOpen } = useUser();
 	const isMobile = useMediaQuery("(max-width: 765px)");
 	const [isLoading, setIsLoading] = useState(false);
 	const router = useRouter();
@@ -179,14 +152,21 @@ function Services() {
 					animate={{
 						opacity: 1,
 						y: 0,
+						transition: { duration: 0.8, ease: [0.75, 0, 0.24, 1], delay: 0.1 },
+					}}
+					exit={{
+						opacity: 0,
+						y: 100,
 						transition: { duration: 0.8, ease: [0.75, 0, 0.24, 1] },
 					}}
+					onClick={() => router.push("/")}
 				>
 					<Menu onClick={handleMenu}>
 						<i className="fa-solid fa-bars"></i>
 					</Menu>
 					Kardinal laundry
 				</Logo>
+				<Button onclick={() => router.back()}>Back</Button>
 			</LogoContainer>
 			<Container>
 				<HeaderContainer>
@@ -353,29 +333,7 @@ function Services() {
 			</ButtonContainer>
 
 			<Footer />
-			{isMobile && isOpen && (
-				<SideBar>
-					<TopGroup>
-						<Top>
-							<Logo>Laundex</Logo>
-							<Close onClick={() => setIsOpen(false)}>
-								<i className="fa-solid fa-x"></i>
-							</Close>
-						</Top>
-						<SideBarList>
-							<SideBarListItem>Pricing</SideBarListItem>
-							<SideBarListItem>About Us</SideBarListItem>
-							<SideBarListItem>Contact</SideBarListItem>
-							<SideBarListItem>Outsourcing</SideBarListItem>
-						</SideBarList>
-					</TopGroup>
-					<ButtonContainer>
-						<Button onclick={() => router.push("/signup")} width={"34rem"}>
-							Sign up
-						</Button>
-					</ButtonContainer>
-				</SideBar>
-			)}
+			<AnimatePresence>{isMobile && isOpen && <SideBar />}</AnimatePresence>
 		</ServicesPage>
 	);
 }
