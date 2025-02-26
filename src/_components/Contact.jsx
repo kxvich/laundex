@@ -1,24 +1,24 @@
-"use client";
-
-import { styled } from "styled-components";
+import styled from "styled-components";
 import { motion, AnimatePresence } from "framer-motion";
-import Footer from "./Footer";
 import Button from "./Button";
 import { useRouter } from "next/navigation";
 import { useUser } from "@/contexts/UserContexts";
-import SideBar from "./SideBar";
 import useMediaQuery from "@/Hooks/useMediaQuery";
+import Footer from "./Footer";
+import SideBar from "./SideBar";
 
-const PricingPage = styled.div``;
+const ContactPage = styled.div``;
 const LogoContainer = styled.div`
 	overflow: hidden;
 	margin-bottom: 1.5rem;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	padding: 2rem;
+
+	padding-right: 2rem;
 `;
 const Logo = styled(motion.h1)`
+	padding: 2rem;
 	color: #022b3a;
 	font-size: 2.5rem;
 	position: relative;
@@ -42,11 +42,21 @@ const Container = styled.div`
 `;
 const HeaderContainer = styled.div`
 	overflow: hidden;
+	margin-bottom: 1.5rem;
 `;
 const Header = styled(motion.h3)`
 	color: #022b3a;
 	font-size: 2rem;
 	font-weight: 100;
+	font-family: "poppins", sans-serif !important;
+`;
+const HeadingContainer = styled.div`
+	overflow: hidden;
+	margin-bottom: 1.5rem;
+`;
+const Heading = styled(motion.h1)`
+	color: #022b3a;
+	font-size: 4rem;
 	font-family: "poppins", sans-serif !important;
 `;
 const SectionPricing = styled.section`
@@ -56,7 +66,7 @@ const SectionPricing = styled.section`
 	align-items: center;
 	padding: 2rem 2rem 0;
 `;
-const PriceBoxContainer = styled.div`
+const ContactBoxContainer = styled.div`
 	display: flex;
 	justify-content: space-between;
 	width: 95%;
@@ -71,7 +81,7 @@ const PriceBoxContainer = styled.div`
 		margin-bottom: 3rem;
 	}
 `;
-const PriceBox = styled(motion.div)`
+const ContactBox = styled(motion.div)`
 	font-family: "poppins", sans-serif !important;
 	border: 2px solid #0077b6;
 	border-radius: 1rem;
@@ -88,44 +98,20 @@ const PriceBox = styled(motion.div)`
 		width: 100%;
 	}
 `;
-const PriceIcon = styled.div`
+const ContactIcon = styled.div`
 	color: #0077b6;
 	font-size: 4rem;
 	margin-bottom: 0.5rem;
-	animation: spin 2s linear infinite;
 `;
-const PricePlan = styled.h2`
+const ContactPlan = styled.h2`
 	font-size: 2.5rem;
 	color: #90e0ef;
 	margin-bottom: 1rem;
 `;
-const Price = styled.h2`
+const ContactText = styled.h2`
 	font-size: 2rem;
 	color: #00b4d8;
 	margin-bottom: 2rem;
-`;
-const PlanDescription = styled.div`
-	border-top: 1px solid #00b4d8;
-	padding-top: 1rem;
-	font-size: 1.2rem;
-	font-weight: 100;
-`;
-const Description = styled.h3`
-	padding: 1rem 2rem;
-	margin-bottom: 1rem;
-	color: #0077b6;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-
-	&:not(:last-child) {
-		border-bottom: 1px solid #00b4d8;
-	}
-`;
-const Item = styled.h3``;
-const ItemPrice = styled.h3`
-	font-size: 1.5rem;
-	color: #00b4d8;
 `;
 const List = styled.ul`
 	list-style: none;
@@ -144,7 +130,7 @@ const ListItem = styled.li`
 	}
 `;
 
-function Pricing() {
+function Contact() {
 	const { isOpen, setIsOpen } = useUser();
 	const isMobile = useMediaQuery("(max-width: 765px)");
 	const router = useRouter();
@@ -152,9 +138,8 @@ function Pricing() {
 	function handleMenu() {
 		setIsOpen(true);
 	}
-
 	return (
-		<PricingPage>
+		<ContactPage>
 			<LogoContainer>
 				<Logo
 					initial={{ opacity: 0, y: 100 }}
@@ -177,7 +162,7 @@ function Pricing() {
 				</Logo>
 				<List>
 					<ListItem onClick={() => router.push("/services")}>Services</ListItem>
-					<ListItem onClick={() => router.push("/contact")}>Contact</ListItem>
+					<ListItem onClick={() => router.push("/pricing")}>Pricing</ListItem>
 					<ListItem onClick={() => router.push("/outsourcing")}>
 						Outsourcing
 					</ListItem>
@@ -213,13 +198,29 @@ function Pricing() {
 							},
 						}}
 					>
-						PRICING
+						CONTACT
 					</Header>
 				</HeaderContainer>
+				<HeadingContainer>
+					<Heading
+						initial={{ opacity: 0, y: 100 }}
+						animate={{
+							opacity: 1,
+							y: 0,
+							transition: {
+								duration: 0.8,
+								ease: [0.75, 0, 0.24, 1],
+								delay: 0.3,
+							},
+						}}
+					>
+						Let us know how we can help.
+					</Heading>
+				</HeadingContainer>
 			</Container>
 			<SectionPricing>
-				<PriceBoxContainer>
-					<PriceBox
+				<ContactBoxContainer>
+					<ContactBox
 						initial={{ opacity: 0, y: 100 }}
 						animate={{
 							opacity: 1,
@@ -236,52 +237,14 @@ function Pricing() {
 							transition: { duration: 0.8, ease: [0.75, 0, 0.24, 1] },
 						}}
 					>
-						<PriceIcon>
-							<i className="fa-solid fa-star-half-stroke"></i>
-						</PriceIcon>
-						<PricePlan>Basic</PricePlan>
-						<Price> (wash n fold)</Price>
-						{/* <Price>starting at ₦150</Price> */}
-						<PlanDescription>
-							<Description>
-								<Item>shirt</Item>
-								<ItemPrice>150</ItemPrice>
-							</Description>
-							<Description>
-								<Item>jeans</Item>
-								<ItemPrice>200</ItemPrice>
-							</Description>
-							<Description>
-								<Item>Hoodies, Sweaters and more</Item>
-								<ItemPrice>300</ItemPrice>
-							</Description>
-							<Description>
-								<Item>Native Wears(top and bottom)</Item>
-								<ItemPrice>400</ItemPrice>
-							</Description>
-							<Description>
-								<Item>Duvet</Item>
-								<ItemPrice>3000</ItemPrice>
-							</Description>
-							<Description>
-								<Item>Bedspread</Item>
-								<ItemPrice>1500</ItemPrice>
-							</Description>
-							<Description>
-								<Item>Pillowcases(two)</Item>
-								<ItemPrice>350</ItemPrice>
-							</Description>
-							<Description>
-								<Item>Towels</Item>
-								<ItemPrice>350</ItemPrice>
-							</Description>
-							<Description>
-								<Item>Underwear</Item>
-								<ItemPrice>150</ItemPrice>
-							</Description>
-						</PlanDescription>
-					</PriceBox>
-					<PriceBox
+						<ContactIcon>
+							<i class="fa-solid fa-comments"></i>
+						</ContactIcon>
+						<ContactPlan>Chat to support</ContactPlan>
+						<ContactText> we are here to help</ContactText>
+						<ContactText> support@kardinallaundry.com</ContactText>
+					</ContactBox>
+					<ContactBox
 						initial={{ opacity: 0, y: 100 }}
 						animate={{
 							opacity: 1,
@@ -298,51 +261,14 @@ function Pricing() {
 							transition: { duration: 0.8, ease: [0.75, 0, 0.24, 1] },
 						}}
 					>
-						<PriceIcon>
-							<i className="fa-solid fa-star"></i>
-						</PriceIcon>
-						<PricePlan>Standard</PricePlan>
-						{/* <Price>starting at ₦400</Price> */}
-						<PlanDescription>
-							<Description>
-								<Item>shirt</Item>
-								<ItemPrice>400</ItemPrice>
-							</Description>
-							<Description>
-								<Item>jeans</Item>
-								<ItemPrice>500</ItemPrice>
-							</Description>
-							<Description>
-								<Item>Hoodies, Sweaters and more</Item>
-								<ItemPrice>500</ItemPrice>
-							</Description>
-							<Description>
-								<Item>Native Wears(top and bottom)</Item>
-								<ItemPrice>800</ItemPrice>
-							</Description>
-							<Description>
-								<Item>Duvet</Item>
-								<ItemPrice>3000</ItemPrice>
-							</Description>
-							<Description>
-								<Item>Bedspread</Item>
-								<ItemPrice>1500</ItemPrice>
-							</Description>
-							<Description>
-								<Item>Pillowcases(two)</Item>
-								<ItemPrice>500</ItemPrice>
-							</Description>
-							<Description>
-								<Item>Towels</Item>
-								<ItemPrice>500</ItemPrice>
-							</Description>
-							<Description>
-								<Item>Underwear</Item>
-								<ItemPrice>200</ItemPrice>
-							</Description>
-						</PlanDescription>
-					</PriceBox>
-					<PriceBox
+						<ContactIcon>
+							<i class="fa-solid fa-location-dot"></i>
+						</ContactIcon>
+						<ContactPlan>Visit us</ContactPlan>
+						<ContactText> Visit our office HQ</ContactText>
+						<ContactText> View on Google Maps</ContactText>
+					</ContactBox>
+					<ContactBox
 						initial={{ opacity: 0, y: 100 }}
 						animate={{
 							opacity: 1,
@@ -359,57 +285,19 @@ function Pricing() {
 							transition: { duration: 0.8, ease: [0.75, 0, 0.24, 1] },
 						}}
 					>
-						<PriceIcon>
-							<i className="fa-solid fa-rocket"></i>
-						</PriceIcon>
-						<PricePlan>EXPRESS</PricePlan>
-						<Price>(24hr processing time)</Price>
-						{/* <Price>starting at ₦650</Price> */}
-						<PlanDescription>
-							<Description>
-								<Item>shirt</Item>
-								<ItemPrice>650</ItemPrice>
-							</Description>
-							<Description>
-								<Item>jeans</Item>
-								<ItemPrice>750</ItemPrice>
-							</Description>
-							<Description>
-								<Item>Hoodies, Sweaters and more</Item>
-								<ItemPrice>750</ItemPrice>
-							</Description>
-							<Description>
-								<Item>Native Wears(top and bottom)</Item>
-								<ItemPrice>1100</ItemPrice>
-							</Description>
-							<Description>
-								<Item>Duvet</Item>
-								<ItemPrice>4000</ItemPrice>
-							</Description>
-							<Description>
-								<Item>Bedspread</Item>
-								<ItemPrice>2500</ItemPrice>
-							</Description>
-							<Description>
-								<Item>Pillowcases(two)</Item>
-								<ItemPrice>700</ItemPrice>
-							</Description>
-							<Description>
-								<Item>Towels</Item>
-								<ItemPrice>700</ItemPrice>
-							</Description>
-							<Description>
-								<Item>Underwear</Item>
-								<ItemPrice>400</ItemPrice>
-							</Description>
-						</PlanDescription>
-					</PriceBox>
-				</PriceBoxContainer>
+						<ContactIcon>
+							<i class="fa-solid fa-phone"></i>
+						</ContactIcon>
+						<ContactPlan>Call us</ContactPlan>
+						<ContactText> Mon - Sunday from 8am to 5pm</ContactText>
+						<ContactText> +2349138926931</ContactText>
+					</ContactBox>
+				</ContactBoxContainer>
 			</SectionPricing>
 			<Footer />
 			<AnimatePresence>{isMobile && isOpen && <SideBar />}</AnimatePresence>
-		</PricingPage>
+		</ContactPage>
 	);
 }
 
-export default Pricing;
+export default Contact;

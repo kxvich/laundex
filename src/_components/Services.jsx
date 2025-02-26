@@ -125,6 +125,22 @@ const Menu = styled.li`
 		display: inline-block;
 	}
 `;
+const List = styled.ul`
+	list-style: none;
+	display: flex;
+	align-items: center;
+`;
+const ListItem = styled.li`
+	color: #00b4d8;
+	font-size: 1.5rem;
+	cursor: pointer;
+	&:not(:last-child) {
+		margin-right: 3rem;
+	}
+	@media only screen and (max-width: 56.25rem) {
+		display: none;
+	}
+`;
 
 function Services() {
 	const { isOpen, setIsOpen } = useUser();
@@ -166,7 +182,29 @@ function Services() {
 					</Menu>
 					Kardinal laundry
 				</Logo>
-				<Button onclick={() => router.back()}>Back</Button>
+				<List>
+					<ListItem onClick={() => router.push("/pricing")}>Pricing</ListItem>
+					<ListItem onClick={() => router.push("/contact")}>Contact</ListItem>
+					<ListItem onClick={() => router.push("/outsourcing")}>
+						Outsourcing
+					</ListItem>
+					<Button
+						initial={{ opacity: 0, y: 100 }}
+						animate={{
+							opacity: 1,
+							y: 0,
+							transition: { duration: 0.8, ease: [0.75, 0, 0.24, 1] },
+						}}
+						exit={{
+							opacity: 0,
+							y: 100,
+							transition: { duration: 0.8, ease: [0.75, 0, 0.24, 1] },
+						}}
+						onclick={() => router.back()}
+					>
+						Back
+					</Button>
+				</List>
 			</LogoContainer>
 			<Container>
 				<HeaderContainer>

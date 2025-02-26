@@ -70,15 +70,15 @@ function SideBar() {
 
 	return (
 		<SideBarPage
-			initial={{ opacity: 0, y: -100 }}
+			initial={{ opacity: 0, height: 0 }}
 			animate={{
 				opacity: 1,
-				y: 0,
+				height: "100vh",
 				transition: { duration: 0.8, ease: [0.75, 0, 0.24, 1] },
 			}}
 			exit={{
 				opacity: 0,
-				y: 0,
+				height: 0,
 				transition: { duration: 0.8, ease: [0.75, 0, 0.24, 1] },
 			}}
 		>
@@ -168,34 +168,12 @@ function SideBar() {
 									delay: 0.4,
 								},
 							}}
-							onClick={() => router.push("/pricing")}
+							onClick={() => {
+								router.push("/pricing");
+								setIsOpen(false);
+							}}
 						>
 							Pricing
-						</SideBarListItem>
-					</Container>
-					<Container>
-						<SideBarListItem
-							initial={{ opacity: 0, y: 100 }}
-							animate={{
-								opacity: 1,
-								y: 0,
-								transition: {
-									duration: 0.8,
-									ease: [0.75, 0, 0.24, 1],
-									delay: 0.3,
-								},
-							}}
-							exit={{
-								opacity: 0,
-								y: 100,
-								transition: {
-									duration: 0.8,
-									ease: [0.75, 0, 0.24, 1],
-									delay: 0.3,
-								},
-							}}
-						>
-							About Us
 						</SideBarListItem>
 					</Container>
 					<Container>
@@ -218,6 +196,10 @@ function SideBar() {
 									ease: [0.75, 0, 0.24, 1],
 									delay: 0.2,
 								},
+							}}
+							onClick={() => {
+								router.push("/contact");
+								setIsOpen(false);
 							}}
 						>
 							Contact
@@ -243,6 +225,10 @@ function SideBar() {
 									ease: [0.75, 0, 0.24, 1],
 									delay: 0.1,
 								},
+							}}
+							onClick={() => {
+								router.push("/outsourcing");
+								setIsOpen(false);
 							}}
 						>
 							Outsourcing
