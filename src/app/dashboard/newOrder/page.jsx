@@ -50,6 +50,7 @@ const Heading = styled.h2`
 	margin-bottom: 2rem;
 	animation: ${MoveUp} 0.5s 0.2s;
 	animation-fill-mode: backwards;
+
 	@media only screen and (max-width: 48rem) {
 		width: 100%;
 	}
@@ -62,6 +63,10 @@ const Label = styled.label`
 	margin-bottom: 1rem;
 	animation: ${MoveUp} 0.5s 0.2s;
 	animation-fill-mode: backwards;
+
+	@media only screen and (max-width: 31.25rem) {
+		width: 50%;
+	}
 
 	@media only screen and (max-width: 31.25rem) {
 		width: 50%;
@@ -381,7 +386,7 @@ function Page() {
 			setFormError({ ...FormError, itemError: "" });
 		}
 
-		const paystack = new PaystackPop()
+		const paystack = new PaystackPop();
 		paystack.newTransaction({
 			key: process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY,
 			email: userEmail,
