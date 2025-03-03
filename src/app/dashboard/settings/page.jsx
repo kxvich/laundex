@@ -109,11 +109,10 @@ const BoxContainer = styled.div`
 	background-color: #1f7a8c;
 	animation: ${MoveUp} 0.5s;
 	animation-fill-mode: backwards;
-	@media only screen and (max-width: 30rem) {
+	@media only screen and (max-width: 48rem) {
 		flex-direction: column;
 		padding: 4rem 0;
-		margin-bottom: 4rem;
-		margin-right: 4rem;
+		gap: 3rem;
 	}
 `;
 const Box1 = styled.div`

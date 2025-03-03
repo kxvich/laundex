@@ -24,7 +24,7 @@ const Logo = styled(motion.h1)`
 	color: #022b3a;
 	font-size: 2.5rem;
 	position: relative;
-	font-family: "Satisfy", serif;
+	font-family: "Bebas Neue", sans-serif;
 	display: inline-block;
 `;
 const List = styled.ul`
@@ -57,7 +57,7 @@ const Menu = styled.li`
 
 function Navigation() {
 	const { setIsOpen } = useUser();
-	const isMobile = useMediaQuery("(max-width: 765px)");
+	// const isMobile = useMediaQuery("(max-width: 765px)");
 	const router = useRouter();
 	function handleMenu() {
 		setIsOpen(true);
@@ -81,7 +81,7 @@ function Navigation() {
 					<Menu onClick={handleMenu}>
 						<i className="fa-solid fa-bars"></i>
 					</Menu>
-					Kardinal laundry
+					HYPWASH
 				</Logo>
 			</Container>
 

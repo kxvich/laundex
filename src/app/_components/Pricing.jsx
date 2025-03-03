@@ -22,7 +22,7 @@ const Logo = styled(motion.h1)`
 	color: #022b3a;
 	font-size: 2.5rem;
 	position: relative;
-	font-family: "Satisfy", serif;
+	font-family: "Bebas Neue", sans-serif;
 	display: inline-block;
 	cursor: pointer;
 `;
@@ -173,7 +173,7 @@ function Pricing() {
 					<Menu onClick={handleMenu}>
 						<i className="fa-solid fa-bars"></i>
 					</Menu>
-					Kardinal laundry
+					HypWash
 				</Logo>
 				<List>
 					<ListItem onClick={() => router.push("/services")}>Services</ListItem>

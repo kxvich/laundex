@@ -1,15 +1,12 @@
 "use client";
 
 import { styled, keyframes } from "styled-components";
-import { Satisfy } from "@next/font/google";
-// import Image from "next/image";
-import Button from "@/_components/Button";
-// import Link from "next/link";
+import Button from "@/app/_components/Button";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import Loader from "@/_components/Loader";
+import Loader from "@/app/_components/Loader";
 import supabase from "@/services/supabase";
-import InvalidCredentials from "@/_components/InvalidCredentials";
+import InvalidCredentials from "@/app/_components/InvalidCredentials";
 import useMediaQuery from "@/Hooks/useMediaQuery";
 
 const SpinnerContainer = styled.div`
@@ -28,10 +25,7 @@ const MoveUp = keyframes`
 	transform: translateY(0);
 	opacity: 1;
 }`;
-const satisfy = Satisfy({
-	weight: ["400"],
-	subsets: ["latin"],
-});
+
 const StyledSignUp = styled.div`
 	padding: 2rem 3rem 5rem;
 	@media only screen and (min-width: 26.75rem) and (max-width: 48rem) {
@@ -48,7 +42,7 @@ const Logo = styled.h1`
 	color: #022b3a;
 	font-size: 2.5rem;
 	position: relative;
-	font-family: ${satisfy.style.fontFamily};
+	font-family: "Bebas Neue", sans-serif;
 	display: inline-block;
 	cursor: pointer;
 `;
@@ -179,51 +173,6 @@ const Form = styled.form`
 		width: 90%;
 	}
 `;
-const Username = styled.div`
-	display: flex;
-	justify-content: space-between;
-	width: 100%;
-	margin-bottom: 2rem;
-`;
-const FirstName = styled.div`
-	width: 45%;
-`;
-const LastName = styled.div`
-	width: 45%;
-`;
-const FirstnameLabel = styled.label`
-	display: block;
-	font-size: 1.5rem;
-	margin-bottom: 0.5rem;
-`;
-const FirstnameInput = styled.input`
-	width: 100%;
-	background-color: transparent;
-	border: 1px solid #bbb;
-	padding: 0.7rem;
-	border-radius: 1rem;
-	/* font-size: 1.6rem; */
-	&:focus {
-		outline: none;
-	}
-`;
-const LastnameLabel = styled.label`
-	display: block;
-	font-size: 1.5rem;
-	margin-bottom: 0.5rem;
-`;
-const LastnameInput = styled.input`
-	width: 100%;
-	background-color: transparent;
-	border: 1px solid #bbb;
-	padding: 0.7rem;
-	border-radius: 1rem;
-	/* font-size: 1.6rem; */
-
-	&:focus {
-		outline: none;
-	}
-`;
 const Email = styled.div`
 	width: 100%;
 	margin-bottom: 2rem;
@@ -248,6 +197,7 @@ const EmailInput = styled.input`
 const Password = styled.div`
 	width: 100%;
 	margin-bottom: 2rem;
+	margin-bottom: 4rem;
 `;
 const PasswordLabel = styled.label`
 	display: block;
@@ -273,34 +223,13 @@ const PasswordInput = styled.input`
 	background-color: transparent;
 	border: none;
 	padding: 0.7rem;
-	flex: 1;
+	/* flex: 1; */
 	&:focus {
 		outline: none;
 	}
 `;
 const Eye = styled.span`
 	cursor: pointer;
-`;
-const PhoneNumber = styled.div`
-	width: 100%;
-	margin-bottom: 4rem;
-`;
-const PhoneNumberLabel = styled.label`
-	display: block;
-	font-size: 1.5rem;
-	margin-bottom: 0.5rem;
-`;
-const PhoneNumberInput = styled.input`
-	width: 100%;
-	background-color: transparent;
-	border: 1px solid #bbb;
-	padding: 0.7rem;
-	border-radius: 1rem;
-	/* font-size: 1.6rem; */
-
-	&:focus {
-		outline: none;
-	}
 `;
 const ButtonContainer = styled.div`
 	width: 100%;
@@ -337,110 +266,60 @@ function Page() {
 	const isMobile = useMediaQuery("(max-width: 500px)");
 	const router = useRouter();
 	const [isLoading, setIsLoading] = useState(false);
-	const [signedIn, setSignedIn] = useState(false);
+	const [loggedIn, setloggedIn] = useState(false);
+	const [showPassword, setShowPassword] = useState(false);
+	const [credentials, setCredentials] = useState(false);
 	const [formData, setFormData] = useState({
 		email: "",
-		lastName: "",
-		firstName: "",
 		password: "",
-		phoneNumber: "",
 	});
-	const [showPassword, setShowPassword] = useState(false);
-	const [error, setError] = useState("");
-	const [credentials, setCredentials] = useState(false);
-	const handleChange = (e) => {
+
+	function handleChange(e) {
 		const { name, value } = e.target;
 		setFormData({ ...formData, [name]: value });
-	};
-	const checkUser = async (email) => {
-		const { data, error } = await supabase
-			.from("users")
-			.select("email")
-			.eq("email", email);
-		return data && Array.isArray(data) && data.length > 0;
-	};
-	const handleSubmit = async (e) => {
+	}
+	async function handleSubmit(e) {
 		e.preventDefault();
 		setIsLoading(true);
-		const userExists = await checkUser(formData.email);
-		if (userExists) {
-			setError("user already exists, log in instead");
-			setIsLoading(false);
-			setCredentials(true);
-			setFormData({
-				email: "",
-				lastName: "",
-				firstName: "",
-				password: "",
-				phoneNumber: "",
+		try {
+			const { data, error } = await supabase.auth.signInWithPassword({
+				email: formData.email,
+				password: formData.password,
 			});
-			return;
-		}
-		const { data, error: signupError } = await supabase.auth.signUp({
-			email: formData.email,
-			password: formData.password,
-		});
-		if (signupError) {
-			alert(`Signup failed: ${signupError}`);
-			console.log(signupError);
-			return;
-		}
-		const { user, insertError } = await supabase
-			.from("users")
-			.insert([
-				{
-					id: data.user.id,
-					lastName: formData.lastName,
-					firstName: formData.firstName,
-					phoneNumber: formData.phoneNumber,
-					email: formData.email,
-				},
-			])
-			.select();
-		if (insertError) {
-			console.error("Error inserting user data:", insertError.message);
-			alert(`Error inserting user data: ${insertError.message}`);
-			return;
-		}
-		router.replace("/login");
-		setIsLoading(false);
-		setSignedIn(true);
-		console.log("user registered:", data.user);
-		setFormData({
-			email: "",
-			lastName: "",
-			firstName: "",
-			password: "",
-			phoneNumber: "",
-		});
-	};
-	const signInWithGoogle = async () => {
-		const { error } = await supabase.auth.signInWithOAuth({
-			provider: "google",
-		});
 
-		if (error) {
-			alert("Error during sign-in:", error.message);
+			if (error) {
+				setCredentials(true);
+				setFormData({
+					email: "",
+					password: "",
+				});
+				setIsLoading(false);
+				return;
+			}
+			router.replace("/dashboard");
+			setIsLoading(false);
+			setloggedIn(true);
+		} catch (err) {
+			console.log(err);
 		}
-	};
-
+	}
 	return (
 		<>
 			{isLoading ? (
 				<SpinnerContainer>
 					<Loader />
 				</SpinnerContainer>
-			) : !signedIn ? (
+			) : !loggedIn ? (
 				<StyledSignUp>
 					<TopContainer>
-						<Logo onClick={() => router.push("/")}>Laundex</Logo>
+						<Logo onClick={() => router.push("/")}>HypWash</Logo>
 						<Support>
 							Need support?
 							<ReachOut>Reach out</ReachOut>
 						</Support>
 					</TopContainer>
 					<Container>
-						<Heading>Sign up for ease of service</Heading>
+						<Heading>Log in to your account</Heading>
 						<ProvidersContainer>
 							<Apple>
 								<ProviderIcon>
@@ -462,36 +341,14 @@ function Page() {
 							</>
 						</Or>
 						<Form onSubmit={handleSubmit}>
-							<Username>
-								<FirstName>
-									<FirstnameLabel htmlFor="firstName">
-										First name
-									</FirstnameLabel>
-									<FirstnameInput
-										name="firstName"
-										value={formData.firstName}
-										type="text"
-										required
-										onChange={handleChange}
-									></FirstnameInput>
-								</FirstName>
-								<LastName>
-									<LastnameLabel htmlFor="lastName">Last name</LastnameLabel>
-									<LastnameInput
-										name="lastName"
-										value={formData.lastName}
-										type="text"
-										required
-										onChange={handleChange}
-									></LastnameInput>
-								</LastName>
-							</Username>
+							{credentials === true ? (
+								<InvalidCredentials
+									message={"Invalid credentials, login again"}
+								/>
+							) : (
+								""
+							)}
 							<Email>
-								{credentials === true ? (
-									<InvalidCredentials message={"Email already exists"} />
-								) : (
-									""
-								)}
 								<EmailLabel htmlFor="email">Email</EmailLabel>
 								<EmailInput
 									name="email"
@@ -519,34 +376,21 @@ function Page() {
 									</Eye>
 								</Input>
 							</Password>
-							<PhoneNumber>
-								<PhoneNumberLabel htmlFor="phoneNumber">
-									Phone Number
-								</PhoneNumberLabel>
-								<PhoneNumberInput
-									name="phoneNumber"
-									value={formData.phoneNumber}
-									type="tel"
-									required
-									onChange={handleChange}
-									pattern="[0-9]{11}"
-									title="please enter a valid 11-digit number"
-								></PhoneNumberInput>
-							</PhoneNumber>
+
 							<ButtonContainer>
 								{isMobile ? (
 									<Button type="submit" width={"34rem"} $fontSize={"1.4rem"}>
-										Create my account
+										Continue
 									</Button>
 								) : (
-									<Button type="submit">Create my account</Button>
+									<Button type="submit">Continue</Button>
 								)}
 							</ButtonContainer>
 							<ToLogin>
 								<Text>
-									Already have an account?
-									<LoginText onClick={() => router.push("/login")}>
-										Login
+									Don't have a HypWash account?
+									<LoginText onClick={() => router.push("/signup")}>
+										Sign up
 									</LoginText>
 								</Text>
 							</ToLogin>

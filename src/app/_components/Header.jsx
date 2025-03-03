@@ -1,5 +1,5 @@
 import { styled } from "styled-components";
-import Navigation from "@/_components/navigation";
+import Navigation from "@/app/_components/navigation";
 import Image from "next/image";
 import Button from "./Button";
 import { useRouter } from "next/navigation";
@@ -91,9 +91,9 @@ const DecorAsterisk = styled.span`
 	z-index: 10;
 `;
 const decorationAsteriskPositions = [
-	{ $top: "40%", $left: "40%" },
+	{ $top: "50%", $left: "40%" },
 	{ $top: "8%", $left: "0%" },
-	{ $top: "15%", $left: "90%" },
+	{ $top: "17%", $left: "90%" },
 	{ $top: "90%", $left: "60%" },
 ];
 
@@ -170,7 +170,7 @@ function Header() {
 								transition: { duration: 0.8, ease: [0.75, 0, 0.24, 1] },
 							}}
 						>
-							{`Welcome to Kardinal Laundry, your trusted partner in keeping your clothes spotless and fresh! We understand that life gets busy, and laundry can often take a back seat. That's why we're here to make laundry day easy and hassle-free. Whether it's a single shirt or a mountain of laundry, our expert team is dedicated to delivering exceptional service with a personal touch.`}
+							{`Welcome to HypWash, your trusted partner in keeping your clothes spotless and fresh! We understand that life gets busy, and laundry can often take a back seat. That's why we're here to make laundry day easy and hassle-free. Whether it's a single shirt or a mountain of laundry, our expert team is dedicated to delivering exceptional service with a personal touch.`}
 						</HeadingTextParagraph>
 					</HeadingTextParagraphContainer>
 

@@ -11,18 +11,13 @@ export default function RootLayout({ children }) {
 	return (
 		<html lang="en">
 			<head>
-				<link
-					rel="preload"
-					href="https://kit.fontawesome.com/b778254e02.js"
-					as="script"
-					crossorigin="anonymous"
-				></link>
+				<link rel="icon" href="/images/HYPWASHLOGO.png" type="image/png" />
 				<Script
 					src="https://kit.fontawesome.com/b778254e02.js"
 					crossorigin="anonymous"
 					strategy="beforeInteractive"
 				></Script>
-				<title>Laundex</title>
+				<title>HypWash</title>
 				<meta
 					name="description"
 					content="Your one-stop spot for all things laundry"

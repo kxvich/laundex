@@ -1,10 +1,10 @@
 "use client";
 
-import Button from "@/_components/Button";
-import Footer from "@/_components/Footer";
+import Button from "@/app/_components/Button";
+import Footer from "@/app/_components/Footer";
 import styled from "styled-components";
 import { useRouter } from "next/navigation";
-import Loader from "@/_components/Loader";
+import Loader from "@/app/_components/Loader";
 import { useState } from "react";
 import useMediaQuery from "@/Hooks/useMediaQuery";
 import { AnimatePresence, motion } from "framer-motion";
@@ -26,7 +26,7 @@ const Logo = styled(motion.h1)`
 	color: #022b3a;
 	font-size: 2.5rem;
 	position: relative;
-	font-family: "Satisfy", serif;
+	font-family: "Bebas Neue", sans-serif;
 	display: inline-block;
 	cursor: pointer;
 `;
@@ -180,7 +180,7 @@ function Services() {
 					<Menu onClick={handleMenu}>
 						<i className="fa-solid fa-bars"></i>
 					</Menu>
-					Kardinal laundry
+					HypWash
 				</Logo>
 				<List>
 					<ListItem onClick={() => router.push("/pricing")}>Pricing</ListItem>
@@ -298,8 +298,8 @@ function Services() {
 						},
 					}}
 				>
-					At Kardinal Laundry, we transform your laundry experience with a
-					perfect blend of simplicity and efficiency.
+					At HypWash, we transform your laundry experience with a perfect blend
+					of simplicity and efficiency.
 				</Paragraph2>
 			</ParagraphContainer>
 			<Heading2Container>
@@ -331,10 +331,10 @@ function Services() {
 						},
 					}}
 				>
-					At Kardinal Laundry, we make laundry effortless with our reliable
-					pickup and delivery service. Simply schedule a pickup, and we’ll
-					handle the rest—washing, drying, and folding—before delivering your
-					fresh, clean clothes right to your doorstep.
+					At HypWash, we make laundry effortless with our reliable pickup and
+					delivery service. Simply schedule a pickup, and we’ll handle the
+					rest—washing, drying, and folding—before delivering your fresh, clean
+					clothes right to your doorstep.
 				</Paragraph3>
 			</ParagraphContainer>
 			<ButtonContainer>

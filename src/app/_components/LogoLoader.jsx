@@ -14,7 +14,7 @@ const StyledLogoLoader = styled(motion.div)`
 `;
 
 const Logo = styled(motion.span)`
-	font-family: "Satisfy", sans-serif;
+	font-family: "Bebas Neue", sans-serif;
 	font-size: 5rem;
 	width: 5%;
 `;
@@ -64,7 +64,7 @@ const textVariants = {
 };
 
 const AnimatedText = () => {
-	const text = "Kardinal laundry";
+	const text = "HypWash";
 
 	return (
 		<StyledLogoLoader

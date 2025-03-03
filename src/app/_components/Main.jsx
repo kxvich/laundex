@@ -191,7 +191,7 @@ const decorationAsteriskPositions = [
 	{ $top: "15%", $left: "90%" },
 	{ $top: "90%", $left: "60%" },
 	{ $top: "80%", $left: "20%" },
-	{ $top: "13%", $left: "52%" },
+	{ $top: "5%", $left: "52%" },
 	{ $top: "80%", $left: "90%" },
 ];
 
@@ -249,7 +249,7 @@ function Main() {
 							</span>
 						</DescriptionTextHeading>
 						<DescriptionTextParagraph>
-							{`Welcome to Kardinal Laundry. Start by creating an account. You can
+							{`Welcome to HypWash. Start by creating an account. You can
 							place and track your orders; it's fast and easy. If you have an
 							account already, proceed to login.`}
 						</DescriptionTextParagraph>
