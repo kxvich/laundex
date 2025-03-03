@@ -15,12 +15,12 @@ const MoveUp = keyframes`
 `;
 const StyledMain = styled.main``;
 const SectionHow = styled.section`
-	/* background-color: #caf0f8; */
-	background-image: linear-gradient(
+	background-color: #00B4D9CC;
+	/* background-image: linear-gradient(
 			rgba(0, 180, 216, 0.8),
 			rgba(0, 180, 216, 0.8)
 		),
-		url("/images/backgroundimage.webp");
+		url("/images/backgroundimage.webp"); */
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-position: center;

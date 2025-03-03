@@ -210,14 +210,14 @@ function Page() {
 		plan: "",
 		pickupDelivery: "pickup",
 		clothes: {
-			shirts: 0,
-			jeans: 0,
-			native: 0,
-			hoodies: 0,
-			bedspread: 0,
-			duvet: 0,
-			towels: 0,
-			underwear: 0,
+			shirts: null,
+			jeans: null,
+			native: null,
+			hoodies: null,
+			bedspread: null,
+			duvet: null,
+			towels: null,
+			underwear: null,
 		},
 		customEntry: "",
 	});
@@ -540,7 +540,7 @@ function Page() {
 							<NumberPicker
 								name={item}
 								type="number"
-								min={0}
+								min={null}
 								max={100}
 								step={1}
 								value={quantity}

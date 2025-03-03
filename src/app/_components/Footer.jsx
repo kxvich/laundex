@@ -20,7 +20,7 @@ const Logo = styled.h1`
 	position: relative;
 	font-family: "Bebas Neue", sans-serif;
 	display: inline-block;
-	@media only screen and (min-width: 56.25rem ) {
+	@media only screen and (min-width: 56.25rem) {
 		font-size: 4rem;
 	}
 `;
@@ -39,9 +39,13 @@ const NavLinks = styled.ul`
 `;
 const NavLinksItem = styled.li`
 	color: #edf2fb;
-	font-size: 1.2rem;
+	font-size: 1.4rem;
 	margin-bottom: 1rem;
 	cursor: pointer;
+
+	@media only screen and (max-width: 48rem) {
+		font-size: 1.25rem;
+	}
 `;
 
 function Footer() {

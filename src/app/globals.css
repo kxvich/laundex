@@ -49,6 +49,7 @@ body {
 html {
 	font-size: 62.5%;
 	scroll-behavior: smooth;
+	touch-action: manipulation;
 }
 
 @media only screen and (max-width: 30rem) {
