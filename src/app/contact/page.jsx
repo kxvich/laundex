@@ -1,12 +1,12 @@
-"use client"
+"use client";
 import dynamic from "next/dynamic";
 
-const DynamicContact = dynamic(() => import("@/_components/Contact"),{
-    ssr: false
-})
+const DynamicContact = dynamic(() => import("@/app/_components/Contact"), {
+	ssr: false,
+});
 
 function Page() {
-	return <DynamicContact/>;
+	return <DynamicContact />;
 }
 
 export default Page;

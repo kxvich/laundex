@@ -1,6 +1,6 @@
 import dynamic from "next/dynamic";
 
-const DynamicServices = dynamic(() => import("@/_components/Services"), {
+const DynamicServices = dynamic(() => import("@/app/_components/Services"), {
 	ssr: false,
 });
 

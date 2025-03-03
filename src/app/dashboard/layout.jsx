@@ -1,18 +1,30 @@
 "use client";
 import styled, { keyframes } from "styled-components";
-import Script from "next/script";
 import Link from "next/link";
 import supabase from "@/services/supabase";
 import { usePathname, useRouter } from "next/navigation";
 import { createContext, useEffect, useState } from "react";
-import Loader from "@/_components/Loader";
-import NotAuthorized from "@/_components/NotAuthorized";
+import Loader from "@/app/_components/Loader";
+import NotAuthorized from "@/app/_components/NotAuthorized";
 import {
 	// QueryClient,
 	useQuery,
 	QueryClientProvider,
 } from "@tanstack/react-query";
 import useMediaQuery from "@/Hooks/useMediaQuery";
+import { motion } from "framer-motion";
+
+const LogoContainer = styled.div`
+	overflow: hidden;
+`;
+const Logo = styled(motion.h1)`
+	padding: 2rem;
+	color: #ffffff;
+	font-size: 2.5rem;
+	font-family: "Bebas Neue", sans-serif;
+	display: inline-block;
+	cursor: pointer;
+`;
 const SpinnerContainer = styled.div`
 	height: 100vh;
 	width: 100%;
@@ -46,13 +58,13 @@ const Menu = styled.div`
 `;
 const SideBar = styled.div`
 	background-color: #1f7a8c;
-	padding: 6rem 0 8.35rem;
+	padding: 1rem 0 8.35rem;
 	width: 18%;
 	animation: ${MoveInLeft} 0.2s;
 	animation-fill-mode: backwards;
-	@media only screen and (max-width: 30rem) {
+	@media only screen and (max-width: 48rem) {
 		width: 85%;
-		padding: 3rem 0 8.35rem;
+		padding: 1.5rem 0 8.35rem;
 		height: 100vh;
 	}
 `;
@@ -61,7 +73,7 @@ const ProfileContainer = styled.div`
 	align-items: center;
 	background-color: #022b3a;
 	padding: 1rem 2rem;
-	margin-bottom: 7rem;
+	margin-bottom: 1rem;
 `;
 const ProfilePicture = styled.div`
 	width: 3rem;
@@ -125,7 +137,7 @@ export default function Layout({ children }) {
 	const [userId, setUserId] = useState(null);
 	const [userEmail, setUserEmail] = useState(null);
 	const [isOpen, setIsOpen] = useState(false);
-	const isMobile = useMediaQuery("(max-width: 500px)");
+	const isMobile = useMediaQuery("(max-width: 765px)");
 	const pathname = usePathname();
 
 	useEffect(
@@ -190,215 +202,259 @@ export default function Layout({ children }) {
 				</SpinnerContainer>
 			) : null}
 			{isAuthenticated && data && (
-				<Dashboard>
-					{!isOpen && isMobile && (
-						<Menu>
-							<i
-								onClick={() => setIsOpen(true)}
-								className="fa-solid fa-bars"
-							></i>
-						</Menu>
-					)}
-					{!isMobile && (
-						<SideBar>
-							{isMobile && (
-								<Close>
-									<i
-										onClick={() => setIsOpen(false)}
-										className="fa-solid fa-x"
-									></i>
-								</Close>
-							)}
-							<ProfileContainer>
-								<ProfilePicture></ProfilePicture>
-								<Username>
-									{data && data[0]?.firstName && data[0].firstName}
-								</Username>
-							</ProfileContainer>
+				<>
+					<Dashboard>
+						{!isOpen && isMobile && (
+							<Menu>
+								<i
+									onClick={() => setIsOpen(true)}
+									className="fa-solid fa-bars"
+								></i>
+							</Menu>
+						)}
+						{!isMobile && (
+							<SideBar>
+								{isMobile && (
+									<Close>
+										<i
+											onClick={() => setIsOpen(false)}
+											className="fa-solid fa-x"
+										></i>
+									</Close>
+								)}
+								<LogoContainer>
+									<Logo
+										initial={{ opacity: 0, y: 100 }}
+										animate={{
+											opacity: 1,
+											y: 0,
+											transition: {
+												duration: 0.8,
+												ease: [0.75, 0, 0.24, 1],
+												delay: 0.1,
+											},
+										}}
+										exit={{
+											opacity: 0,
+											y: 100,
+											transition: { duration: 0.8, ease: [0.75, 0, 0.24, 1] },
+										}}
+									>
+										HypWash
+									</Logo>
+								</LogoContainer>
+								<ProfileContainer>
+									<ProfilePicture></ProfilePicture>
+									<Username>
+										{data && data[0]?.firstName && data[0].firstName}
+									</Username>
+								</ProfileContainer>
 
-							<SideBarlist>
-								<Link
-									onClick={() => setIsOpen(false)}
-									className="textDecor"
-									href="/dashboard"
-								>
-									<SideBarlistItems
-										className={pathname === "/dashboard" ? "active" : ""}
-									>
-										<SideBarIcon>
-											<i className="fa-solid fa-house"></i>
-										</SideBarIcon>
-										Dashboard
-									</SideBarlistItems>
-								</Link>
-								<Link
-									onClick={() => setIsOpen(false)}
-									href="/dashboard/account"
-									className="textDecor"
-								>
-									<SideBarlistItems
-										className={
-											pathname === "/dashboard/account" ? "active" : ""
-										}
-									>
-										<SideBarIcon>
-											<i className="fa-solid fa-user"></i>
-										</SideBarIcon>
-										Account
-									</SideBarlistItems>
-								</Link>
-								<Link
-									onClick={() => setIsOpen(false)}
-									className="textDecor"
-									href={"/dashboard/support"}
-								>
-									<SideBarlistItems
-										className={
-											pathname === "/dashboard/support" ? "active" : ""
-										}
-									>
-										<SideBarIcon>
-											<i className="fa-solid fa-headset"></i>
-										</SideBarIcon>
-										Support & Help
-									</SideBarlistItems>
-								</Link>
-								<Link
-									onClick={() => setIsOpen(false)}
-									className="textDecor"
-									href={"/dashboard/settings"}
-								>
-									<SideBarlistItems
-										className={
-											pathname === "/dashboard/settings" ? "active" : ""
-										}
-									>
-										<SideBarIcon>
-											<i className="fa-solid fa-gear"></i>
-										</SideBarIcon>
-										Settings
-									</SideBarlistItems>
-								</Link>
-								<Link
-									onClick={(e) => {
-										e.preventDefault();
-										setIsLoading(true);
-										handleLogout();
-									}}
-									className="textDecor"
-									href="/"
-								>
-									<SideBarlistItems>
-										<SideBarIcon>
-											<i className="fa-solid fa-right-from-bracket"></i>
-										</SideBarIcon>
-										Logout
-									</SideBarlistItems>
-								</Link>
-							</SideBarlist>
-						</SideBar>
-					)}
-					{isOpen && isMobile && (
-						<SideBar>
-							{isMobile && (
-								<Close>
-									<i
+								<SideBarlist>
+									<Link
 										onClick={() => setIsOpen(false)}
-										className="fa-solid fa-x"
-									></i>
-								</Close>
-							)}
-							<ProfileContainer>
-								<ProfilePicture></ProfilePicture>
-								<Username>
-									{data && data[0]?.firstName && data[0].firstName}
-								</Username>
-							</ProfileContainer>
+										className="textDecor"
+										href="/dashboard"
+									>
+										<SideBarlistItems
+											className={pathname === "/dashboard" ? "active" : ""}
+										>
+											<SideBarIcon>
+												<i className="fa-solid fa-house"></i>
+											</SideBarIcon>
+											Dashboard
+										</SideBarlistItems>
+									</Link>
+									<Link
+										onClick={() => setIsOpen(false)}
+										href="/dashboard/account"
+										className="textDecor"
+									>
+										<SideBarlistItems
+											className={
+												pathname === "/dashboard/account" ? "active" : ""
+											}
+										>
+											<SideBarIcon>
+												<i className="fa-solid fa-user"></i>
+											</SideBarIcon>
+											Account
+										</SideBarlistItems>
+									</Link>
+									<Link
+										onClick={() => setIsOpen(false)}
+										className="textDecor"
+										href={"/dashboard/support"}
+									>
+										<SideBarlistItems
+											className={
+												pathname === "/dashboard/support" ? "active" : ""
+											}
+										>
+											<SideBarIcon>
+												<i className="fa-solid fa-headset"></i>
+											</SideBarIcon>
+											Support & Help
+										</SideBarlistItems>
+									</Link>
+									<Link
+										onClick={() => setIsOpen(false)}
+										className="textDecor"
+										href={"/dashboard/settings"}
+									>
+										<SideBarlistItems
+											className={
+												pathname === "/dashboard/settings" ? "active" : ""
+											}
+										>
+											<SideBarIcon>
+												<i className="fa-solid fa-gear"></i>
+											</SideBarIcon>
+											Settings
+										</SideBarlistItems>
+									</Link>
+									<Link
+										onClick={(e) => {
+											e.preventDefault();
+											setIsLoading(true);
+											handleLogout();
+										}}
+										className="textDecor"
+										href="/"
+									>
+										<SideBarlistItems>
+											<SideBarIcon>
+												<i className="fa-solid fa-right-from-bracket"></i>
+											</SideBarIcon>
+											Logout
+										</SideBarlistItems>
+									</Link>
+								</SideBarlist>
+							</SideBar>
+						)}
+						{isOpen && isMobile && (
+							<SideBar>
+								{isMobile && (
+									<Close>
+										<i
+											onClick={() => setIsOpen(false)}
+											className="fa-solid fa-x"
+										></i>
+									</Close>
+								)}
+								<LogoContainer>
+									<Logo
+										initial={{ opacity: 0, y: 100 }}
+										animate={{
+											opacity: 1,
+											y: 0,
+											transition: {
+												duration: 0.8,
+												ease: [0.75, 0, 0.24, 1],
+												delay: 0.1,
+											},
+										}}
+										exit={{
+											opacity: 0,
+											y: 100,
+											transition: { duration: 0.8, ease: [0.75, 0, 0.24, 1] },
+										}}
+									>
+										HypWash
+									</Logo>
+								</LogoContainer>
+								<ProfileContainer>
+									<ProfilePicture></ProfilePicture>
+									<Username>
+										{data && data[0]?.firstName && data[0].firstName}
+									</Username>
+								</ProfileContainer>
 
-							<SideBarlist>
-								<Link
-									onClick={() => setIsOpen(false)}
-									className="textDecor"
-									href="/dashboard"
-								>
-									<SideBarlistItems
-										className={pathname === "/dashboard" ? "active" : ""}
+								<SideBarlist>
+									<Link
+										onClick={() => setIsOpen(false)}
+										className="textDecor"
+										href="/dashboard"
 									>
-										<SideBarIcon>
-											<i className="fa-solid fa-house"></i>
-										</SideBarIcon>
-										Dashboard
-									</SideBarlistItems>
-								</Link>
-								<Link
-									onClick={() => setIsOpen(false)}
-									href="/dashboard/account"
-									className="textDecor"
-								>
-									<SideBarlistItems
-										className={
-											pathname === "/dashboard/account" ? "active" : ""
-										}
+										<SideBarlistItems
+											className={pathname === "/dashboard" ? "active" : ""}
+										>
+											<SideBarIcon>
+												<i className="fa-solid fa-house"></i>
+											</SideBarIcon>
+											Dashboard
+										</SideBarlistItems>
+									</Link>
+									<Link
+										onClick={() => setIsOpen(false)}
+										href="/dashboard/account"
+										className="textDecor"
 									>
-										<SideBarIcon>
-											<i className="fa-solid fa-user"></i>
-										</SideBarIcon>
-										Account
-									</SideBarlistItems>
-								</Link>
-								<Link
-									onClick={() => setIsOpen(false)}
-									className="textDecor"
-									href={"/dashboard/support"}
-								>
-									<SideBarlistItems
-										className={
-											pathname === "/dashboard/support" ? "active" : ""
-										}
+										<SideBarlistItems
+											className={
+												pathname === "/dashboard/account" ? "active" : ""
+											}
+										>
+											<SideBarIcon>
+												<i className="fa-solid fa-user"></i>
+											</SideBarIcon>
+											Account
+										</SideBarlistItems>
+									</Link>
+									<Link
+										onClick={() => setIsOpen(false)}
+										className="textDecor"
+										href={"/dashboard/support"}
 									>
-										<SideBarIcon>
-											<i className="fa-solid fa-headset"></i>
-										</SideBarIcon>
-										Support & Help
-									</SideBarlistItems>
-								</Link>
-								<Link
-									onClick={() => setIsOpen(false)}
-									className="textDecor"
-									href={"/dashboard/settings"}
-								>
-									<SideBarlistItems
-										className={
-											pathname === "/dashboard/settings" ? "active" : ""
-										}
+										<SideBarlistItems
+											className={
+												pathname === "/dashboard/support" ? "active" : ""
+											}
+										>
+											<SideBarIcon>
+												<i className="fa-solid fa-headset"></i>
+											</SideBarIcon>
+											Support & Help
+										</SideBarlistItems>
+									</Link>
+									<Link
+										onClick={() => setIsOpen(false)}
+										className="textDecor"
+										href={"/dashboard/settings"}
 									>
-										<SideBarIcon>
-											<i className="fa-solid fa-gear"></i>
-										</SideBarIcon>
-										Settings
-									</SideBarlistItems>
-								</Link>
-								<Link
-									onClick={(e) => {
-										e.preventDefault();
-										setIsLoading(true);
-										handleLogout();
-									}}
-									className="textDecor"
-									href="/"
-								>
-									<SideBarlistItems>
-										<SideBarIcon>
-											<i className="fa-solid fa-right-from-bracket"></i>
-										</SideBarIcon>
-										Logout
-									</SideBarlistItems>
-								</Link>
-							</SideBarlist>
-						</SideBar>
-					)}
-					{!isOpen && <Container>{children}</Container>}
-				</Dashboard>
+										<SideBarlistItems
+											className={
+												pathname === "/dashboard/settings" ? "active" : ""
+											}
+										>
+											<SideBarIcon>
+												<i className="fa-solid fa-gear"></i>
+											</SideBarIcon>
+											Settings
+										</SideBarlistItems>
+									</Link>
+									<Link
+										onClick={(e) => {
+											e.preventDefault();
+											setIsLoading(true);
+											handleLogout();
+										}}
+										className="textDecor"
+										href="/"
+									>
+										<SideBarlistItems>
+											<SideBarIcon>
+												<i className="fa-solid fa-right-from-bracket"></i>
+											</SideBarIcon>
+											Logout
+										</SideBarlistItems>
+									</Link>
+								</SideBarlist>
+							</SideBar>
+						)}
+						{!isOpen && <Container>{children}</Container>}
+					</Dashboard>
+				</>
 			)}
 		</UserContext.Provider>
 	);

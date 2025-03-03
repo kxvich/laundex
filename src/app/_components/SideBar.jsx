@@ -16,13 +16,13 @@ const Logo = styled(motion.h1)`
 	color: #022b3a;
 	font-size: 2.5rem;
 	position: relative;
-	font-family: "Satisfy", serif;
+	font-family: "Bebas Neue", sans-serif;
 	display: inline-block;
 	cursor: pointer;
 `;
 const SideBarPage = styled(motion.div)`
 	width: 100%;
-	height: 100vh;
+	/* height: 100vh; */
 	background-color: #fff;
 	position: fixed;
 	top: 0;
@@ -106,7 +106,7 @@ function SideBar() {
 								setIsOpen(false);
 							}}
 						>
-							Kardinal laundry
+							HypWash
 						</Logo>
 					</Container>
 					<Close

@@ -1,7 +1,7 @@
 "use client";
 
 import { styled, keyframes } from "styled-components";
-import Button from "@/_components/Button";
+import Button from "@/app/_components/Button";
 import { useRouter } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { useContext } from "react";

@@ -1,13 +1,19 @@
 "use client";
 
-import Button from "@/_components/Button";
+import Button from "@/app/_components/Button";
 import { useContext, useEffect, useState } from "react";
 import { styled, keyframes } from "styled-components";
 import { UserContext } from "../layout";
 import { useRouter } from "next/navigation";
-import supabase from "@/services/supabase";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { AnimatePresence, motion } from "framer-motion";
+import dynamic from "next/dynamic";
+import PaystackPop from "@paystack/inline-js";
+// const PaystackPop = dynamic(() => import("@paystack/inline-js"), {
+// 	ssr: false,
+// });
+
 const MoveUp = keyframes`
 0%{
 	transform: translateY(1rem);
@@ -23,8 +29,6 @@ const NewOrder = styled.div`
 	padding-bottom: 4rem;
 `;
 const Form = styled.form`
-	/* padding-top: 4rem;
-	padding-left: 2rem; */
 	padding: 4rem 0 2rem 4rem;
 	display: flex;
 	justify-content: space-between;
@@ -34,7 +38,7 @@ const Form = styled.form`
 	margin-bottom: 3rem;
 	background-color: #1f7a8c;
 
-	@media only screen and (max-width: 30rem) {
+	@media only screen and (max-width: 48em) {
 		flex-direction: column;
 		width: 100%;
 	}
@@ -46,7 +50,7 @@ const Heading = styled.h2`
 	margin-bottom: 2rem;
 	animation: ${MoveUp} 0.5s 0.2s;
 	animation-fill-mode: backwards;
-	@media only screen and (max-width: 30rem) {
+	@media only screen and (max-width: 48rem) {
 		width: 100%;
 	}
 `;
@@ -58,25 +62,30 @@ const Label = styled.label`
 	margin-bottom: 1rem;
 	animation: ${MoveUp} 0.5s 0.2s;
 	animation-fill-mode: backwards;
+
+	@media only screen and (max-width: 31.25rem) {
+		width: 50%;
+	}
 `;
 const Input = styled.input`
 	display: block;
 	border: none;
 	width: 50%;
-	/* color: rgba(0, 0, 0, 0.8); */
 	color: #fff;
 	padding: 0.5rem;
 	margin-bottom: 2rem;
-	/* border-bottom: 1px solid #022b3a; */
 	border-bottom: 1px solid #fff;
 	transition: all 0.3s;
 	background-color: transparent;
 	animation: ${MoveUp} 0.5s 0.2s;
 	animation-fill-mode: backwards;
-	@media only screen and (max-width: 30rem) {
-		width: 60%;
+	@media only screen and (max-width: 48rem) {
+		width: 100%;
 	}
-	&::placeholder{
+	@media only screen and (max-width: 31.25rem) {
+		width: 80%;
+	}
+	&::placeholder {
 		color: #fff;
 	}
 
@@ -89,18 +98,23 @@ const Selection = styled.select`
 	width: 30%;
 	padding: 1rem;
 	border-radius: 1rem;
-	/* border: 1px solid #1f7a8c; */
 	border: 1px solid #fff;
 	font-size: 1.2rem;
-	/* color: #022b3a; */
 	color: #fff;
-	/* background-color: white; */
 	background-color: transparent;
 	outline: none;
 	cursor: pointer;
 	margin-bottom: 2rem;
 	animation: ${MoveUp} 0.5s 0.2s;
 	animation-fill-mode: backwards;
+
+	@media only screen and (max-width: 48rem) {
+		width: 50%;
+	}
+
+	@media only screen and (max-width: 31.25rem) {
+		width: 80%;
+	}
 
 	&:focus {
 		/* border-color: #022b3a; */
@@ -118,48 +132,71 @@ const Option = styled.option`
 	}
 `;
 const ClotheItem = styled.div`
-	width: 20rem;
+	width: 80%;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	animation: ${MoveUp} 0.5s 0.2s;
 	animation-fill-mode: backwards;
-	@media only screen and (max-width: 30rem) {
-		width: 20rem;
+	@media only screen and (max-width: 48rem) {
+		width: 90%;
 	}
 `;
-const Checkbox = styled.input`
-	margin-top: -1rem;
-	animation: ${MoveUp} 0.5s 0.2s;
-	animation-fill-mode: backwards;
-`;
 const NumberPicker = styled.input`
-width: 6rem;
-background-color: transparent;
-color: #fff;
-border: 1px solid #fff;
-border-radius: .5rem;
-padding: .25rem .5rem;
-&:focus{
-	outline: none;
-}
+	width: 6rem;
+	background-color: transparent;
+	color: #fff;
+	border: 1px solid #fff;
+	border-radius: 0.5rem;
+	padding: 0.25rem 0.5rem;
+	&:focus {
+		outline: none;
+	}
 `;
 const Container1 = styled.div`
 	width: 50%;
-	@media only screen and (max-width: 30rem) {
-		width: 100%;
+	@media only screen and (max-width: 48rem) {
+		width: 90%;
 	}
 `;
 const Container2 = styled.div`
 	width: 50%;
-	@media only screen and (max-width: 30rem) {
-		width: 100%;
+
+	@media only screen and (max-width: 48rem) {
+		width: 90%;
 	}
 `;
+const Summary = styled(motion.div)`
+	background-color: #1f7a8c;
+	padding: 2rem;
+	border-radius: 1rem;
+	margin-bottom: 2rem;
+`;
+const SummaryItem = styled.div`
+	display: flex;
+	color: #ffffff;
+	justify-content: space-between;
+	align-items: center;
+	font-size: 1.5rem;
+	margin-bottom: 1rem;
+`;
+const SummaryItemName = styled.p``;
+const SummaryItemPrice = styled.p``;
+
 function Page() {
 	const { data, userEmail, userId } = useContext(UserContext);
 	const router = useRouter();
-
+	const [pricing, setPricing] = useState({
+		shirts: 150,
+		jeans: 200,
+		hoodies: 300,
+		native: 400,
+		duvet: 3000,
+		bedspread: 1500,
+		pillowcases: 350,
+		towels: 350,
+		underwear: 150,
+	});
 	const toastMessage = (message) =>
 		toast(message, {
 			style: { backgroundColor: "#022b3a", color: "#fff", fontSize: "1.5rem" },
@@ -171,17 +208,26 @@ function Page() {
 		address: "",
 		contactMethod: "",
 		plan: "",
-		pickupDelivery: "",
+		pickupDelivery: "pickup",
 		clothes: {
-			shirts: 1,
-			pants: 1,
-			dresses: 1,
-			bedspread: 1,
-			duvet: 1,
-			towels: 1,
+			shirts: 0,
+			jeans: 0,
+			native: 0,
+			hoodies: 0,
+			bedspread: 0,
+			duvet: 0,
+			towels: 0,
+			underwear: 0,
 		},
 		customEntry: "",
 	});
+	const [transportation, setTransportation] = useState(300);
+	const totalPrice = Object.keys(pricing).reduce((total, item) => {
+		const quantity = formData.clothes[item] || 0;
+		return total + pricing[item] * quantity;
+	}, 0);
+	const [total, setTotal] = useState();
+	const [FormError, setFormError] = useState({});
 
 	useEffect(() => {
 		if (data && data.length > 0) {
@@ -192,28 +238,84 @@ function Page() {
 				email: userEmail,
 				address: data[0]?.address || "",
 				contactMethod: "email",
-				plan: "classic",
+				plan: "basic",
 				pickupDelivery: "pickup",
 			}));
 		}
 	}, [data, userEmail]);
 
+	useEffect(
+		function () {
+			if (formData.plan === "basic") {
+				setPricing({
+					shirts: 150,
+					jeans: 200,
+					hoodies: 300,
+					native: 400,
+					duvet: 3000,
+					bedspread: 1500,
+					pillowcases: 350,
+					towels: 350,
+					underwear: 150,
+				});
+			}
+
+			if (formData.plan === "standard") {
+				setPricing({
+					shirts: 400,
+					jeans: 500,
+					hoodies: 500,
+					native: 800,
+					duvet: 3000,
+					bedspread: 1500,
+					pillowcases: 500,
+					towels: 500,
+					underwear: 200,
+				});
+			}
+
+			if (formData.plan === "express") {
+				setPricing({
+					shirts: 650,
+					jeans: 750,
+					hoodies: 750,
+					native: 1100,
+					duvet: 4000,
+					bedspread: 2500,
+					pillowcases: 700,
+					towels: 700,
+					underwear: 700,
+				});
+			}
+		},
+
+		[formData.plan]
+	);
+
+	useEffect(
+		function () {
+			if (
+				formData.pickupDelivery === "pickup" ||
+				formData.pickupDelivery === "delivery"
+			) {
+				setTotal(totalPrice + transportation);
+			} else {
+				setTransportation(() => 500);
+				setTotal(totalPrice + transportation);
+			}
+		},
+		[formData.pickupDelivery, totalPrice, transportation]
+	);
+
 	function handleChange(e) {
-		const { name, type, checked, value } = e.target;
-		// if (type === "checkbox") {
-		// 	setFormData((formData) => ({
-		// 		...formData,
-		// 		clothes: {
-		// 			...formData.clothes,
-		// 			[name]: checked,
-		// 		},
-		// 	}));
+		const { name, type, value } = e.target;
+
 		if (type === "number") {
 			setFormData((formData) => ({
 				...formData,
 				clothes: {
 					...formData.clothes,
-					[name]: value,
+					[name]: parseInt(value, 10) || 0,
 				},
 			}));
 		} else {
@@ -224,47 +326,105 @@ function Page() {
 		}
 	}
 
-	async function handleSubmit(e) {
+	// async function handleSubmit(e) {
+	// 	e.preventDefault();
+
+	// 	const { data, error } = await supabase
+	// 		.from("newOrder")
+	// 		.insert([
+	// 			{
+	// 				userId: userId,
+	// 				fullName: formData.fullName,
+	// 				phoneNumber: formData.phoneNumber,
+	// 				email: formData.email,
+	// 				address: formData.address,
+	// 				contactMethod: formData.contactMethod,
+	// 				plan: formData.plan,
+	// 				pickupDelivery: formData.pickupDelivery,
+	// 				clothes: {
+	// 					shirts: formData.clothes.shirts,
+	// 					jeans: formData.clothes.jeans,
+	// 					hoodies: formData.clothes.hoodies,
+	// 					beddings: formData.clothes.beddings,
+	// 					duvet: formData.clothes.duvet,
+	// 					towels: formData.clothes.towels,
+	// 				},
+	// 				customEntry: formData.customEntry,
+	// 			},
+	// 		])
+	// 		.select();
+
+	// 	if (error) {
+	// 		console.log(error);
+	// 	}
+	// 	toastMessage("order placed successfully");
+	// 	console.log("new order placed successfully");
+	// 	setTimeout(() => {
+	// 		router.replace("/dashboard");
+	// 	}, 2000);
+	// }
+
+	async function handlePayment(e) {
 		e.preventDefault();
 
-		const { data, error } = await supabase
-			.from("newOrder")
-			.insert([
-				{
-					userId: userId,
-					fullName: formData.fullName,
-					phoneNumber: formData.phoneNumber,
-					email: formData.email,
-					address: formData.address,
-					contactMethod: formData.contactMethod,
-					plan: formData.plan,
-					pickupDelivery: formData.pickupDelivery,
-					clothes: {
-						shirts: formData.clothes.shirts,
-						pants: formData.clothes.pants,
-						dresses: formData.clothes.dresses,
-						beddings: formData.clothes.beddings,
-						towels: formData.clothes.towels,
-					},
-					customEntry: formData.customEntry,
-				},
-			])
-			.select();
-
-		if (error) {
-			console.log(error);
-			alert(error);
+		if (formData.address === "") {
+			setFormError({ ...FormError, addressError: "please add an address" });
+			return;
+		} else {
+			setFormError({ ...FormError, addressError: "" });
 		}
-		toastMessage("order placed successfully");
-		console.log("new order placed successfully");
-		setTimeout(() => {
-			router.replace("/dashboard");
-		}, 2000);
+
+		if (totalPrice === 0) {
+			setFormError({ ...FormError, itemError: "please select an item" });
+			return;
+		} else {
+			setFormError({ ...FormError, itemError: "" });
+		}
+
+		const paystack = new PaystackPop()
+		paystack.newTransaction({
+			key: process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY,
+			email: userEmail,
+			amount: total * 100,
+			currency: "NGN",
+			reference: `laundry_${Date.now()}`,
+			metadata: {
+				userId,
+				fullName: formData.fullName,
+				phoneNumber: formData.phoneNumber,
+				email: formData.email,
+				address: formData.address,
+				contactMethod: formData.contactMethod,
+				plan: formData.plan,
+				pickupDelivery: formData.pickupDelivery,
+				clothes: formData.clothes,
+				customEntry: formData.customEntry,
+			},
+			onSuccess: async (response) => {
+				const verifyResponse = await fetch("/api/verify-payment", {
+					method: "POST",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify({ reference: response.reference }),
+				});
+
+				const verifyData = await verifyResponse.json();
+				if (verifyData.success) {
+					toastMessage("Payment Verified Successfully!");
+					router.push("/dashboard");
+				} else {
+					toastMessage("Payment Verification Failed!");
+				}
+			},
+			onCancel: () => {
+				toastMessage("Transaction was canceled");
+			},
+		});
 	}
+
 	return (
 		<NewOrder>
 			<ToastContainer
-				position="top-center" // You can also try "bottom-center"
+				position="top-center"
 				autoClose={3000}
 				hideProgressBar={false}
 				closeOnClick
@@ -311,9 +471,20 @@ function Page() {
 						name="address"
 						placeholder="Enter Address"
 						type="text"
-						value={formData.address}
+						value={data?.[0].address}
 						onChange={handleChange}
 					></Input>
+					{Object.keys(FormError).length > 0 && (
+						<p
+							style={{
+								color: "red",
+								fontSize: "1.5rem",
+								display: "block",
+							}}
+						>
+							{FormError.addressError}
+						</p>
+					)}
 					<Label htmlFor="contact">Preferred Contact Method: </Label>
 					<Selection
 						id="contact"
@@ -335,8 +506,8 @@ function Page() {
 						value={formData.plan}
 						onChange={handleChange}
 					>
-						<Option value="classic">Classic</Option>
-						<Option value="classic+">Classic+</Option>
+						<Option value="basic">Basic</Option>
+						<Option value="standard">Standard</Option>
 						<Option value="express">Express</Option>
 					</Selection>
 					<Label htmlFor="contact">Pickup and delivery: </Label>
@@ -346,135 +517,27 @@ function Page() {
 						value={formData.pickupDelivery}
 						onChange={handleChange}
 					>
-						{formData.plan === "classic" ? (
-							<>
-								<Option value="pickup">pickup</Option>
-								<Option value="delivery">delivery</Option>
-							</>
-						) : (
-							<>
-								<Option value="pickup">pickup</Option>
-								<Option value="delivery">delivery</Option>
-								<Option value="Both">Both</Option>
-							</>
-						)}
+						<Option value="pickup">pickup(300)</Option>
+						<Option value="delivery">delivery(300)</Option>
+						<Option value="both">Both(500)</Option>
 					</Selection>
 					<Heading>Clothes:</Heading>
-					<ClotheItem>
-						<Label htmlFor="shirts">shirts</Label>
-						<NumberPicker
-							name="shirts"
-							type="number"
-							min={1}
-							max={100}
-							step={1}
-							value={formData.clothes.shirts}
-							onChange={handleChange}
-						></NumberPicker>
-						{/* <Checkbox
-							className="margin-left-small"
-							type="checkbox"
-							name="shirts"
-							checked={formData.clothes.shirts}
-							onChange={handleChange}
-						></Checkbox> */}
-					</ClotheItem>
-					<ClotheItem>
-						<Label htmlFor="pants">pants</Label>
-						<NumberPicker
-							name="pants"
-							type="number"
-							min={1}
-							max={100}
-							step={1}
-							value={formData.clothes.pants}
-							onChange={handleChange}
-						></NumberPicker>
-						{/* <Checkbox
-							className="margin-left-small"
-							type="checkbox"
-							name="pants"
-							checked={formData.clothes.pants}
-							onChange={handleChange}
-						></Checkbox> */}
-					</ClotheItem>
-					<ClotheItem>
-						<Label htmlFor="dresses">dresses</Label>
-						<NumberPicker
-							name="dresses"
-							type="number"
-							min={1}
-							max={100}
-							step={1}
-							value={formData.clothes.dresses}
-							onChange={handleChange}
-						></NumberPicker>
-						{/* <Checkbox
-							className="margin-left-small"
-							type="checkbox"
-							name="dresses"
-							checked={formData.clothes.dresses}
-							onChange={handleChange}
-						></Checkbox> */}
-					</ClotheItem>
-					<ClotheItem>
-						<Label htmlFor="bedspread">bedspread</Label>
-						<NumberPicker
-							name="bedspread"
-							type="number"
-							min={1}
-							max={100}
-							step={1}
-							value={formData.clothes.bedspread}
-							onChange={handleChange}
-						></NumberPicker>
-						{/* <Checkbox
-							className="margin-left-small"
-							type="checkbox"
-							name="beddings"
-							checked={formData.clothes.beddings}
-							onChange={handleChange}
-						></Checkbox> */}
-					</ClotheItem>
-					<ClotheItem>
-						<Label htmlFor="duvet">duvet</Label>
-						<NumberPicker
-							name="duvet"
-							type="number"
-							min={1}
-							max={100}
-							step={1}
-							value={formData.clothes.duvet}
-							onChange={handleChange}
-						></NumberPicker>
-						{/* <Checkbox
-							className="margin-left-small"
-							type="checkbox"
-							name="beddings"
-							checked={formData.clothes.beddings}
-							onChange={handleChange}
-						></Checkbox> */}
-					</ClotheItem>
-					
-					<ClotheItem>
-						<Label htmlFor="towels">towels</Label>
-						<NumberPicker
-							name="towels"
-							type="number"
-							min={1}
-							max={100}
-							step={1}
-							value={formData.clothes.towels}
-							onChange={handleChange}
-						></NumberPicker>
-						{/* <Checkbox
-							className="margin-left-small"
-							type="checkbox"
-							name="towels"
-							checked={formData.clothes.towels}
-							onChange={handleChange}
-						></Checkbox> */}
-					</ClotheItem>
+					{Object.entries(formData.clothes).map(([item, quantity]) => (
+						<ClotheItem key={item}>
+							<Label htmlFor={item}>
+								{item.charAt(0).toUpperCase() + item.slice(1)}
+							</Label>
+							<NumberPicker
+								name={item}
+								type="number"
+								min={0}
+								max={100}
+								step={1}
+								value={quantity}
+								onChange={handleChange}
+							></NumberPicker>
+						</ClotheItem>
+					))}
 
 					<Label htmlFor="customEntry">custom Entry: </Label>
 					<Input
@@ -484,9 +547,57 @@ function Page() {
 						value={formData.customEntry}
 						onChange={handleChange}
 					></Input>
+					{Object.keys(FormError).length > 0 && (
+						<p
+							style={{
+								color: "red",
+								fontSize: "1.5rem",
+
+								display: "block",
+							}}
+						>
+							{FormError.itemError}
+						</p>
+					)}
 				</Container2>
 			</Form>
-			<Button onclick={handleSubmit}>Proceed To Pay</Button>
+
+			<AnimatePresence>
+				{Object.values(formData.clothes).some((quantity) => quantity > 0) && (
+					<Summary
+						initial={{ opacity: 0, y: 100 }}
+						animate={{
+							opacity: 1,
+							y: 0,
+							transition: { duration: 0.5, ease: [0.75, 0, 0.24, 1] },
+						}}
+						exit={{ opacity: 0, y: 100 }}
+					>
+						{Object.keys(pricing).map((item) => {
+							const quantity = formData.clothes[item];
+							if (quantity > 0) {
+								return (
+									<SummaryItem key={item}>
+										<SummaryItemName>
+											{item.charAt(0).toUpperCase() + item.slice(1)}
+										</SummaryItemName>
+										<SummaryItemPrice>
+											{pricing[item] * quantity}
+										</SummaryItemPrice>
+									</SummaryItem>
+								);
+							}
+							return null;
+						})}
+						<SummaryItem>
+							<SummaryItemName>Total(transport included)</SummaryItemName>
+							<SummaryItemPrice>{total ? total : ""}</SummaryItemPrice>
+						</SummaryItem>
+					</Summary>
+				)}
+			</AnimatePresence>
+
+			<Button onclick={handlePayment}>Proceed To Pay</Button>
 		</NewOrder>
 	);
 }

@@ -1,7 +1,7 @@
 "use client";
 import dynamic from "next/dynamic";
 
-const Outsourcing = dynamic(() => import("@/_components/Outsourcing"), {
+const Outsourcing = dynamic(() => import("@/app/_components/Outsourcing"), {
 	ssr: false,
 });
 

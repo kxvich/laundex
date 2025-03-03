@@ -1,13 +1,13 @@
 "use client";
 
 import { styled, keyframes } from "styled-components";
-import Button from "@/_components/Button";
+import Button from "@/app/_components/Button";
 import { useRouter } from "next/navigation";
 // import supabase from "@/services/supabase";
 import { useQuery } from "@tanstack/react-query";
 import { useContext, useState, useEffect } from "react";
 import { UserContext } from "../layout";
-import Loader from "@/_components/Loader";
+import Loader from "@/app/_components/Loader";
 import { fetchOrderHistory } from "../account/history/page";
 import supabase from "@/services/supabase";
 const SpinnerContainer = styled.div`

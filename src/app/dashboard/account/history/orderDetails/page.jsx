@@ -1,8 +1,8 @@
 "use client";
 
 import { styled, keyframes } from "styled-components";
-import Button from "@/_components/Button";
-import { useRouter } from "next/navigation";
+import Button from "@/app/_components/Button";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { useContext } from "react";
 import { UserContext } from "@/app/dashboard/layout";
@@ -62,7 +62,10 @@ function OrderDetails() {
 		queryFn: () => fetchOrderHistory(userId),
 		enabled: !!userId, // Optional, to ensure the query runs only when `userId` is available
 	});
-	const { id } = router.query || {};
+	const searchParams = useSearchParams();
+	const id = searchParams.get("id");
+
+	id && console.log(`router query: ${id}`);
 
 	return (
 		<>
@@ -70,39 +73,13 @@ function OrderDetails() {
 			<StyledOrderDetails>
 				<Container>
 					<Heading>Order details:</Heading>
-
-					<ItemsContainer>
-						<ItemName>Order date</ItemName>
-						<ItemValue>{Details?.at(id).created_at.slice(0, 10)}</ItemValue>
-					</ItemsContainer>
-					<ItemsContainer>
-						<ItemName>Shirts</ItemName>
-						<ItemValue>{Details?.at(id).status}</ItemValue>
-					</ItemsContainer>
-					<ItemsContainer>
-						<ItemName>Pants</ItemName>
-						<ItemValue>{Details?.at(id).status}</ItemValue>
-					</ItemsContainer>
-					<ItemsContainer>
-						<ItemName>Dresses</ItemName>
-						<ItemValue>{Details?.at(id).status}</ItemValue>
-					</ItemsContainer>
-					<ItemsContainer>
-						<ItemName>Beddings</ItemName>
-						<ItemValue>{Details?.at(id).status}</ItemValue>
-					</ItemsContainer>
-					<ItemsContainer>
-						<ItemName>Towels</ItemName>
-						<ItemValue>{Details?.at(id).status}</ItemValue>
-					</ItemsContainer>
-					<ItemsContainer>
-						<ItemName>Status</ItemName>
-						<ItemValue>{Details?.at(id).status}</ItemValue>
-					</ItemsContainer>
-					<ItemsContainer>
-						<ItemName>Total</ItemName>
-						<ItemValue>{Details?.at(id).status}</ItemValue>
-					</ItemsContainer>
+					{Details &&
+						Object.entries(Details.at(id).clothes).map(([item, quantity]) => (
+							<ItemsContainer key={item}>
+								<ItemName>{item}</ItemName>
+								<ItemValue>{quantity}</ItemValue>
+							</ItemsContainer>
+						))}
 				</Container>
 			</StyledOrderDetails>
 		</>

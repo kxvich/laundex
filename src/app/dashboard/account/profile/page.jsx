@@ -1,6 +1,6 @@
 "use client";
 
-import Button from "@/_components/Button";
+import Button from "@/app/_components/Button";
 import { useContext, useEffect, useState } from "react";
 import { styled, keyframes } from "styled-components";
 import { UserContext } from "../../layout";
@@ -61,7 +61,6 @@ const Input = styled.input`
 	display: block;
 	border: none;
 	width: 50%;
-	/* color: rgba(0, 0, 0, 0.8); */
 	color: #fff;
 	padding: 0.5rem;
 	margin-bottom: 2rem;
@@ -70,8 +69,8 @@ const Input = styled.input`
 	background-color: transparent;
 	animation: ${MoveUp} 0.5s 0.2s;
 	animation-fill-mode: backwards;
-	@media only screen and (max-width: 30rem) {
-		width: 60%;
+	@media only screen and (max-width: 48rem) {
+		width: 90%;
 	}
 
 	&:focus {
@@ -99,19 +98,20 @@ function Page() {
 			style: { backgroundColor: "#022b3a", color: "#fff", fontSize: "1.5rem" },
 		});
 	const [formData, setFormData] = useState({
-		surname: "",
+		lastName: "",
 		firstName: "",
 		phoneNumber: "",
 		email: "",
 		address: "",
 	});
+	console.log(formData.address);
 
 	useEffect(() => {
 		if (data && data.length > 0) {
 			setFormData((formData) => ({
 				...formData,
 				firstName: ` ${data[0]?.firstName}`,
-				surname: `${data[0]?.lastName}`,
+				lastName: `${data[0]?.lastName}`,
 				phoneNumber: data[0]?.phoneNumber || "",
 				email: userEmail,
 				address: data[0]?.address || "",
@@ -139,8 +139,6 @@ function Page() {
 
 	async function handleSubmit(e) {
 		e.preventDefault();
-		console.log(userId);
-		console.log(formData);
 
 		const { data: currentUserData, error: fetchError } = await supabase
 			.from("users")
@@ -193,12 +191,12 @@ function Page() {
 						onChange={handleChange}
 						required
 					></Input>
-					<Label htmlFor="Surname">Last Name: </Label>
+					<Label htmlFor="lastName">Last Name: </Label>
 					<Input
-						name="surname"
-						placeholder="Enter surname"
+						name="lastName"
+						placeholder="Enter lastName"
 						type="text"
-						value={formData.surname}
+						value={formData.lastName}
 						onChange={handleChange}
 						required
 					></Input>

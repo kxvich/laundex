@@ -1,6 +1,6 @@
 import dynamic from "next/dynamic";
 
-const DynamicPricing = dynamic(() => import("@/_components/Pricing"), {
+const DynamicPricing = dynamic(() => import("@/app/_components/Pricing"), {
 	ssr: false,
 });
 function Page() {

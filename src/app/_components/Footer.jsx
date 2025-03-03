@@ -1,11 +1,7 @@
 import useMediaQuery from "@/Hooks/useMediaQuery";
 import styled from "styled-components";
-import { Satisfy } from "@next/font/google";
+import { useRouter } from "next/navigation";
 
-const satisfy = Satisfy({
-	weight: ["400"],
-	subsets: ["latin"],
-});
 const StyledFooter = styled.section`
 	background-color: #0077b6;
 	height: 50vh;
@@ -22,8 +18,11 @@ const Logo = styled.h1`
 	color: #fff;
 	font-size: 2.5rem;
 	position: relative;
-	font-family: "Satisfy", serif;
+	font-family: "Bebas Neue", sans-serif;
 	display: inline-block;
+	@media only screen and (min-width: 56.25rem ) {
+		font-size: 4rem;
+	}
 `;
 const NavLinksContainer = styled.div`
 	display: flex;
@@ -42,27 +41,39 @@ const NavLinksItem = styled.li`
 	color: #edf2fb;
 	font-size: 1.2rem;
 	margin-bottom: 1rem;
+	cursor: pointer;
 `;
 
 function Footer() {
+	const router = useRouter();
 	const isMobile = useMediaQuery("(max-width: 500px)");
 	return (
 		<StyledFooter>
-			{!isMobile && <Logo>Kardinal Laundry</Logo>}
+			{!isMobile && <Logo>HypWash</Logo>}
 			<NavLinksContainer>
 				<NavLinks>
 					<NavLinksHeading>Navigation</NavLinksHeading>
-					<NavLinksItem>Home</NavLinksItem>
-					<NavLinksItem>Login</NavLinksItem>
-					<NavLinksItem>Signup</NavLinksItem>
-					<NavLinksItem>Pricing</NavLinksItem>
-					<NavLinksItem>About us</NavLinksItem>
+					<NavLinksItem onClick={() => router.push("/")}>Home</NavLinksItem>
+					<NavLinksItem onClick={() => router.push("/login")}>
+						Login
+					</NavLinksItem>
+					<NavLinksItem onClick={() => router.push("/signup")}>
+						Signup
+					</NavLinksItem>
+					<NavLinksItem onClick={() => router.push("/pricing")}>
+						Pricing
+					</NavLinksItem>
+					<NavLinksItem onClick={() => router.push("/services")}>
+						Services
+					</NavLinksItem>
 				</NavLinks>
 				<NavLinks>
 					<NavLinksHeading>Resources</NavLinksHeading>
 
 					<NavLinksItem>Promos</NavLinksItem>
-					<NavLinksItem>Outsourcing</NavLinksItem>
+					<NavLinksItem onClick={() => router.push("/outsourcing")}>
+						Outsourcing
+					</NavLinksItem>
 					<NavLinksItem>Reviews</NavLinksItem>
 					<NavLinksItem>FAQs</NavLinksItem>
 				</NavLinks>

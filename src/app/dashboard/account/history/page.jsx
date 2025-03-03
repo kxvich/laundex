@@ -1,6 +1,6 @@
 "use client";
 
-import Button from "@/_components/Button";
+import Button from "@/app/_components/Button";
 import { createContext, useContext, useState } from "react";
 import { styled, keyframes } from "styled-components";
 import { UserContext } from "../../layout";
@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 import supabase from "@/services/supabase";
 import useMediaQuery from "@/Hooks/useMediaQuery";
 import { useQuery } from "@tanstack/react-query";
-import Loader from "@/_components/Loader";
+import Loader from "@/app/_components/Loader";
 const SpinnerContainer = styled.div`
 	height: 100vh;
 	width: 100%;
@@ -204,58 +204,6 @@ function Page() {
 						<Loader />
 					</SpinnerContainer>
 				) : (
-					// <Wrapper>
-					// 	{isMobile ? (
-					// 		<>
-					// 		<Header>
-					// 			<HeaderItems>Date</HeaderItems>
-					// 			<HeaderItems>Order id</HeaderItems>
-					// 			<HeaderItems>Status</HeaderItems>
-					// 		</Header>
-					// 		{orderHistoryData
-					// 				? orderHistoryData.map((value, index) => (
-					// 						<>
-					// 							<Row
-					// 								key={index}
-					// 								onClick={() => handleSelection(index)}
-					// 							>
-					// 								<RowItem>{value.created_at.slice(0, 10)}</RowItem>
-					// 								<RowItem>{value.orderId}</RowItem>
-					// 								<RowItem>{value.plan}</RowItem>
-
-					// 							</Row>
-					// 						</>
-					// 				  ))
-					// 				: ""}</>
-					// 	) : (
-					// 		<>
-					// 			<Header>
-					// 				<HeaderItems>Order id</HeaderItems>
-					// 				<HeaderItems>Date</HeaderItems>
-					// 				<HeaderItems>Plan</HeaderItems>
-					// 				<HeaderItems>Status</HeaderItems>
-					// 				<HeaderItems>Total</HeaderItems>
-					// 			</Header>
-					// 			{orderHistoryData
-					// 				? orderHistoryData.map((value, index) => (
-					// 						<>
-					// 							<Row
-					// 								key={index}
-					// 								onClick={() => handleSelection(index)}
-					// 							>
-					// 								<RowItem>{value.orderId}</RowItem>
-					// 								<RowItem>{value.created_at.slice(0, 10)}</RowItem>
-					// 								<RowItem>{value.plan}</RowItem>
-					// 								<RowItem>{value.status}</RowItem>
-					// 								<RowItem>{"price"}</RowItem>
-					// 							</Row>
-					// 						</>
-					// 				  ))
-					// 				: ""}
-					// 		</>
-					// 	)}
-					// </Wrapper>
-
 					<TableWrapper>
 						{isMobile ? (
 							<Table>
@@ -275,9 +223,9 @@ function Page() {
 													onClick={() => handleSelection(index)}
 												>
 													<TableItem>{value.created_at.slice(0, 10)}</TableItem>
-													<TableItem>{value.orderId}</TableItem>
-													<TableItem>{value.status}</TableItem>
-													<TableItem>$40</TableItem>
+													<TableItem>{value.transactionId}</TableItem>
+													<TableItem>{value.paymentStatus}</TableItem>
+													<TableItem>{value.amount}</TableItem>
 												</TableBodyRow>
 										  ))
 										: ""}
@@ -301,11 +249,11 @@ function Page() {
 													key={value.orderId}
 													onClick={() => handleSelection(index)}
 												>
-													<TableItem>{value.orderId}</TableItem>
+													<TableItem>{value.transactionId}</TableItem>
 													<TableItem>{value.created_at.slice(0, 10)}</TableItem>
 													<TableItem>{value.plan}</TableItem>
-													<TableItem>{value.status}</TableItem>
-													<TableItem>$40</TableItem>
+													<TableItem>{value.paymentStatus}</TableItem>
+													<TableItem>{value.amount}</TableItem>
 												</TableBodyRow>
 										  ))
 										: ""}

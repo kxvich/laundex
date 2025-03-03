@@ -2,27 +2,28 @@
 
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
-import LogoLoader from "@/_components/LogoLoader";
+import LogoLoader from "@/app/_components/LogoLoader";
 import { AnimatePresence, motion } from "framer-motion";
 import { useUser } from "@/contexts/UserContexts";
 import useMediaQuery from "@/Hooks/useMediaQuery";
 
-const DynamicHeader = dynamic(() => import("@/_components/Header"), {
+const DynamicHeader = dynamic(() => import("@/app/_components/Header"), {
 	ssr: false,
 });
-const DynamicMain = dynamic(() => import("@/_components/Main"), {
+const DynamicMain = dynamic(() => import("@/app/_components/Main"), {
 	ssr: false,
 });
-const DynamicFooter = dynamic(() => import("@/_components/Footer"), {
+const DynamicFooter = dynamic(() => import("@/app/_components/Footer"), {
 	ssr: false,
 });
-const DynamicSideBar = dynamic(() => import("@/_components/SideBar"), {
+const DynamicSideBar = dynamic(() => import("@/app/_components/SideBar"), {
 	ssr: false,
 });
 
 function Page() {
 	const [isLoading, setIsLoading] = useState(true);
-	const { isOpen } = useUser();
+	const userContext = useUser();
+	const isOpen = userContext ? userContext.isOpen : false;
 	const isMobile = useMediaQuery("(max-width: 765px)");
 
 	useEffect(() => {
@@ -33,8 +34,8 @@ function Page() {
 	}, []);
 
 	return (
-		<>
-			<AnimatePresence>
+		<AnimatePresence>
+			<>
 				{isLoading && (
 					<motion.div
 						key="loader"
@@ -46,18 +47,16 @@ function Page() {
 						<LogoLoader />
 					</motion.div>
 				)}
-			</AnimatePresence>
-			{!isLoading && (
-				<>
-					<DynamicHeader />
-					<DynamicMain />
-					<DynamicFooter />
-				</>
-			)}
-			<AnimatePresence>
+				{!isLoading && (
+					<>
+						<DynamicHeader />
+						<DynamicMain />
+						<DynamicFooter />
+					</>
+				)}
 				{isMobile && isOpen && <DynamicSideBar />}
-			</AnimatePresence>
-		</>
+			</>
+		</AnimatePresence>
 	);
 }
 
