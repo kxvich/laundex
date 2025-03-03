@@ -8,11 +8,6 @@ import { useRouter } from "next/navigation";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { AnimatePresence, motion } from "framer-motion";
-import dynamic from "next/dynamic";
-import PaystackPop from "@paystack/inline-js";
-// const PaystackPop = dynamic(() => import("@paystack/inline-js"), {
-// 	ssr: false,
-// });
 
 const MoveUp = keyframes`
 0%{
@@ -50,6 +45,7 @@ const Heading = styled.h2`
 	margin-bottom: 2rem;
 	animation: ${MoveUp} 0.5s 0.2s;
 	animation-fill-mode: backwards;
+
 	@media only screen and (max-width: 48rem) {
 		width: 100%;
 	}
@@ -62,6 +58,10 @@ const Label = styled.label`
 	margin-bottom: 1rem;
 	animation: ${MoveUp} 0.5s 0.2s;
 	animation-fill-mode: backwards;
+
+	@media only screen and (max-width: 31.25rem) {
+		width: 50%;
+	}
 
 	@media only screen and (max-width: 31.25rem) {
 		width: 50%;
@@ -228,6 +228,7 @@ function Page() {
 	}, 0);
 	const [total, setTotal] = useState();
 	const [FormError, setFormError] = useState({});
+	const [PaystackPop, setPaystackPop] = useState(null);
 
 	useEffect(() => {
 		if (data && data.length > 0) {
@@ -307,6 +308,14 @@ function Page() {
 		[formData.pickupDelivery, totalPrice, transportation]
 	);
 
+	useEffect(() => {
+		if (typeof window !== "undefined") {
+			import("@paystack/inline-js").then((module) =>
+				setPaystackPop(() => module.default)
+			);
+		}
+	}, []);
+
 	function handleChange(e) {
 		const { name, type, value } = e.target;
 
@@ -366,6 +375,7 @@ function Page() {
 
 	async function handlePayment(e) {
 		e.preventDefault();
+		if (!PaystackPop) return;
 
 		if (formData.address === "") {
 			setFormError({ ...FormError, addressError: "please add an address" });
@@ -381,7 +391,7 @@ function Page() {
 			setFormError({ ...FormError, itemError: "" });
 		}
 
-		const paystack = new PaystackPop()
+		const paystack = new PaystackPop();
 		paystack.newTransaction({
 			key: process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY,
 			email: userEmail,
