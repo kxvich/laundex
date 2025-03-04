@@ -23,14 +23,14 @@ const Logo = styled(motion.h1)`
 `;
 const SideBarPage = styled(motion.div)`
 	width: 100%;
-	/* height: 100vh; */
+	height: 100vh;
 	background-color: #fff;
 	position: fixed;
 	top: 0;
 	right: 0;
 	z-index: 20;
 	display: flex;
-	justify-content: space-between;
+	gap: 3rem;
 	align-items: center;
 	flex-direction: column;
 	padding-top: 3rem;
@@ -75,21 +75,21 @@ function SideBar() {
 
 	return (
 		<SideBarPage
-			initial={{ opacity: 0, height: 0 }}
-			animate={{
-				opacity: 1,
-				height: isMounted ? "100vh" : 0,
-				position: "fixed",
-				top: 0,
-				right: 0,
-				zIndex: 20,
-				transition: { duration: 0.8, ease: [0.75, 0, 0.24, 1] },
-			}}
-			exit={{
-				opacity: 0,
-				height: 0,
-				transition: { duration: 0.8, ease: [0.75, 0, 0.24, 1] },
-			}}
+		// initial={{ opacity: 0, height: 0 }}
+		// animate={{
+		// 	opacity: 1,
+		// 	height: isMounted ? "100vh" : 0,
+		// 	position: "fixed",
+		// 	top: 0,
+		// 	right: 0,
+		// 	zIndex: 20,
+		// 	transition: { duration: 0.8, ease: [0.75, 0, 0.24, 1] },
+		// }}
+		// exit={{
+		// 	opacity: 0,
+		// 	height: 0,
+		// 	transition: { duration: 0.8, ease: [0.75, 0, 0.24, 1] },
+		// }}
 		>
 			<TopGroup>
 				<Top>

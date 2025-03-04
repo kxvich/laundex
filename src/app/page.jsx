@@ -41,7 +41,7 @@ function Page() {
 			<StyledPage
 				style={{
 					height: isOpen ? "100vh" : "",
-					overflow: isOpen ? "hidden" : "",
+					
 				}}
 			>
 				{isLoading && (
