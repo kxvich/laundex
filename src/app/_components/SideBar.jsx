@@ -5,6 +5,7 @@ import Button from "./Button";
 import { motion } from "framer-motion";
 import { useUser } from "@/contexts/UserContexts";
 import { useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
 
 const Container = styled.div`
 	overflow: hidden;

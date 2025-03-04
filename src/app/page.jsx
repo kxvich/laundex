@@ -38,7 +38,12 @@ function Page() {
 
 	return (
 		<AnimatePresence>
-			<StyledPage style={{ height: isOpen ? "100vh" : "" }}>
+			<StyledPage
+				style={{
+					height: isOpen ? "100vh" : "",
+					overflow: isOpen ? "hidden" : "",
+				}}
+			>
 				{isLoading && (
 					<motion.div
 						key="loader"
