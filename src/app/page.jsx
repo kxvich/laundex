@@ -6,6 +6,7 @@ import LogoLoader from "@/app/_components/LogoLoader";
 import { AnimatePresence, motion } from "framer-motion";
 import { useUser } from "@/contexts/UserContexts";
 import useMediaQuery from "@/Hooks/useMediaQuery";
+import styled from "styled-components";
 
 const DynamicHeader = dynamic(() => import("@/app/_components/Header"), {
 	ssr: false,
@@ -19,6 +20,8 @@ const DynamicFooter = dynamic(() => import("@/app/_components/Footer"), {
 const DynamicSideBar = dynamic(() => import("@/app/_components/SideBar"), {
 	ssr: false,
 });
+
+const StyledPage = styled.div``;
 
 function Page() {
 	const [isLoading, setIsLoading] = useState(true);
@@ -35,7 +38,7 @@ function Page() {
 
 	return (
 		<AnimatePresence>
-			<>
+			<StyledPage>
 				{isLoading && (
 					<motion.div
 						key="loader"
@@ -47,7 +50,7 @@ function Page() {
 						<LogoLoader />
 					</motion.div>
 				)}
-				{!isLoading && !isOpen && (
+				{!isLoading && (
 					<>
 						<DynamicHeader />
 						<DynamicMain />
@@ -55,7 +58,7 @@ function Page() {
 					</>
 				)}
 				{isMobile && isOpen && <DynamicSideBar />}
-			</>
+			</StyledPage>
 		</AnimatePresence>
 	);
 }

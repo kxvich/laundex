@@ -159,7 +159,7 @@ function Services() {
 	}
 
 	return (
-		<ServicesPage>
+		<ServicesPage >
 			{isLoading && <Loader />}
 
 			<LogoContainer>
