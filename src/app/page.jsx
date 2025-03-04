@@ -37,13 +37,12 @@ function Page() {
 	}, []);
 
 	return (
-		<AnimatePresence>
-			<StyledPage
-				style={{
-					height: isOpen ? "100vh" : "",
-					
-				}}
-			>
+		<StyledPage
+			style={{
+				height: isOpen ? "100vh" : "",
+			}}
+		>
+			<AnimatePresence>
 				{isLoading && (
 					<motion.div
 						key="loader"
@@ -55,6 +54,7 @@ function Page() {
 						<LogoLoader />
 					</motion.div>
 				)}
+
 				{!isLoading && (
 					<>
 						<DynamicHeader />
@@ -62,9 +62,11 @@ function Page() {
 						<DynamicFooter />
 					</>
 				)}
+			</AnimatePresence>
+			<AnimatePresence>
 				{isMobile && isOpen && <DynamicSideBar />}
-			</StyledPage>
-		</AnimatePresence>
+			</AnimatePresence>
+		</StyledPage>
 	);
 }
 
