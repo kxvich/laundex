@@ -159,7 +159,7 @@ function Services() {
 	}
 
 	return (
-		<ServicesPage >
+		<ServicesPage style={{ height: isOpen ? "100vh" : "" }}>
 			{isLoading && <Loader />}
 
 			<LogoContainer>

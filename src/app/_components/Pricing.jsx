@@ -154,7 +154,7 @@ function Pricing() {
 	}
 
 	return (
-		<PricingPage>
+		<PricingPage style={{ height: isOpen ? "100vh" : "" }}>
 			<LogoContainer>
 				<Logo
 					initial={{ opacity: 0, y: 100 }}

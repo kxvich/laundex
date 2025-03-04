@@ -139,7 +139,7 @@ function Contact() {
 		setIsOpen(true);
 	}
 	return (
-		<ContactPage>
+		<ContactPage style={{ height: isOpen ? "100vh" : "" }}>
 			<LogoContainer>
 				<Logo
 					initial={{ opacity: 0, y: 100 }}

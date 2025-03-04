@@ -75,7 +75,7 @@ function Outsourcing() {
 		setIsOpen(true);
 	}
 	return (
-		<StyledOutsourcing>
+		<StyledOutsourcing style={{ height: isOpen ? "100vh" : "" }}>
 			<LogoContainer>
 				<Logo
 					initial={{ opacity: 0, y: 100 }}
