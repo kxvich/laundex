@@ -47,7 +47,7 @@ function Page() {
 						<LogoLoader />
 					</motion.div>
 				)}
-				{!isLoading && (
+				{!isLoading && !isOpen && (
 					<>
 						<DynamicHeader />
 						<DynamicMain />

@@ -35,7 +35,7 @@ const SideBarPage = styled(motion.div)`
 	padding-top: 3rem;
 	border-bottom: 1px solid #022b3a;
 	transition: all 0.2s;
-	opacity: 0;
+	/* opacity: 0; */
 `;
 const SideBarList = styled.ul`
 	list-style: none;
@@ -74,10 +74,6 @@ function SideBar() {
 			animate={{
 				opacity: 1,
 				height: "100vh",
-				position: "fixed",
-				top: 0,
-				right: 0,
-				zIndex: 20,
 				transition: { duration: 0.8, ease: [0.75, 0, 0.24, 1] },
 			}}
 			exit={{
