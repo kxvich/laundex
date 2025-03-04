@@ -69,17 +69,17 @@ function SideBar() {
 
 	return (
 		<SideBarPage
-			initial={{ opacity: 0, y: -100 }}
-			animate={{
-				opacity: 1,
-				y: 0,
-				transition: { duration: 0.5, ease: [0.75, 0, 0.24, 1] },
-			}}
-			exit={{
-				opacity: 0,
-				y: 0,
-				transition: { duration: 0.5, ease: [0.75, 0, 0.24, 1] },
-			}}
+		// initial={{ opacity: 0, y: -100 }}
+		// animate={{
+		// 	opacity: 1,
+		// 	y: 0,
+		// 	transition: { duration: 0.5, ease: [0.75, 0, 0.24, 1] },
+		// }}
+		// exit={{
+		// 	opacity: 0,
+		// 	y: 0,
+		// 	transition: { duration: 0.5, ease: [0.75, 0, 0.24, 1] },
+		// }}
 		>
 			<TopGroup>
 				<Top>
@@ -124,7 +124,7 @@ function SideBar() {
 								opacity: 1,
 								y: 0,
 								transition: {
-									duration: 0.8,
+									duration: 0.5,
 									ease: [0.75, 0, 0.24, 1],
 									delay: 0.1,
 								},
@@ -133,7 +133,7 @@ function SideBar() {
 								opacity: 0,
 								y: 100,
 								transition: {
-									duration: 0.8,
+									duration: 0.5,
 									ease: [0.75, 0, 0.24, 1],
 									delay: 0.5,
 								},
@@ -153,7 +153,7 @@ function SideBar() {
 								opacity: 1,
 								y: 0,
 								transition: {
-									duration: 0.8,
+									duration: 0.5,
 									ease: [0.75, 0, 0.24, 1],
 									delay: 0.2,
 								},
@@ -162,7 +162,7 @@ function SideBar() {
 								opacity: 0,
 								y: 100,
 								transition: {
-									duration: 0.8,
+									duration: 0.5,
 									ease: [0.75, 0, 0.24, 1],
 									delay: 0.4,
 								},
@@ -182,7 +182,7 @@ function SideBar() {
 								opacity: 1,
 								y: 0,
 								transition: {
-									duration: 0.8,
+									duration: 0.5,
 									ease: [0.75, 0, 0.24, 1],
 									delay: 0.4,
 								},
@@ -191,7 +191,7 @@ function SideBar() {
 								opacity: 0,
 								y: 100,
 								transition: {
-									duration: 0.8,
+									duration: 0.5,
 									ease: [0.75, 0, 0.24, 1],
 									delay: 0.2,
 								},
