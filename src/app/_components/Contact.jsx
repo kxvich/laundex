@@ -1,3 +1,5 @@
+"use client";
+
 import styled from "styled-components";
 import { motion, AnimatePresence } from "framer-motion";
 import Button from "./Button";
@@ -242,7 +244,7 @@ function Contact() {
 						</ContactIcon>
 						<ContactPlan>Chat to support</ContactPlan>
 						<ContactText> we are here to help</ContactText>
-						<ContactText> support@HypWash.com</ContactText>
+						<ContactText> hello@hypwash.com</ContactText>
 					</ContactBox>
 					<ContactBox
 						initial={{ opacity: 0, y: 100 }}
@@ -290,7 +292,7 @@ function Contact() {
 						</ContactIcon>
 						<ContactPlan>Call us</ContactPlan>
 						<ContactText> Mon - Sunday from 8am to 5pm</ContactText>
-						<ContactText> +2349138926931</ContactText>
+						<ContactText> +2347048313236</ContactText>
 					</ContactBox>
 				</ContactBoxContainer>
 			</SectionPricing>
