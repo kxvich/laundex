@@ -5,6 +5,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useState } from "react";
 import Script from "next/script";
 import { UserProvider } from "@/contexts/UserContexts";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function RootLayout({ children }) {
 	const [queryClient] = useState(() => new QueryClient());
@@ -26,7 +28,18 @@ export default function RootLayout({ children }) {
 			</head>
 			<body style={{ backgroundColor: "#e5f0f0" }}>
 				<QueryClientProvider client={queryClient}>
-					<UserProvider>{children}</UserProvider>
+					<UserProvider>
+						{children}
+						<ToastContainer
+							position="top-center"
+							autoClose={3000}
+							hideProgressBar={false}
+							closeOnClick
+							pauseOnHover
+							draggable
+							theme="colored"
+						/>
+					</UserProvider>
 				</QueryClientProvider>
 			</body>
 		</html>

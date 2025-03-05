@@ -3,13 +3,13 @@
 import { styled, keyframes } from "styled-components";
 import Button from "@/app/_components/Button";
 import { useRouter } from "next/navigation";
-// import supabase from "@/services/supabase";
 import { useQuery } from "@tanstack/react-query";
 import { useContext, useState, useEffect } from "react";
 import { UserContext } from "../layout";
 import Loader from "@/app/_components/Loader";
 import { fetchOrderHistory } from "../account/history/page";
 import supabase from "@/services/supabase";
+
 const SpinnerContainer = styled.div`
 	width: 100%;
 	display: flex;
@@ -28,6 +28,18 @@ const MoveUp = keyframes`
 const StyledTrackOrder = styled.div`
 	animation: ${MoveUp} 0.5s;
 	animation-fill-mode: backwards;
+`;
+const ButtonContainer = styled.div`
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+`;
+const Menu = styled.div`
+	font-size: 2rem;
+	cursor: pointer;
+	@media only screen and (min-width: 56.25rem) {
+		display: none;
+	}
 `;
 const Container = styled.div`
 	background-color: #1f7a8c;
@@ -215,7 +227,7 @@ async function UserSearch(input) {
 	return data;
 }
 function Page() {
-	const { userId } = useContext(UserContext);
+	const { userId, setIsOpen } = useContext(UserContext);
 	const [searchInput, setSearchInput] = useState("");
 	const [error, setError] = useState("");
 	const [searchResult, setSearchResult] = useState({});
@@ -260,11 +272,16 @@ function Page() {
 		}
 		setSearchResult({});
 		setError("");
-	}, [searchInput]);
+	}, [debouncedSearch, searchInput]);
 
 	return (
 		<StyledTrackOrder>
-			<Button onclick={() => router.back()}>Back</Button>
+			<ButtonContainer>
+				<Menu>
+					<i onClick={() => setIsOpen(true)} className="fa-solid fa-bars"></i>
+				</Menu>
+				<Button onclick={() => router.back()}>Back</Button>
+			</ButtonContainer>
 
 			<Container>
 				<SearchBarContainer>

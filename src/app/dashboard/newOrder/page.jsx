@@ -5,8 +5,7 @@ import { useContext, useEffect, useState } from "react";
 import { styled, keyframes } from "styled-components";
 import { UserContext } from "../layout";
 import { useRouter } from "next/navigation";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 import { AnimatePresence, motion } from "framer-motion";
 
 const MoveUp = keyframes`
@@ -21,7 +20,19 @@ const MoveUp = keyframes`
 const NewOrder = styled.div`
 	animation: ${MoveUp} 0.5s;
 	animation-fill-mode: backwards;
-	padding-bottom: 4rem;
+	padding-bottom: 1rem;
+`;
+const ButtonContainer = styled.div`
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+`;
+const Menu = styled.div`
+	font-size: 2rem;
+	cursor: pointer;
+	@media only screen and (min-width: 56.25rem) {
+		display: none;
+	}
 `;
 const Form = styled.form`
 	padding: 4rem 0 2rem 4rem;
@@ -32,6 +43,7 @@ const Form = styled.form`
 	margin-top: 2rem;
 	margin-bottom: 3rem;
 	background-color: #1f7a8c;
+	/* text-align: center; */
 
 	@media only screen and (max-width: 48em) {
 		flex-direction: column;
@@ -47,24 +59,21 @@ const Heading = styled.h2`
 	animation-fill-mode: backwards;
 
 	@media only screen and (max-width: 48rem) {
+		text-align: center;
 		width: 100%;
 	}
 `;
 const Label = styled.label`
 	display: block;
 	font-size: 1.5rem;
-	/* color: #1f7a8c; */
 	color: #fff;
 	margin-bottom: 1rem;
 	animation: ${MoveUp} 0.5s 0.2s;
 	animation-fill-mode: backwards;
 
-	@media only screen and (max-width: 31.25rem) {
-		width: 50%;
-	}
-
-	@media only screen and (max-width: 31.25rem) {
-		width: 50%;
+	@media only screen and (max-width: 48rem) {
+		width: 100%;
+		text-align: center;
 	}
 `;
 const Input = styled.input`
@@ -81,10 +90,9 @@ const Input = styled.input`
 	animation-fill-mode: backwards;
 	@media only screen and (max-width: 48rem) {
 		width: 100%;
+		text-align: center;
 	}
-	@media only screen and (max-width: 31.25rem) {
-		width: 80%;
-	}
+
 	&::placeholder {
 		color: #fff;
 	}
@@ -109,11 +117,8 @@ const Selection = styled.select`
 	animation-fill-mode: backwards;
 
 	@media only screen and (max-width: 48rem) {
-		width: 50%;
-	}
-
-	@media only screen and (max-width: 31.25rem) {
-		width: 80%;
+		text-align: center;
+		width: 100%;
 	}
 
 	&:focus {
@@ -139,7 +144,18 @@ const ClotheItem = styled.div`
 	animation: ${MoveUp} 0.5s 0.2s;
 	animation-fill-mode: backwards;
 	@media only screen and (max-width: 48rem) {
-		width: 90%;
+		width: 100%;
+	}
+`;
+const ItemLabel = styled.label`
+	display: block;
+	font-size: 1.5rem;
+	color: #fff;
+	margin-bottom: 1rem;
+	animation: ${MoveUp} 0.5s 0.2s;
+	animation-fill-mode: backwards;
+
+	@media only screen and (max-width: 48rem) {
 	}
 `;
 const NumberPicker = styled.input`
@@ -152,6 +168,9 @@ const NumberPicker = styled.input`
 	&:focus {
 		outline: none;
 	}
+`;
+const ProceedButtonContainer = styled.div`
+	text-align: center;
 `;
 const Container1 = styled.div`
 	width: 50%;
@@ -184,7 +203,7 @@ const SummaryItemName = styled.p``;
 const SummaryItemPrice = styled.p``;
 
 function Page() {
-	const { data, userEmail, userId } = useContext(UserContext);
+	const { data, userEmail, userId, setIsOpen } = useContext(UserContext);
 	const router = useRouter();
 	const [pricing, setPricing] = useState({
 		shirts: 150,
@@ -210,14 +229,14 @@ function Page() {
 		plan: "",
 		pickupDelivery: "pickup",
 		clothes: {
-			shirts: null,
-			jeans: null,
-			native: null,
-			hoodies: null,
-			bedspread: null,
-			duvet: null,
-			towels: null,
-			underwear: null,
+			shirts: 0,
+			jeans: 0,
+			native: 0,
+			hoodies: 0,
+			bedspread: 0,
+			duvet: 0,
+			towels: 0,
+			underwear: 0,
 		},
 		customEntry: "",
 	});
@@ -324,7 +343,7 @@ function Page() {
 				...formData,
 				clothes: {
 					...formData.clothes,
-					[name]: parseInt(value, 10) || 0,
+					[name]: value === "" ? "" : parseInt(value, 10) ,
 				},
 			}));
 		} else {
@@ -433,20 +452,12 @@ function Page() {
 
 	return (
 		<NewOrder>
-			<ToastContainer
-				position="top-center"
-				autoClose={3000}
-				hideProgressBar={false}
-				closeOnClick
-				pauseOnHover
-				draggable
-				theme="colored"
-				// style={{
-				// 	top: "50%", // Adjust this to center vertically
-				// 	transform: "translateY(-50%)", // Adjust to center perfectly in Y axis
-				// }}
-			/>
-			<Button onclick={() => router.back()}>Back</Button>
+			<ButtonContainer>
+				<Menu>
+					<i onClick={() => setIsOpen(true)} className="fa-solid fa-bars"></i>
+				</Menu>
+				<Button onclick={() => router.back()}>Back</Button>
+			</ButtonContainer>
 			<Form>
 				<Container1>
 					<Heading>Customer Information:</Heading>
@@ -534,16 +545,16 @@ function Page() {
 					<Heading>Clothes:</Heading>
 					{Object.entries(formData.clothes).map(([item, quantity]) => (
 						<ClotheItem key={item}>
-							<Label htmlFor={item}>
+							<ItemLabel htmlFor={item}>
 								{item.charAt(0).toUpperCase() + item.slice(1)}
-							</Label>
+							</ItemLabel>
 							<NumberPicker
 								name={item}
 								type="number"
 								min={null}
 								max={100}
 								step={1}
-								value={quantity}
+								value={quantity === 0 ? "" : quantity}
 								onChange={handleChange}
 							></NumberPicker>
 						</ClotheItem>
@@ -552,7 +563,7 @@ function Page() {
 					<Label htmlFor="customEntry">custom Entry: </Label>
 					<Input
 						name="customEntry"
-						placeholder="Enter custom item"
+						placeholder="Enter custom item(s)"
 						type="text"
 						value={formData.customEntry}
 						onChange={handleChange}
@@ -607,7 +618,9 @@ function Page() {
 				)}
 			</AnimatePresence>
 
-			<Button onclick={handlePayment}>Proceed To Pay</Button>
+			<ProceedButtonContainer>
+				<Button onclick={handlePayment}>Proceed To Pay</Button>
+			</ProceedButtonContainer>
 		</NewOrder>
 	);
 }

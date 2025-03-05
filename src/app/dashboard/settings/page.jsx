@@ -1,62 +1,10 @@
 "use client";
+
 import { styled, keyframes } from "styled-components";
-import Script from "next/script";
 import Link from "next/link";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-
-// const Dashboard = styled.div`
-// 	display: flex;
-// 	height: 100vh;
-// `;
-// const SideBar = styled.div`
-// 	background-color: #1f7a8c;
-// 	padding: 6rem 0;
-// 	width: 18%;
-// `;
-// const ProfileContainer = styled.div`
-// 	display: flex;
-// 	align-items: center;
-// 	background-color: #022b3a;
-// 	padding: 1rem 2rem;
-// 	margin-bottom: 7rem;
-// `;
-// const ProfilePicture = styled.div`
-// 	width: 3rem;
-// 	height: 3rem;
-// 	background-color: #1f7a8c;
-// 	margin-right: 1rem;
-// `;
-// const Username = styled.h2`
-// 	color: #fff;
-// `;
-// const SideBarlist = styled.ul`
-// 	list-style-type: none;
-// 	color: #fff;
-// `;
-
-// const SideBarIcon = styled.span`
-// 	color: #fff;
-
-// 	margin-right: 1rem;
-// `;
-
-// const SideBarlistItems = styled.li`
-// 	font-size: 1.8rem;
-// 	margin-bottom: 2rem;
-// 	padding: 1rem 2rem;
-// 	cursor: pointer;
-
-// 	transition: all 0.3s;
-// 	&:hover {
-// 		background-color: #022b3a;
-// 	}
-// `;
-
-// const Container = styled.div`
-// 	flex: 1;
-// 	padding: 7rem 4rem;
-// `;
+import { toast } from "react-toastify";
+import { useContext } from "react";
+import { UserContext } from "../layout";
 
 const MoveUp = keyframes`
 0%{
@@ -85,11 +33,10 @@ const TopContainer = styled.div`
 	margin-bottom: 5rem;
 	animation: ${MoveInLeft} 0.5s;
 	animation-fill-mode: backwards;
-	@media only screen and (max-width: 30rem) {
-		width: 90%;
-	}
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 `;
-
 const NavName = styled.h1`
 	font-size: 2.5rem;
 	animation: ${MoveInLeft} 0.5s 0.2s;
@@ -99,6 +46,13 @@ const Message = styled.h2`
 	animation: ${MoveInLeft} 0.5s 0.2s;
 	animation-fill-mode: backwards;
 	font-weight: 400;
+`;
+const Menu = styled.div`
+	font-size: 2rem;
+	cursor: pointer;
+	@media only screen and (min-width: 56.25rem) {
+		display: none;
+	}
 `;
 const BoxContainer = styled.div`
 	display: flex;
@@ -189,29 +143,23 @@ const BoxDescription = styled.p`
 `;
 
 function Page() {
-	const toastMessage = (message) =>
+	const { setIsOpen } = useContext(UserContext);
+	const toastMessage = (message) => {
+		toast.dismiss();
 		toast(message, {
 			style: { backgroundColor: "#022b3a", color: "#fff", fontSize: "1.5rem" },
 		});
+	};
 	return (
 		<>
-			<ToastContainer
-				position="top-center" // You can also try "bottom-center"
-				autoClose={3000}
-				hideProgressBar={false}
-				closeOnClick
-				pauseOnHover
-				draggable
-				theme="colored"
-				// style={{
-				// 	top: "50%", // Adjust this to center vertically
-				// 	transform: "translateY(-50%)", // Adjust to center perfectly in Y axis
-				// }}
-			/>
-			
 			<TopContainer>
-				<NavName>Settings</NavName>
-				<Message>change settings</Message>
+				<div>
+					<NavName>Settings</NavName>
+					<Message>change settings</Message>
+				</div>
+				<Menu>
+					<i onClick={() => setIsOpen(true)} className="fa-solid fa-bars"></i>
+				</Menu>
 			</TopContainer>
 
 			<BoxContainer>
