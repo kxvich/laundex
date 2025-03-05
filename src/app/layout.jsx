@@ -2,12 +2,17 @@
 
 import "./globals.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Script from "next/script";
 import { UserProvider } from "@/contexts/UserContexts";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export default function RootLayout({ children }) {
 	const [queryClient] = useState(() => new QueryClient());
+
 	return (
 		<html lang="en">
 			<head>
@@ -26,7 +31,21 @@ export default function RootLayout({ children }) {
 			</head>
 			<body style={{ backgroundColor: "#e5f0f0" }}>
 				<QueryClientProvider client={queryClient}>
-					<UserProvider>{children}</UserProvider>
+					<UserProvider>
+						{children}
+						<Analytics />
+						<SpeedInsights />
+
+						<ToastContainer
+							position="top-center"
+							autoClose={3000}
+							hideProgressBar={false}
+							closeOnClick
+							pauseOnHover
+							draggable
+							theme="colored"
+						/>
+					</UserProvider>
 				</QueryClientProvider>
 			</body>
 		</html>

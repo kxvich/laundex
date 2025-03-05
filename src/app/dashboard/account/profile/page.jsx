@@ -6,8 +6,9 @@ import { styled, keyframes } from "styled-components";
 import { UserContext } from "../../layout";
 import { useRouter } from "next/navigation";
 import supabase from "@/services/supabase";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import {  toast } from "react-toastify";
+
+
 const MoveUp = keyframes`
 0%{
 	transform: translateY(1rem);
@@ -20,11 +21,23 @@ const MoveUp = keyframes`
 const Profile = styled.div`
 	animation: ${MoveUp} 0.5s;
 	animation-fill-mode: backwards;
-	height: 100vh;
 	padding-bottom: 4rem;
 `;
+const ButtonContainer = styled.div`
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+`;
+const Menu = styled.div`
+	font-size: 2rem;
+	cursor: pointer;
+
+	@media only screen and (min-width: 56.25rem) {
+		display: none;
+	}
+`;
 const Form = styled.form`
-	padding: 4rem 0 2rem 4rem;
+	padding: 4rem;
 	display: flex;
 	justify-content: space-between;
 	border: 1px solid #e5f0f0;
@@ -33,9 +46,10 @@ const Form = styled.form`
 	margin-bottom: 3rem;
 	background-color: #1f7a8c;
 
-	@media only screen and (max-width: 30rem) {
+	@media only screen and (max-width: 48rem) {
 		flex-direction: column;
 		width: 100%;
+		text-align: center;
 	}
 `;
 const Heading = styled.h2`
@@ -44,11 +58,11 @@ const Heading = styled.h2`
 	margin-bottom: 2rem;
 	animation: ${MoveUp} 0.5s 0.2s;
 	animation-fill-mode: backwards;
-	@media only screen and (max-width: 30rem) {
+	@media only screen and (max-width: 48rem) {
+		text-align: center;
 		width: 100%;
 	}
 `;
-
 const Label = styled.label`
 	display: block;
 	font-size: 1.5rem;
@@ -70,7 +84,8 @@ const Input = styled.input`
 	animation: ${MoveUp} 0.5s 0.2s;
 	animation-fill-mode: backwards;
 	@media only screen and (max-width: 48rem) {
-		width: 90%;
+		width: 100%;
+		text-align: center;
 	}
 
 	&:focus {
@@ -84,13 +99,16 @@ const Input = styled.input`
 `;
 const Container1 = styled.div`
 	width: 50%;
-	@media only screen and (max-width: 30rem) {
+	@media only screen and (max-width: 48rem) {
 		width: 100%;
 	}
 `;
+const SaveButtonContainer = styled.div`
+	text-align: center;
+`;
 
 function Page() {
-	const { data, userEmail, userId } = useContext(UserContext);
+	const { data, userEmail, userId, setIsOpen } = useContext(UserContext);
 	const router = useRouter();
 
 	const toastMessage = (message) =>
@@ -104,7 +122,6 @@ function Page() {
 		email: "",
 		address: "",
 	});
-	console.log(formData.address);
 
 	useEffect(() => {
 		if (data && data.length > 0) {
@@ -165,20 +182,12 @@ function Page() {
 	}
 	return (
 		<Profile>
-			<ToastContainer
-				position="top-center" // You can also try "bottom-center"
-				autoClose={3000}
-				hideProgressBar={false}
-				closeOnClick
-				pauseOnHover
-				draggable
-				theme="colored"
-				// style={{
-				// 	top: "50%", // Adjust this to center vertically
-				// 	transform: "translateY(-50%)", // Adjust to center perfectly in Y axis
-				// }}
-			/>
-			<Button onclick={() => router.back()}>Back</Button>
+			<ButtonContainer>
+				<Menu>
+					<i onClick={() => setIsOpen(true)} className="fa-solid fa-bars"></i>
+				</Menu>
+				<Button onclick={() => router.back()}>Back</Button>
+			</ButtonContainer>
 			<Form>
 				<Container1>
 					<Heading>Update Information:</Heading>
@@ -229,7 +238,9 @@ function Page() {
 					></Input>
 				</Container1>
 			</Form>
-			<Button onclick={handleSubmit}>Save</Button>
+			<SaveButtonContainer>
+				<Button onclick={handleSubmit}>Save</Button>
+			</SaveButtonContainer>
 		</Profile>
 	);
 }

@@ -1,4 +1,5 @@
 "use client";
+
 import styled, { keyframes } from "styled-components";
 import Link from "next/link";
 import supabase from "@/services/supabase";
@@ -50,15 +51,15 @@ const Close = styled.span`
 const Dashboard = styled.div`
 	display: flex;
 	background-color: #e5f0f0;
-	/* padding-bottom: 4rem; */
 `;
 const Menu = styled.div`
 	font-size: 2rem;
 	margin: 6rem 0 0 3rem;
+	display: none;
 `;
 const SideBar = styled.div`
 	background-color: #1f7a8c;
-	padding: 1rem 0 8.35rem;
+	padding: 1rem 0 13rem;
 	width: 18%;
 	animation: ${MoveInLeft} 0.2s;
 	animation-fill-mode: backwards;
@@ -110,10 +111,10 @@ const SideBarlistItems = styled.li`
 `;
 const Container = styled.div`
 	flex: 1;
-	padding: 7rem 4rem;
+	padding: 4rem;
 
-	@media only screen and (max-width: 30rem) {
-		padding: 4rem 2rem 0;
+	@media only screen and (max-width: 48rem) {
+		padding: 3rem 2rem;
 	}
 `;
 
@@ -188,7 +189,9 @@ export default function Layout({ children }) {
 	}
 
 	return (
-		<UserContext.Provider value={{ data, userEmail, userId }}>
+		<UserContext.Provider
+			value={{ data, userEmail, userId, isOpen, setIsOpen }}
+		>
 			{isLoading && (
 				<SpinnerContainer>
 					<Loader />
@@ -204,14 +207,14 @@ export default function Layout({ children }) {
 			{isAuthenticated && data && (
 				<>
 					<Dashboard>
-						{!isOpen && isMobile && (
+						{/* {!isOpen && isMobile && (
 							<Menu>
 								<i
 									onClick={() => setIsOpen(true)}
 									className="fa-solid fa-bars"
 								></i>
 							</Menu>
-						)}
+						)} */}
 						{!isMobile && (
 							<SideBar>
 								{isMobile && (

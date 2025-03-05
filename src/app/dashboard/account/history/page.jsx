@@ -29,6 +29,18 @@ const History = styled.div`
 	animation: ${MoveUp} 0.5s;
 	animation-fill-mode: backwards;
 `;
+const ButtonContainer = styled.div`
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+`;
+const Menu = styled.div`
+	font-size: 2rem;
+	cursor: pointer;
+	@media only screen and (min-width: 56.25rem) {
+		display: none;
+	}
+`;
 const Container = styled.div`
 	padding-top: 4rem;
 	position: relative;
@@ -45,59 +57,6 @@ const Heading = styled.h2`
 		width: 100%;
 	}
 `;
-// const Wrapper = styled.div`
-// 	width: 100%;
-// 	border: 1px solid #022b3a;
-// 	border-radius: 1rem;
-// 	align-self: center;
-// 	animation: ${MoveUp} 0.5s;
-// 	animation-fill-mode: backwards;
-// `;
-// const Header = styled.ul`
-// 	list-style: none;
-// 	display: flex;
-// 	justify-content: space-between;
-// 	align-items: center;
-// 	font-size: 1.3rem;
-// 	font-weight: bold;
-// 	border-bottom: 2px solid #ddd;
-// 	color: #1f7a8c;
-// 	/* margin-bottom: 1.5rem; */
-// 	padding: 1.5rem 3rem;
-// `;
-// const HeaderItems = styled.li`
-// 	flex: 1;
-// 	animation: ${MoveUp} 0.5s 0.25s backwards;
-// `;
-
-// const Row = styled.ul`
-// 	display: flex;
-// 	justify-content: space-between;
-// 	align-items: center;
-// 	list-style: none;
-// 	width: 100%;
-// 	background-color: #1f7a8c;
-// 	padding: 1.5rem 3rem;
-// 	animation: ${MoveUp} 0.5s 0.25s backwards;
-// 	&:not(:last-child) {
-// 		border-bottom: 1px solid #ddd;
-// 	}
-// 	&:hover {
-// 		background-color: #022b3a;
-// 		/* color: #022b3a; */
-// 		transition: all 0.3s;
-// 		cursor: pointer;
-// 	}
-// `;
-// const RowItem = styled.li`
-// 	color: #fff;
-// 	flex: 1;
-// 	font-size: 1.2rem;
-// 	&:not(:last-child) {
-// 		/* margin-bottom: 1.5rem; */
-// 	}
-// `;
-
 const TableWrapper = styled.div`
 	border-radius: 1rem;
 	overflow: hidden;
@@ -173,7 +132,7 @@ export async function fetchOrderHistory(Id) {
 }
 
 function Page() {
-	const { userId } = useContext(UserContext);
+	const { userId, setIsOpen } = useContext(UserContext);
 	const router = useRouter();
 	const isMobile = useMediaQuery("(max-width: 500px)");
 
@@ -195,7 +154,12 @@ function Page() {
 
 	return (
 		<History>
-			<Button onclick={() => router.back()}>Back</Button>
+			<ButtonContainer>
+				<Menu>
+					<i onClick={() => setIsOpen(true)} className="fa-solid fa-bars"></i>
+				</Menu>
+				<Button onclick={() => router.back()}>Back</Button>
+			</ButtonContainer>
 
 			<Container>
 				<Heading>Order history:</Heading>
